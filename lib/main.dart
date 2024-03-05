@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 void main(){
-  runApp(MyApp());
+  runApp(MaterialApp(home:MyApp()));
 }
 
 class MyApp extends StatefulWidget{
@@ -16,6 +19,8 @@ class _MyAppState extends State<MyApp>{
     String? _vTituloSorteo;
     // Aqui se almacenara a cada uno de los participantes.
     List<String?> _listaParticipantes = List.empty(growable: true);
+    String? _nuevoParticipante;
+    String? _ganadorSorteo;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,7 @@ class _MyAppState extends State<MyApp>{
               _tituloSorteo(),
               const Text('Participantes'),
               _contenedorListaParticipantes(),
-              _botones()
+              _botones(context)
             ],
           )
         )
@@ -62,7 +67,9 @@ class _MyAppState extends State<MyApp>{
         },
         obscureText: false,
         decoration: InputDecoration(
-          border:OutlineInputBorder(),
+          border:OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           labelText: 'Titulo del sorteo'
         )
       )
@@ -80,13 +87,21 @@ class _MyAppState extends State<MyApp>{
       ),
       child: Padding(
         padding:EdgeInsets.only(left: _deviceWidth! * 0.015,top: _deviceHeight! * 0.01),
-        child: Text('${_vTituloSorteo}'),
+        child: Text('$_listaParticipantes'),
       ),
     );
   }
 
-  Widget _botones(){
 
+  void calcularGanador(){
+    Random ran = new Random();
+    // Tendra como rango maximo hasta la longitud maxima del arreglo en donde estan almacenado los participantes
+    //                          1 - capacidad actual del arreglo
+    int? indice = ran.nextInt(_listaParticipantes.length);
+    _ganadorSorteo = _listaParticipantes[indice];
+
+  }
+  Widget _botones(dynamic context){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -98,7 +113,52 @@ class _MyAppState extends State<MyApp>{
               borderRadius: BorderRadius.circular(10),
             )
           ),
-          onPressed: () => {},
+          onPressed: () => showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Añadir participante'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('En el siguiente campo anote el nombre del participante: '),
+                  Padding(
+                    padding: EdgeInsets.only(top:_deviceHeight! * 0.03),
+                    child: TextField(
+                      onChanged: (_) {
+                        setState(() {
+                          _nuevoParticipante = _;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Nombre del participante',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+
+                    ),
+                  )
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () =>{
+                    Navigator.pop(context),
+                    _listaParticipantes.add(_nuevoParticipante),
+                    print(_listaParticipantes)
+                  },
+                  child: const Text('OK'),
+                ),
+                TextButton(
+                    onPressed: () =>{
+                      // Se devuelve a inicio y no agrega a la lista el participante
+                      Navigator.pop(context)
+                    },
+                    child: const Text('Cancelar'))
+              ],
+            )
+          ),
           child: const Text('Añadir participante',style: TextStyle(color:Colors.white),),
         ),
 
@@ -110,9 +170,33 @@ class _MyAppState extends State<MyApp>{
             )
           ),
             onPressed: () => {
+            calcularGanador(),
+              showDialog(
+                barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('$_vTituloSorteo'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('El gran ganador/a del sorteo $_vTituloSorteo es...'),
+                        Padding(
+                          padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
+                          child: Text('$_ganadorSorteo',style: TextStyle(fontWeight: FontWeight.bold),),
+                        )
+                      ],
+                    ),
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('OK'))
+                    ],
 
+                  )
+
+              )
             },
-            child: const Text('Realizar sorteo',style: TextStyle(color:Colors.white),))
+                child: const Text('Realizar sorteo',style: TextStyle(color:Colors.white),))
       ],
     );
   }
