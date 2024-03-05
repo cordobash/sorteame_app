@@ -1,10 +1,15 @@
 import 'dart:math';
 
+import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-void main(){
-  runApp(MaterialApp(home:MyApp()));
+void main(List<String>args){
+  runApp(MaterialApp(
+      home:MyApp()
+
+  ));
 }
 
 class MyApp extends StatefulWidget{
@@ -21,12 +26,26 @@ class _MyAppState extends State<MyApp>{
     List<String?> _listaParticipantes = List.empty(growable: true);
     String? _nuevoParticipante;
     String? _ganadorSorteo;
+    int? _selectedIndex = 0;
+    static const TextStyle optionStyle =
+    TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
+
+    List<Widget> _listaWidgets = [
+      Text('No implementation for this page',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+      SettingsPage(),
+        AboutPage()
+    ];
+
+    void cambiarPagina(int indice){
+      setState(() {
+        _selectedIndex = indice;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
-
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
@@ -38,7 +57,7 @@ class _MyAppState extends State<MyApp>{
           backgroundColor: Colors.pink,
           centerTitle: true,
         ),
-        body:Center(
+        body:(_selectedIndex == 0 ) ?  Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.max,
@@ -50,8 +69,69 @@ class _MyAppState extends State<MyApp>{
               _botones(context)
             ],
           )
-        )
-      ),
+        ) : _listaWidgets[_selectedIndex!],
+        drawer: Drawer(
+          shadowColor: Colors.white,
+          semanticLabel: 'Drawer',
+          surfaceTintColor: Colors.yellow,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                  child:const Text('Lista de opciones',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w700),),
+          decoration: BoxDecoration(
+            color:Colors.pink,
+          ),
+              ),
+              Builder(
+                builder: (context) {
+                  return ListTile(
+                   selected: (_selectedIndex == 0) ? true : false,
+                    onTap: (){
+                     setState(() {
+                       cambiarPagina(0);
+                       Navigator.pop(context);
+                     });
+                    },
+                    selectedColor: Colors.pinkAccent,
+                    title: const Text('Principal'),
+                  );
+                }
+              ),
+              Builder(
+                builder: (context) {
+                  return ListTile(
+                    onTap: (){
+                      setState(() {
+                        cambiarPagina(1);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selected: (_selectedIndex == 1) ? true : false,
+                    selectedColor: Colors.pinkAccent,
+                    title: const Text('Ajustes'),
+                  );
+                }
+              ),
+              Builder(
+                builder: (context) {
+                  return ListTile(
+                    selected: (_selectedIndex == 2) ? true : false,
+                    onTap: (){
+                      setState(() {
+                        cambiarPagina(2);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selectedColor: Colors.blue,
+                    title: const Text('Acerca de'),
+                  );
+                }
+              )
+            ],
+          ),
+          ),
+        ),
     );
   }
 
@@ -187,7 +267,7 @@ class _MyAppState extends State<MyApp>{
                       ],
                     ),
                     actions: [
-                      ElevatedButton(
+                      TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: const Text('OK'))
                     ],
