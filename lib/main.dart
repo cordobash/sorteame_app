@@ -175,7 +175,7 @@ class _MyAppState extends State<MyApp>{
                 barrierDismissible: false,
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    title: Text('$_vTituloSorteo'),
+                    title: Text((_vTituloSorteo != null) ? _vTituloSorteo! : _vTituloSorteo = "Sorteo sin nombre"),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
