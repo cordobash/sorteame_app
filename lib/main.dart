@@ -276,7 +276,7 @@ class _MyAppState extends State<MyApp> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                    'El gran ganador/a del sorteo $_vTituloSorteo es...'),
+                                    'El gran ganador/a del $_vTituloSorteo es...'),
                                 Padding(
                                   padding: EdgeInsets.only(
                                       top: _deviceHeight! * 0.03),
