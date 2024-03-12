@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:flutter/material.dart';
+import 'package:app_sorteos/pages/SettingsPage.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(home: MyApp()));
@@ -16,6 +17,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  _MyAppState({Key? key});
+
+  var objSettings = new SettingsPageState();
+
   double? _deviceWidth, _deviceHeight;
   String? _vTituloSorteo;
 
@@ -27,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
+  // Clases externas
   List<Widget> _listaWidgets = [
     Text(
       'No implementation for this page',
@@ -50,6 +56,8 @@ class _MyAppState extends State<MyApp> {
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
     return MaterialApp(
+      theme:
+          (objSettings.GetModoActual()) ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -84,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               DrawerHeader(
                 child: const Text(
-                  'Lista de opciones',
+                  'Menu de opciones',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
