@@ -4,6 +4,7 @@ import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:flutter/widgets.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(home: MyApp()));
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   var objSettings = new SettingsPageState();
 
   double? _deviceWidth, _deviceHeight;
-  String? _vTituloSorteo;
+  String? _vTituloSorteo = ' ';
 
   // Aqui se almacenara a cada uno de los participantes.
   List<String?> _listaParticipantes = List.empty(growable: true);
@@ -32,7 +33,9 @@ class _MyAppState extends State<MyApp> {
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
-  // Clases externas
+  // Manejo de campos vacios
+  bool? _campoVacioTitulo = false;
+
   List<Widget> _listaWidgets = [
     Text(
       'No implementation for this page',
@@ -48,6 +51,13 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _selectedIndex = indice;
     });
+  }
+
+  bool validarTituloSorteo(String? tituloSorteo) {
+    if (tituloSorteo != null) {
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -168,14 +178,20 @@ class _MyAppState extends State<MyApp> {
             onChanged: (_) {
               setState(() {
                 _vTituloSorteo = _;
+                if (_vTituloSorteo!.length == 0) {
+                  _campoVacioTitulo = true;
+                }else{
+                  _campoVacioTitulo = false;
+                }
               });
-              print('El titulo del sorteo es: $_vTituloSorteo');
             },
             obscureText: false,
             decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                errorText: (_vTituloSorteo!.length == 0)
+                    ? 'El titulo del sorteo no puede estar vacio'
+                    : null,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 labelText: 'Titulo del sorteo')));
   }
 
@@ -264,49 +280,51 @@ class _MyAppState extends State<MyApp> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
-            onPressed: () => {
-                  calcularGanador(),
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            title: Text((_vTituloSorteo != null)
-                                ? _vTituloSorteo!
-                                : _vTituloSorteo = "Sorteo sin nombre"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                    'El gran ganador/a del $_vTituloSorteo es...'),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: _deviceHeight! * 0.03),
-                                  child: Text(
-                                    '$_ganadorSorteo',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                )
+        Opacity(
+          opacity: (_campoVacioTitulo == false ) ? 1.0 : 0.5,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              onPressed: () => {
+                    calcularGanador(),
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text((_vTituloSorteo != null)
+                                  ? _vTituloSorteo!
+                                  : _vTituloSorteo = "Sorteo sin nombre"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                      'El gran ganador/a del $_vTituloSorteo es...'),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: _deviceHeight! * 0.03),
+                                    child: Text(
+                                      '$_ganadorSorteo',
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('OK'))
                               ],
-                            ),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'))
-                            ],
-                          ))
-                },
-            child: const Text(
-              'Realizar sorteo',
-              style: TextStyle(color: Colors.white),
-            ))
+                            ))
+                  },
+              child: const Text(
+                'Realizar sorteo',
+                style: TextStyle(color: Colors.white),
+              )),
+        )
       ],
     );
   }

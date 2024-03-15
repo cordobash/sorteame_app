@@ -88,23 +88,26 @@ class SettingsPageState extends State<SettingsPage> {
                       Divider(
                         color: Colors.grey,
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Activar modo oscuro',
-                            style: _estiloPersonalizado,
-                            textAlign: TextAlign.start,
-                          ),
-                          IconButton(
-                              disabledColor: Colors.grey,
-                              onPressed: () => {
-                                    _activarModoOscuro = !_activarModoOscuro,
-                                    cambiarModo(),
-                                  },
-                              icon: Icon(_iconoCheckMO))
-                        ],
+                      Opacity(
+                        opacity: 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Activar modo oscuro(WIP)',
+                              style: _estiloPersonalizado,
+                              textAlign: TextAlign.start,
+                            ),
+                            IconButton(
+                                disabledColor: Colors.grey,
+                                onPressed: () => {
+                                      _activarModoOscuro = !_activarModoOscuro,
+                                      cambiarModo(),
+                                    },
+                                icon: Icon(_iconoCheckMO))
+                          ],
+                        ),
                       ),
                       Divider(
                         color: Colors.grey,
