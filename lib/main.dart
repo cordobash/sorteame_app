@@ -4,6 +4,7 @@ import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:app_sorteos/pages/AnterioresPage.dart';
 import 'package:flutter/widgets.dart';
 
 void main(List<String> args) {
@@ -41,8 +42,7 @@ class _MyAppState extends State<MyApp> {
       'No implementation for this page',
       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
     ),
-    Text('Resultados de sorteos anteriores',
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+    AnterioresPage(),
     SettingsPage(),
     AboutPage()
   ];
