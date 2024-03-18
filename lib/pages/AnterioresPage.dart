@@ -10,12 +10,7 @@ class AnterioresPage extends StatefulWidget{
 }
 
 class _AnterioresPageState extends State<AnterioresPage> {
-  List<Widget> _listaContenedores = [
-      Text('a'),
-      Text('b'),
-      Text('c'),
-      Text('d'),
-  ];
+  
   
   List<String> _listaAbecedario = ["a","e","i","o","u"];
 
@@ -33,14 +28,23 @@ class _AnterioresPageState extends State<AnterioresPage> {
       body:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        Expanded(
-          child: 
-          ListView.builder(
-            itemCount: _listaContenedores.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text("${_listaAbecedario[index]}"),
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: _contenedorResultados(),
+                ),
+              ],
+            ),
+          ),
+        // Expanded(
+        //   child: 
+        //   ListView.builder(
+        //     itemCount: _listaAbecedario.length,
+        //     itemBuilder: (context, index) => ListTile(
+        //       title: Text("${_listaAbecedario[index]}"),
 
-          ),),),
+        //   ),),),
       
           Padding(
             padding: const EdgeInsets.only(right: 25,bottom: 20),
@@ -121,4 +125,5 @@ class _AnterioresPageState extends State<AnterioresPage> {
       ),
     );
   }
+
 }
