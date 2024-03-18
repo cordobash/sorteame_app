@@ -10,11 +10,21 @@ class AnterioresPage extends StatefulWidget{
 }
 
 class _AnterioresPageState extends State<AnterioresPage> {
+  List<Widget> _listaContenedores = [
+      Text('a'),
+      Text('b'),
+      Text('c'),
+      Text('d'),
+  ];
+  
+  List<String> _listaAbecedario = ["a","e","i","o","u"];
 
   double? _deviceWidth, _deviceHeight;
 
   @override
   Widget build(BuildContext context) {
+
+
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
@@ -23,22 +33,15 @@ class _AnterioresPageState extends State<AnterioresPage> {
       body:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        Expanded(child: ListView(
-          children: [
-            ListTile(
-              title: _contenedorResultados(),
-            ),
-             ListTile(
-              title: _contenedorResultados(),
-            ),
-             ListTile(
-              title: _contenedorResultados(),
-            ),
-             ListTile(
-              title: _contenedorResultados(),
-            ),
-          ],
-        )),
+        Expanded(
+          child: 
+          ListView.builder(
+            itemCount: _listaContenedores.length,
+            itemBuilder: (context, index) => ListTile(
+              title: Text("${_listaAbecedario[index]}"),
+
+          ),),),
+      
           Padding(
             padding: const EdgeInsets.only(right: 25,bottom: 20),
             child: Container(
@@ -54,7 +57,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                         barrierDismissible: false,
                         context:context,
                         builder: (BuildContext context) => AlertDialog(
-                          content: const Text('Esta accion eliminara todos los registros,¿Desea continuar?',style: TextStyle(fontWeight: FontWeight.bold),),
+                          content: const Text('Esta accion eliminara todos los registros.¿Desea continuar?',style: TextStyle(fontWeight: FontWeight.bold),),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
