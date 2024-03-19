@@ -1,7 +1,9 @@
+// Packages
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
+// Models
+import '../models/Sorteo.dart';
+// Vistas adicionales
 class AnterioresPage extends StatefulWidget{
   AnterioresPage({Key? key});
   

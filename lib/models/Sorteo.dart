@@ -23,5 +23,17 @@ class Sorteo{
     return _cantidadParticipantes;
   }
 
+  // Setters
+  void setTitulo(String nuevoTitulo){
+    this._tituloSorteo = nuevoTitulo;
+  }
+
+  void setGanador(String ganadorNuevo){
+    this._ganadorSorteo = ganadorNuevo;
+  }
+
+  void setCantParticipantes(int nuevaCant){
+    this._cantidadParticipantes = nuevaCant;
+  }
 
 }
