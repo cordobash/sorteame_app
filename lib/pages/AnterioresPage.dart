@@ -27,20 +27,18 @@ class _AnterioresPageState extends State<AnterioresPage> {
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white10,
       body: (!boxSorteo.isNotEmpty) ? _mensajeDefecto() :   Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
         Expanded(
           child: 
           ListView.builder(
+            scrollDirection: Axis.vertical,
             itemCount: boxSorteo.length,
             itemBuilder: (context, index) {
             Sorteo sort = boxSorteo.getAt(index);
-            // print('Datos actuales: ${sort.tituloSorteo}, ${sort.ganadorSorteo}, ${sort.cantidadParticipantes}');
-             ListTile(
-              title: const Text('A'),
-              // title: _contenedorResultados(tituloSorteo: sort.tituloSorteo, ganadorSorteo: sort.ganadorSorteo, cantidadParticipantes: sort.cantidadParticipantes),
+            return ListTile(
+              title: _contenedorResultados(tituloSorteo: sort.getTitulo(), ganadorSorteo: sort.getGanador(), cantidadParticipantes: sort.getCantParticipantes()),
           );},),),
             
       
@@ -71,7 +69,14 @@ class _AnterioresPageState extends State<AnterioresPage> {
                               child: const Text('Eliminar todo'),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                setState(() {
+                                  Sorteo sorteo = boxSorteo.getAt(1);
+            print('${sorteo.getTitulo()} , ${sorteo.getGanador()}, ${sorteo.getCantParticipantes()}');
+
+                                });
+                                Navigator.pop(context);
+                              },
                               child: const Text('Cancelar'),
                             ),
                           ],
