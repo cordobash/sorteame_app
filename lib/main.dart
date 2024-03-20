@@ -1,13 +1,21 @@
 import 'dart:math';
 
+import 'package:app_sorteos/models/Sorteo.dart';
 import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/pages/AnterioresPage.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:app_sorteos/models/boxes.dart';
 
-void main(List<String> args) {
+void main(List<String> args)async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(SorteoAdapter());
+  // Abriendo la box
+  boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
   runApp(MaterialApp(home: MyApp()));
 }
 

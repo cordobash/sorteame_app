@@ -1,6 +1,15 @@
+import 'package:hive/hive.dart';
+part 'Sorteo.g.dart';
+
+@HiveType(typeId: 1)
 class Sorteo{
+  @HiveField(0)
   String? _tituloSorteo;
+
+  @HiveField(1)
   String? _ganadorSorteo;
+
+  @HiveField(2)
   int? _cantidadParticipantes;
 
   // Constructor por defecto
