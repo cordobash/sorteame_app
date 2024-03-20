@@ -323,7 +323,12 @@ class _MyAppState extends State<MyApp> {
                               ),
                               actions: [
                                 TextButton(
-                                    onPressed: () => Navigator.pop(context),
+                                    onPressed: () => {
+                                      setState(() {
+                                      boxSorteo.put('key_${_vTituloSorteo}_${_ganadorSorteo}', Sorteo.conDatos(tituloSorteo: _vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: _ganadorSorteo));   
+                                      }),
+                                      Navigator.pop(context),
+                                    },
                                     child: const Text('OK'))
                               ],
                             ))
@@ -332,7 +337,7 @@ class _MyAppState extends State<MyApp> {
                 'Realizar sorteo',
                 style: TextStyle(color: Colors.white),
               )),
-        )
+        ),
       ],
     );
   }

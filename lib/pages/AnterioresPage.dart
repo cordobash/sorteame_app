@@ -1,5 +1,6 @@
 // Packages
 import 'dart:math';
+import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 // Models
 import '../models/Sorteo.dart';
@@ -27,26 +28,21 @@ class _AnterioresPageState extends State<AnterioresPage> {
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white10,
-      body:Column(
+      body: (!boxSorteo.isNotEmpty) ? _mensajeDefecto() :   Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  title: _contenedorResultados(),
-                ),
-              ],
-            ),
-          ),
-        // Expanded(
-        //   child: 
-        //   ListView.builder(
-        //     itemCount: _listaAbecedario.length,
-        //     itemBuilder: (context, index) => ListTile(
-        //       title: Text("${_listaAbecedario[index]}"),
-
-        //   ),),),
+        Expanded(
+          child: 
+          ListView.builder(
+            itemCount: boxSorteo.length,
+            itemBuilder: (context, index) {
+            Sorteo sort = boxSorteo.getAt(index);
+            // print('Datos actuales: ${sort.tituloSorteo}, ${sort.ganadorSorteo}, ${sort.cantidadParticipantes}');
+             ListTile(
+              title: const Text('A'),
+              // title: _contenedorResultados(tituloSorteo: sort.tituloSorteo, ganadorSorteo: sort.ganadorSorteo, cantidadParticipantes: sort.cantidadParticipantes),
+          );},),),
+            
       
           Padding(
             padding: const EdgeInsets.only(right: 25,bottom: 20),
@@ -66,7 +62,12 @@ class _AnterioresPageState extends State<AnterioresPage> {
                           content: const Text('Esta accion eliminara todos los registros.¿Desea continuar?',style: TextStyle(fontWeight: FontWeight.bold),),
                           actions: [
                             TextButton(
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                setState(() {
+                                boxSorteo.clear();
+                                });
+                                Navigator.pop(context);
+                              },
                               child: const Text('Eliminar todo'),
                             ),
                             TextButton(
@@ -87,7 +88,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
     );
   }
 
-  Widget _contenedorResultados(){
+  Widget _contenedorResultados({required tituloSorteo, required ganadorSorteo, required cantidadParticipantes}){
     return Padding(
       padding: const EdgeInsets.only(top:20),
       child: Center(
@@ -107,17 +108,17 @@ class _AnterioresPageState extends State<AnterioresPage> {
               children: [
                 SizedBox(
                   width: _deviceWidth,
-                  child: const Text('Titulo',style: TextStyle(fontWeight: FontWeight.bold,fontSize:25),)),
+                  child: Text(tituloSorteo,style: TextStyle(fontWeight: FontWeight.bold,fontSize:25),)),
                 Row(
                   children: [
                     Text('Ganador: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                    Text('Fulano'),
-                  ],
+                    Text("$ganadorSorteo"),
+                  ]
                 ),
                 Row(
                   children: [
                     Text('Numero de participantes: ',style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey.shade500),),
-                    Text('5',style: TextStyle(color:Colors.grey.shade500),)
+                    Text("$cantidadParticipantes",style: TextStyle(color:Colors.grey.shade500),)
                   ],
                 )
               ],
@@ -128,4 +129,11 @@ class _AnterioresPageState extends State<AnterioresPage> {
     );
   }
 
+// Mensaje por defecto cuando no haya registros
+Widget _mensajeDefecto(){
+  return Container(
+    child: Center(
+      child: const Text('Realiza tu primer sorteo!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+  ));
+}
 }

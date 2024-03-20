@@ -14,7 +14,6 @@ class Sorteo{
 
   // Constructor por defecto
   Sorteo();
-
   Sorteo.conDatos({required tituloSorteo, required ganadorSorteo, required cantParticipantes}){
     this._tituloSorteo = tituloSorteo;
     this._ganadorSorteo = ganadorSorteo;
@@ -25,10 +24,10 @@ class Sorteo{
   String? getTitulo(){
     return _tituloSorteo;
   }
-  String? _getGanador(){
+  String? getGanador(){
     return _ganadorSorteo;
   }
-  int? _getCantParticipantes(){
+  int? getCantParticipantes(){
     return _cantidadParticipantes;
   }
 
