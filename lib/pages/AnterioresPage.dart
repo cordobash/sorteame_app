@@ -13,16 +13,10 @@ class AnterioresPage extends StatefulWidget{
 }
 
 class _AnterioresPageState extends State<AnterioresPage> {
-  
-  
-  List<String> _listaAbecedario = ["a","e","i","o","u"];
-
   double? _deviceWidth, _deviceHeight;
 
   @override
   Widget build(BuildContext context) {
-
-
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
@@ -33,6 +27,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
         Expanded(
           child: 
           ListView.builder(
+            reverse: true,
             scrollDirection: Axis.vertical,
             itemCount: boxSorteo.length,
             itemBuilder: (context, index) {
