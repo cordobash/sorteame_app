@@ -1,3 +1,4 @@
+import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -13,33 +14,20 @@ class SettingsPageState extends State<SettingsPage> {
   SettingsPageState({Key? key});
 
   // Flags
-  static bool _activarModoOscuro = false;
-  static bool _eliminar_a_todos = true;
 
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
 
-  IconData _iconoCheckMO = (_activarModoOscuro)
-      ? Icons.check_box
-      : Icons.check_box_outline_blank_outlined; // icono check modo oscuro
-  IconData _iconoCheckEli = (_eliminar_a_todos)
+   // icono check modo oscuro
+  IconData _iconoCheckEli = (eliminarTodos)
       ? Icons.check_box
       : Icons
           .check_box_outline_blank; // Icono check eliminar a todos los participantes
 
-  void cambiarModo() {
-    setState(() {
-      // Cambiamos el estado del modo.
-      if (_activarModoOscuro) {
-        _iconoCheckMO = Icons.check_box;
-      } else {
-        _iconoCheckMO = Icons.check_box_outline_blank;
-      }
-    });
-  }
+
 
   void eliTodos() {
     setState(() {
-      if (_eliminar_a_todos == true) {
+      if (eliminarTodos == true) {
         _iconoCheckEli = Icons.check_box;
       } else {
         _iconoCheckEli = Icons.check_box_outline_blank;
@@ -47,14 +35,6 @@ class SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  // Getter modo oscuro
-  bool GetModoActual() {
-    return _activarModoOscuro;
-  }
-
-  bool GetEliTodos() {
-    return _eliminar_a_todos;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +105,7 @@ class SettingsPageState extends State<SettingsPage> {
                           IconButton(
                             icon: Icon(_iconoCheckEli),
                             onPressed: () => {
-                              _eliminar_a_todos = !_eliminar_a_todos,
+                              eliminarTodos = !eliminarTodos,
                               eliTodos()
                             },
                           )

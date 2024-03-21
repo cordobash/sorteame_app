@@ -69,11 +69,22 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void cambiarAnimada(){
+    Navigator.pushNamed(context, '/crpage');
+    validarEliminarTodos();
+  }
   bool validarTituloSorteo(String? tituloSorteo) {
     if (tituloSorteo != null) {
       return true;
     }
     return false;
+  }
+  void validarEliminarTodos(){
+    if(eliminarTodos == true){
+      setState(() {
+      _listaParticipantes = [];
+      });
+    }
   }
 
   @override
@@ -83,7 +94,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement build
     return MaterialApp(
       theme:
-          (objSettings.GetModoActual()) ? ThemeData.dark() : ThemeData.light(),
+          ThemeData.light(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -324,8 +335,8 @@ class _MyAppState extends State<MyApp> {
               onPressed: () => {
                 calcularGanador(),
                 boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo)),
-                !_listaParticipantes.isEmpty ?                 
-                Navigator.pushNamed(context, '/crpage')
+                !_listaParticipantes.isEmpty ?
+                cambiarAnimada()                 
                  : 
                     showDialog(
                         barrierDismissible: false,
@@ -355,8 +366,9 @@ class _MyAppState extends State<MyApp> {
                                 TextButton(
                                     onPressed: () => {
                                       setState(() {
-                                      boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo));   
+                                      boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo));  
                                       }),
+                                      validarEliminarTodos(),
                                       Navigator.pop(context),
                                     },
                                     child: const Text('OK'))
