@@ -17,13 +17,23 @@ class SettingsPageState extends State<SettingsPage> {
 
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
 
-   // icono check modo oscuro
+   // Iconos para los respectivos checkbox
+   // Check eliminar participantes post sorteo.
   IconData _iconoCheckEli = (eliminarTodos)
       ? Icons.check_box
       : Icons
-          .check_box_outline_blank; // Icono check eliminar a todos los participantes
+          .check_box_outline_blank;
 
-
+  // Check animaciones
+  IconData _iconoCheckAnimacion = (activarAnimacion)
+  ? Icons.check_box
+  :
+  Icons.check_box_outline_blank;
+  // Check nombres duplicados
+  IconData _iconoCheckDuplicados = (nombresDuplicados)
+  ? Icons.check_box 
+  :
+  Icons.check_box_outline_blank;
 
   void eliTodos() {
     setState(() {
@@ -32,6 +42,27 @@ class SettingsPageState extends State<SettingsPage> {
       } else {
         _iconoCheckEli = Icons.check_box_outline_blank;
       }
+    });
+  }
+
+  void checkActivarAnimacion(){
+    setState(() {
+      if(activarAnimacion){
+        _iconoCheckAnimacion = Icons.check_box;
+      }else{
+        _iconoCheckAnimacion = Icons.check_box_outline_blank;
+      }
+    });
+  }
+
+  void checkNombresDuplicados(){
+    setState(() {
+      if(nombresDuplicados){
+        _iconoCheckDuplicados = Icons.check_box;
+      }else{
+        // Futura mejora
+        _iconoCheckDuplicados = Icons.check_box;
+      }      
     });
   }
 
@@ -122,32 +153,61 @@ class SettingsPageState extends State<SettingsPage> {
                             'Activar animacion',
                             style: _estiloPersonalizado,
                           ),
-                          Text(
-                            'Si',
-                            style: _estiloPersonalizado,
+                          IconButton(
+                            icon:Icon(_iconoCheckAnimacion),
+                            onPressed:() =>  {
+                              activarAnimacion = !activarAnimacion,
+                              checkActivarAnimacion()
+                            },
                           )
                         ],
                       ),
                       Divider(
                         color: Colors.grey,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Permitir nombres duplicados',
-                            style: _estiloPersonalizado,
-                          ),
-                          Text(
-                            'No',
-                            style: _estiloPersonalizado,
-                          ),
-                        ],
+                      Opacity(
+                        opacity: 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Permitir nombres duplicados',
+                              style: _estiloPersonalizado,
+                            ),
+                            IconButton(
+                              icon:Icon(_iconoCheckDuplicados),
+                              onPressed: () => {
+                                // nombresDuplicados = !nombresDuplicados,
+                                // checkNombresDuplicados()
+                                print('Futura mejora')
+                              },
+                            )
+                          ],
+                        ),
                       ),
                       Divider(
                         color: Colors.grey,
                       ),
+                      Opacity(
+                        opacity: 0.45,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                             Text('Activar modo oscuro', style: _estiloPersonalizado,),
+                             IconButton(
+                              icon: Icon(Icons.check_box_outline_blank),
+                              onPressed: () => {
+                                print('Futura mejora')
+                              },
+                             )
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        color:Colors.grey
+                      )
                     ],
                   ),
                 ),

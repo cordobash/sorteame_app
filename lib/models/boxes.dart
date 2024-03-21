@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 // Variables globales
 late Box boxSorteo;
+// Checkbox
 bool eliminarTodos = true;
+bool activarAnimacion = true;
+bool nombresDuplicados = false;
 ThemeData tema = ThemeData.light();
 int cuentaRegresiva = 3;
-int numeroGanadores = 1;
-bool nombresDuplicados = false;
 String? ganadorSorteo;
 String? vTituloSorteo = ' ';
