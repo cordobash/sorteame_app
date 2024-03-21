@@ -41,12 +41,11 @@ class _MyAppState extends State<MyApp> {
   var objSettings = new SettingsPageState();
 
   double? _deviceWidth, _deviceHeight;
-  String? _vTituloSorteo = ' ';
 
   // Aqui se almacenara a cada uno de los participantes.
   List<String?> _listaParticipantes = List.empty(growable: true);
   String? _nuevoParticipante;
-  String? _ganadorSorteo;
+  // String? ganadorSorteo;
   int? _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
@@ -194,8 +193,8 @@ class _MyAppState extends State<MyApp> {
         child: TextField(
             onChanged: (_) {
               setState(() {
-                _vTituloSorteo = _;
-                if (_vTituloSorteo!.length == 0) {
+                vTituloSorteo = _;
+                if (vTituloSorteo!.length == 0) {
                   _campoVacioTitulo = true;
                 }else{
                   _campoVacioTitulo = false;
@@ -204,7 +203,7 @@ class _MyAppState extends State<MyApp> {
             },
             obscureText: false,
             decoration: InputDecoration(
-                errorText: (_vTituloSorteo!.length == 0)
+                errorText: (vTituloSorteo!.length == 0)
                     ? 'El titulo del sorteo no puede estar vacio'
                     : null,
                 border:
@@ -251,7 +250,7 @@ class _MyAppState extends State<MyApp> {
     // Tendra como rango maximo hasta la longitud maxima del arreglo en donde estan almacenado los participantes
     //                          1 - capacidad actual del arreglo
     int? indice = ran.nextInt(_listaParticipantes.length);
-    _ganadorSorteo = _listaParticipantes[indice];
+    ganadorSorteo = _listaParticipantes[indice];
   }
 
   Widget _botones(dynamic context) {
@@ -298,7 +297,6 @@ class _MyAppState extends State<MyApp> {
                         onPressed: () => {
                           Navigator.pop(context),
                           _listaParticipantes.add(_nuevoParticipante),
-                          print(_listaParticipantes)
                         },
                         child: const Text('OK'),
                       ),
@@ -324,26 +322,29 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               onPressed: () => {
-                _listaParticipantes.isEmpty ? 
-                Navigator.pushNamed(context, '/crpage') :
+                calcularGanador(),
+                boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo)),
+                !_listaParticipantes.isEmpty ?                 
+                Navigator.pushNamed(context, '/crpage')
+                 : 
                     showDialog(
                         barrierDismissible: false,
                         context: context,
                         builder: (BuildContext context) =>  
                         AlertDialog(
-                              title: Text((_vTituloSorteo != null)
-                                  ? _vTituloSorteo!
-                                  : _vTituloSorteo = "Sorteo sin nombre"),
+                              title: Text((vTituloSorteo != null)
+                                  ? vTituloSorteo!
+                                  : vTituloSorteo = "Sorteo sin nombre"),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                      'El gran ganador/a del $_vTituloSorteo es...'),
+                                      'El gran ganador/a del $vTituloSorteo es...'),
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top: _deviceHeight! * 0.03),
                                     child: Text(
-                                      '$_ganadorSorteo',
+                                      '$ganadorSorteo',
                                       style:
                                           TextStyle(fontWeight: FontWeight.bold),
                                     ),
@@ -354,7 +355,7 @@ class _MyAppState extends State<MyApp> {
                                 TextButton(
                                     onPressed: () => {
                                       setState(() {
-                                      boxSorteo.put('key_${_vTituloSorteo}_${_ganadorSorteo}', Sorteo.conDatos(tituloSorteo: _vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: _ganadorSorteo));   
+                                      boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo));   
                                       }),
                                       Navigator.pop(context),
                                     },

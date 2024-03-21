@@ -8,3 +8,5 @@ ThemeData tema = ThemeData.light();
 int cuentaRegresiva = 3;
 int numeroGanadores = 1;
 bool nombresDuplicados = false;
+String? ganadorSorteo;
+String? vTituloSorteo = ' ';
