@@ -77,7 +77,7 @@ class SettingsPageState extends State<SettingsPage> {
               ),
             ),
             SizedBox(
-              height: _deviceHeight! * 0.60,
+              height: _deviceHeight! * 0.50,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Expanded(
@@ -85,35 +85,17 @@ class SettingsPageState extends State<SettingsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Divider(
-                        color: Colors.grey,
-                      ),
                       Opacity(
                         opacity: 0.5,
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Activar modo oscuro(WIP)',
-                              style: _estiloPersonalizado,
-                              textAlign: TextAlign.start,
-                            ),
-                            IconButton(
-                                disabledColor: Colors.grey,
-                                onPressed: () => {
-                                        setState(() {
-                                      _activarModoOscuro = !_activarModoOscuro;
-                                          cambiarModo();
-                                        })
-                                    },
-                                icon: Icon(_iconoCheckMO))
+
                           ],
                         ),
                       ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
+                      
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,11 +139,11 @@ class SettingsPageState extends State<SettingsPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Numero de ganadores',
+                            'Activar animacion',
                             style: _estiloPersonalizado,
                           ),
                           Text(
-                            '1',
+                            'Si',
                             style: _estiloPersonalizado,
                           )
                         ],

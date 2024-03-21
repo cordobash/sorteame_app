@@ -14,6 +14,7 @@ class AnterioresPage extends StatefulWidget{
 
 class _AnterioresPageState extends State<AnterioresPage> {
   double? _deviceWidth, _deviceHeight;
+  bool _cajaVacia = boxSorteo.isEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
     return Scaffold(
-      body: (!boxSorteo.isNotEmpty) ? _mensajeDefecto() : Column(
+      body: (_cajaVacia) ? _mensajeDefecto():Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
         Expanded(
@@ -56,8 +57,9 @@ class _AnterioresPageState extends State<AnterioresPage> {
                           actions: [
                             TextButton(
                               onPressed: () {
-                                setState(() {
                                 boxSorteo.clear();
+                                setState(() {
+                                  _cajaVacia = true;
                                 });
                                 Navigator.pop(context);
                               },
@@ -65,8 +67,6 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                setState(() {
-                                });
                                 Navigator.pop(context);
                               },
                               child: const Text('Cancelar'),
