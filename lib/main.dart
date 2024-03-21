@@ -335,7 +335,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () => {
                 calcularGanador(),
                 boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo)),
-                !_listaParticipantes.isEmpty ?
+                activarAnimacion ?
                 cambiarAnimada()                 
                  : 
                     showDialog(
@@ -367,8 +367,8 @@ class _MyAppState extends State<MyApp> {
                                     onPressed: () => {
                                       setState(() {
                                       boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo));  
+                                      validarEliminarTodos();
                                       }),
-                                      validarEliminarTodos(),
                                       Navigator.pop(context),
                                     },
                                     child: const Text('OK'))
