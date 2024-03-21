@@ -102,8 +102,10 @@ class SettingsPageState extends State<SettingsPage> {
                             IconButton(
                                 disabledColor: Colors.grey,
                                 onPressed: () => {
-                                      _activarModoOscuro = !_activarModoOscuro,
-                                      cambiarModo(),
+                                        setState(() {
+                                      _activarModoOscuro = !_activarModoOscuro;
+                                          cambiarModo();
+                                        })
                                     },
                                 icon: Icon(_iconoCheckMO))
                           ],
