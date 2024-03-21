@@ -21,19 +21,19 @@ class _AnterioresPageState extends State<AnterioresPage> {
     _deviceHeight = MediaQuery.of(context).size.height;
     // TODO: implement build
     return Scaffold(
-      body: (!boxSorteo.isNotEmpty) ? _mensajeDefecto() :   Column(
+      body: (!boxSorteo.isNotEmpty) ? _mensajeDefecto() : Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
         Expanded(
           child: 
           ListView.builder(
-            reverse: true,
+            reverse: false,
             scrollDirection: Axis.vertical,
             itemCount: boxSorteo.length,
             itemBuilder: (context, index) {
             Sorteo sort = boxSorteo.getAt(index);
             return ListTile(
-              title: _contenedorResultados(tituloSorteo: sort.getTitulo(), ganadorSorteo: sort.getGanador(), cantidadParticipantes: sort.getCantParticipantes()),
+              title: _contenedorResultados(tituloSorteo: sort.getTitulo(), ganadorSorteo: sort.getGanador(), cantidadParticipantes: sort.getCantParticipantes(),index: index),
           );},),),
             
       
@@ -66,9 +66,6 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             TextButton(
                               onPressed: () {
                                 setState(() {
-                                  Sorteo sorteo = boxSorteo.getAt(1);
-            print('${sorteo.getTitulo()} , ${sorteo.getGanador()}, ${sorteo.getCantParticipantes()}');
-
                                 });
                                 Navigator.pop(context);
                               },
@@ -88,7 +85,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
     );
   }
 
-  Widget _contenedorResultados({required tituloSorteo, required ganadorSorteo, required cantidadParticipantes}){
+  Widget _contenedorResultados({required tituloSorteo, required ganadorSorteo, required cantidadParticipantes,required index}){
     return Padding(
       padding: const EdgeInsets.only(top:20),
       child: Center(
@@ -110,9 +107,21 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   width: _deviceWidth,
                   child: Text(tituloSorteo,style: TextStyle(fontWeight: FontWeight.bold,fontSize:25),)),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Ganador: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                    Text("$ganadorSorteo"),
+                    Text('Ganador: $ganadorSorteo',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                    IconButton(
+                      color:Colors.red,
+                      hoverColor: Colors.grey.shade500,
+                      iconSize: 30,
+                      onPressed: () =>{
+                        setState(() {
+                        boxSorteo.deleteAt(index);
+                          
+                        })
+                      },
+                      icon: Icon(Icons.delete),
+                    )
                   ]
                 ),
                 Row(

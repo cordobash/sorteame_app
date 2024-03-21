@@ -1,14 +1,16 @@
+// Paquetes de la libreria o externos.
 import 'dart:math';
-
-import 'package:app_sorteos/models/Sorteo.dart';
-import 'package:app_sorteos/pages/SettingsPage.dart';
-import 'package:app_sorteos/pages/AboutPage.dart';
+import 'package:app_sorteos/pages/PostSorteoPage.dart';
 import 'package:flutter/material.dart';
-import 'package:app_sorteos/pages/SettingsPage.dart';
-import 'package:app_sorteos/pages/AnterioresPage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// Vistas.
+import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:app_sorteos/models/Sorteo.dart';
+import 'package:app_sorteos/pages/AboutPage.dart';
+import 'package:app_sorteos/pages/AnterioresPage.dart';
+// Modelos.
 import 'package:app_sorteos/models/boxes.dart';
 
 void main(List<String> args)async {
@@ -16,7 +18,14 @@ void main(List<String> args)async {
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
-  runApp(MaterialApp(home: MyApp()));
+  runApp(
+    
+    MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/crpage': (context) => PostPage()
+      },
+      home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -214,7 +223,25 @@ class _MyAppState extends State<MyApp> {
       child: Padding(
         padding: EdgeInsets.only(
             left: _deviceWidth! * 0.015, top: _deviceHeight! * 0.01),
-        child: Text('$_listaParticipantes'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$_listaParticipantes'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('${_listaParticipantes.length}'),
+                IconButton(
+                  onPressed: () => {
+                    setState(() {
+                    _listaParticipantes = [];  
+                    })
+                  }, 
+                icon: Icon(Icons.delete))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -297,11 +324,13 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               onPressed: () => {
-                    calcularGanador(),
+                _listaParticipantes.isEmpty ? 
+                Navigator.pushNamed(context, '/crpage') :
                     showDialog(
                         barrierDismissible: false,
                         context: context,
-                        builder: (BuildContext context) => AlertDialog(
+                        builder: (BuildContext context) =>  
+                        AlertDialog(
                               title: Text((_vTituloSorteo != null)
                                   ? _vTituloSorteo!
                                   : _vTituloSorteo = "Sorteo sin nombre"),
@@ -338,6 +367,17 @@ class _MyAppState extends State<MyApp> {
                 style: TextStyle(color: Colors.white),
               )),
         ),
+      ],
+    );
+  }
+
+
+  Widget _alertError(){
+    return AlertDialog(
+      title: const Text('Error'),
+      content: const Text('Se necesita agregar al menos a 1 participante'),
+      actions: [
+        ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Ok'))
       ],
     );
   }

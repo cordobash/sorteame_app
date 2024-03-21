@@ -34,6 +34,8 @@ dependencies:
   mailto: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  confetti: ^0.7.0
+  timer_count_down: ^2.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
