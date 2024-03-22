@@ -6,6 +6,8 @@ late Box boxSorteo;
 bool eliminarTodos = true;
 bool activarAnimacion = true;
 bool nombresDuplicados = false;
-int cuentaRegresiva = 3;
+List<int> listaConteo = [3,5,7,10];
+int cuentaRegresiva = listaConteo.first;
+
 String? ganadorSorteo;
 String? vTituloSorteo = ' ';

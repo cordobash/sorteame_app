@@ -11,11 +11,12 @@ class SettingsPage extends StatefulWidget {
 class SettingsPageState extends State<SettingsPage> {
   double? _deviceWidth, _deviceHeight;
 
+
   SettingsPageState({Key? key});
 
   // Flags
-
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
+  
 
    // Iconos para los respectivos checkbox
    // Check eliminar participantes post sorteo.
@@ -91,125 +92,124 @@ class SettingsPageState extends State<SettingsPage> {
               height: _deviceHeight! * 0.50,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Opacity(
-                        opacity: 0.5,
-                        child: Row(
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: [ Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Opacity(
+                          opacity: 0.5,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                  
+                            ],
+                          ),
+                        ),
+                        
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
+                            Text(
+                              'Cuenta regresiva',
+                              style: _estiloPersonalizado,
+                            ),
+                            _dropDownConteo(),
                           ],
                         ),
-                      ),
-                      
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Cuenta regresiva',
-                            style: _estiloPersonalizado,
-                          ),
-                          Text(
-                            '3',
-                            style: _estiloPersonalizado,
-                            textAlign: TextAlign.justify,
-                          )
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Eliminar participantes post sorteo',
-                            style: _estiloPersonalizado,
-                          ),
-                          IconButton(
-                            icon: Icon(_iconoCheckEli),
-                            onPressed: () => {
-                              eliminarTodos = !eliminarTodos,
-                              eliTodos()
-                            },
-                          )
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Activar animacion',
-                            style: _estiloPersonalizado,
-                          ),
-                          IconButton(
-                            icon:Icon(_iconoCheckAnimacion),
-                            onPressed:() =>  {
-                              activarAnimacion = !activarAnimacion,
-                              checkActivarAnimacion()
-                            },
-                          )
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Opacity(
-                        opacity: 0.5,
-                        child: Row(
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              'Permitir nombres duplicados',
+                              'Eliminar participantes post sorteo',
                               style: _estiloPersonalizado,
                             ),
                             IconButton(
-                              icon:Icon(_iconoCheckDuplicados),
+                              icon: Icon(_iconoCheckEli),
                               onPressed: () => {
-                                // nombresDuplicados = !nombresDuplicados,
-                                // checkNombresDuplicados()
-                                print('Futura mejora')
+                                eliminarTodos = !eliminarTodos,
+                                eliTodos()
                               },
                             )
                           ],
                         ),
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Opacity(
-                        opacity: 0.45,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Text('Activar modo oscuro', style: _estiloPersonalizado,),
-                             IconButton(
-                              icon: Icon(Icons.check_box_outline_blank),
-                              onPressed: () => {
-                                print('Futura mejora')
+                            Text(
+                              'Activar animacion',
+                              style: _estiloPersonalizado,
+                            ),
+                            IconButton(
+                              icon:Icon(_iconoCheckAnimacion),
+                              onPressed:() =>  {
+                                activarAnimacion = !activarAnimacion,
+                                checkActivarAnimacion()
                               },
-                             )
+                            )
                           ],
                         ),
-                      ),
-                      Divider(
-                        color:Colors.grey
-                      )
-                    ],
-                  ),
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        Opacity(
+                          opacity: 0.5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Permitir nombres duplicados',
+                                style: _estiloPersonalizado,
+                              ),
+                              IconButton(
+                                icon:Icon(_iconoCheckDuplicados),
+                                onPressed: () => {
+                                  // nombresDuplicados = !nombresDuplicados,
+                                  // checkNombresDuplicados()
+                                  print('Futura mejora')
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        Opacity(
+                          opacity: 0.45,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                               Text('Activar modo oscuro', style: _estiloPersonalizado,),
+                               IconButton(
+                                icon: Icon(Icons.check_box_outline_blank),
+                                onPressed: () => {
+                                  print('Futura mejora')
+                                },
+                               )
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color:Colors.grey
+                        )
+                      ],
+                    ),
+                  ),],
                 ),
               ),
             ),
@@ -217,5 +217,29 @@ class SettingsPageState extends State<SettingsPage> {
         ),
       ),
     ));
+  }
+
+  Widget _dropDownConteo(){
+    return DropdownButton(
+      value: cuentaRegresiva,
+      underline: Container(
+        color:Colors.pink,
+        height: 2,
+      ),
+      icon: Icon(Icons.format_list_numbered),
+      items: listaConteo.map<DropdownMenuItem<int>>(
+        (int valor){
+          return DropdownMenuItem<int>(
+            value: valor,
+            child: Text(valor.toString(),style: TextStyle(fontSize: 18),)
+            );
+        }
+      ).toList(),
+       onChanged: (_){
+        setState(() {
+          cuentaRegresiva = _!;
+          print(cuentaRegresiva);
+        });
+      });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';
@@ -28,7 +29,7 @@ class _PostPageState extends State<PostPage> {
             children: [
               const Text('Tiempo restante para conocer al ganador!',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
               Countdown(
-                seconds: 3, 
+                seconds: cuentaRegresiva, 
                 build: (BuildContext context,double tiempo) => Text(tiempo.toInt().toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 50),),
                 onFinished: () => {
                   setState(() {
