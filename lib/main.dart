@@ -201,7 +201,10 @@ class _MyAppState extends State<MyApp> {
                 distance: 112,
                 children: [
                   ActionButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      showDialog(
+                        context: context, builder: (BuildContext context) => _alertAnadirArchivo())
+                    },
                     icon: const Icon(Icons.insert_drive_file),
                   ),
                   ActionButton(
@@ -440,6 +443,27 @@ class _MyAppState extends State<MyApp> {
       actions: [
         ElevatedButton(
             onPressed: () => Navigator.pop(context), child: const Text('Ok'))
+      ],
+    );
+  }
+
+  Widget _alertAnadirArchivo(){
+    return AlertDialog(
+      title: Text('Añade los participantes de tu sorteo desde un archivo'),
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
+          Text((boxSorteo.name.isNotEmpty) ? boxSorteo.name : 'Ningun archivo cargado' ),
+          ElevatedButton(onPressed: () => {}, child: Text('Selecciona un archivo'))
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => {},
+          child: Text('Salir'),
+        )
       ],
     );
   }

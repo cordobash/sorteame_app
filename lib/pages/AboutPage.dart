@@ -22,7 +22,7 @@ class AboutPage extends StatelessWidget {
             style: _estiloCabecera,
           ),
           Text(
-            'Isaias Cordova - (Desarrollador Movil)',
+            'Isaias Cordova - (Ingeniero en Software)',
             style: _estiloCabecera,
           ),
           Padding(
