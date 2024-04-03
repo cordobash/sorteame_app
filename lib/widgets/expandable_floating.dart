@@ -1,6 +1,6 @@
 // La carpeta de Widgets esta destinadas para crear componentes que puedan ser utilizados en las pages principales
+// Este widget en especifico fue tomado de la documentacion oficial de Flutter: https://docs.flutter.dev/cookbook/effects/expandable-fab
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 @immutable

@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'package:app_sorteos/pages/PostSorteoPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -55,6 +56,8 @@ class _MyAppState extends State<MyApp> {
 
   // Manejo de campos vacios
   bool? _campoVacioTitulo = true;
+  Color _colorContenedorBorder = Colors.grey;
+  bool? _visibleLabel = false;
 
   List<Widget> _listaWidgets = [
     Text(
@@ -112,7 +115,8 @@ class _MyAppState extends State<MyApp> {
                   const Text('Realiza tus sorteos en nuestra app!',
                       style: TextStyle(fontWeight: FontWeight.w700)),
                   _tituloSorteo(),
-                  const Text('Participantes'),
+                  const Text('Lista de participantes'),
+                  _visibleLabel! ? Text('Añade al menos 1 participante', style: TextStyle(color: Colors.red,fontSize: 15),): SizedBox(),
                   _contenedorListaParticipantes(),
                   _botones(context)
                 ],
@@ -198,15 +202,11 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   ActionButton(
                     onPressed: () => {},
-                    icon: const Icon(Icons.format_size),
+                    icon: const Icon(Icons.insert_drive_file),
                   ),
                   ActionButton(
                     onPressed: () => {},
-                    icon: const Icon(Icons.insert_photo),
-                  ),
-                  ActionButton(
-                    onPressed: () => {},
-                    icon: const Icon(Icons.videocam),
+                    icon: const Icon(Icons.plus_one_sharp),
                   ),
                 ],
               )
@@ -246,7 +246,7 @@ class _MyAppState extends State<MyApp> {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey)),
+          border: Border.all(color: _colorContenedorBorder)),
       child: Padding(
         padding: EdgeInsets.only(
             left: _deviceWidth! * 0.015, top: _deviceHeight! * 0.01),
@@ -274,11 +274,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   void calcularGanador() {
-    Random ran = new Random();
+    Random ran = Random();
     // Tendra como rango maximo hasta la longitud maxima del arreglo en donde estan almacenado los participantes
     //                          1 - capacidad actual del arreglo
-    int? indice = ran.nextInt(_listaParticipantes.length);
-    ganadorSorteo = _listaParticipantes[indice];
+    try {
+        int? indice = ran.nextInt(_listaParticipantes.length);
+        ganadorSorteo = _listaParticipantes[indice];
+        setState(() {
+          visibleFloatingAnteriores = true;
+          _colorContenedorBorder = Colors.grey;
+          _visibleLabel = false;
+        print('se metio al try');
+    
+        });
+    } catch (e) {
+      print('Se metio al catch');
+      setState(() {
+        _colorContenedorBorder = Colors.red;
+        _visibleLabel = true;
+      });
+    }
+
   }
 
   Widget _botones(dynamic context) {
@@ -324,7 +340,11 @@ class _MyAppState extends State<MyApp> {
                       TextButton(
                         onPressed: () => {
                           Navigator.pop(context),
-                          _listaParticipantes.add(_nuevoParticipante),
+                          setState(() {
+                            _listaParticipantes.add(_nuevoParticipante);
+                            _visibleLabel = false;
+                            _colorContenedorBorder = Colors.grey;
+                          })
                         },
                         child: const Text('OK'),
                       ),
