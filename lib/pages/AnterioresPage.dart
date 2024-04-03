@@ -35,24 +35,28 @@ class _AnterioresPageState extends State<AnterioresPage> {
             Sorteo sort = boxSorteo.getAt(index);
             return ListTile(
               title: _contenedorResultados(tituloSorteo: sort.getTitulo(), ganadorSorteo: sort.getGanador(), cantidadParticipantes: sort.getCantParticipantes(),index: index),
-          );},),),
-            
-      
-          Padding(
-            padding: const EdgeInsets.only(right: 25,bottom: 20),
-            child: Container(
-              color:Color.fromRGBO(255, 251, 254, 1.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () => {},
-                    
+          );
+            },
+          ),
+        ),
+      ],
+    ),
+      floatingActionButton:(visibleFloatingAnteriores) ? FloatingActionButton(
+                    onPressed: () => {
+
+                    },             
                     child: IconButton(
                       onPressed: () => showDialog(
                         barrierDismissible: false,
                         context:context,
                         builder: (BuildContext context) => AlertDialog(
+                          backgroundColor: Colors.white,
+                          icon: Icon(Icons.warning,color: Colors.orange,size: 25,),
+                          title: const Text('Advertencia'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+
                           content: const Text('Esta accion eliminara todos los registros.¿Desea continuar?',style: TextStyle(fontWeight: FontWeight.bold),),
                           actions: [
                             TextButton(
@@ -60,6 +64,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                                 boxSorteo.clear();
                                 setState(() {
                                   _cajaVacia = true;
+                                  visibleFloatingAnteriores = false;
                                 });
                                 Navigator.pop(context);
                               },
@@ -75,13 +80,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                         ) 
                       ),
                       icon: Icon(Icons.delete),
-                    ),)
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+                    ),) : null,
     );
   }
 
@@ -90,7 +89,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
       padding: const EdgeInsets.only(top:20),
       child: Center(
         child: Container(
-          height: _deviceHeight! * 0.18,
+          height: _deviceHeight! * 0.20,
           width: _deviceWidth! * 0.90,
           decoration: BoxDecoration(
             color:Colors.white,

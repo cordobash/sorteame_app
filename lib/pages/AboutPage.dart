@@ -93,8 +93,7 @@ class AboutPage extends StatelessWidget {
 
   _launchMailTo() async {
     final mailtolink = Mailto(
-        to: ['igerardo0808@gmail.com'],
-        cc: ['com148237@gmail.com'],
+        to: ['isaiascordova323@gmail.com'],
         subject: 'Contacto - AppSorteo',
         body: 'Hola, quisiera contactar contigo!');
 

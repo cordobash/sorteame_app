@@ -11,30 +11,23 @@ class SettingsPage extends StatefulWidget {
 class SettingsPageState extends State<SettingsPage> {
   double? _deviceWidth, _deviceHeight;
 
-
   SettingsPageState({Key? key});
 
   // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
-  
 
-   // Iconos para los respectivos checkbox
-   // Check eliminar participantes post sorteo.
-  IconData _iconoCheckEli = (eliminarTodos)
-      ? Icons.check_box
-      : Icons
-          .check_box_outline_blank;
+  // Iconos para los respectivos checkbox
+  // Check eliminar participantes post sorteo.
+  IconData _iconoCheckEli =
+      (eliminarTodos) ? Icons.check_box : Icons.check_box_outline_blank;
 
   // Check animaciones
-  IconData _iconoCheckAnimacion = (activarAnimacion)
-  ? Icons.check_box
-  :
-  Icons.check_box_outline_blank;
+  IconData _iconoCheckAnimacion =
+      (activarAnimacion) ? Icons.check_box : Icons.check_box_outline_blank;
+
   // Check nombres duplicados
-  IconData _iconoCheckDuplicados = (nombresDuplicados)
-  ? Icons.check_box 
-  :
-  Icons.check_box_outline_blank;
+  IconData _iconoCheckDuplicados =
+      (nombresDuplicados) ? Icons.check_box : Icons.check_box_outline_blank;
 
   void eliTodos() {
     setState(() {
@@ -46,27 +39,28 @@ class SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  void checkActivarAnimacion(){
+  void checkActivarAnimacion() {
     setState(() {
-      if(activarAnimacion){
+      if (activarAnimacion) {
+        opacidadCuentaRegresiva = 1.0;
         _iconoCheckAnimacion = Icons.check_box;
-      }else{
+      } else {
+        opacidadCuentaRegresiva = 0.50;
         _iconoCheckAnimacion = Icons.check_box_outline_blank;
       }
     });
   }
 
-  void checkNombresDuplicados(){
+  void checkNombresDuplicados() {
     setState(() {
-      if(nombresDuplicados){
+      if (nombresDuplicados) {
         _iconoCheckDuplicados = Icons.check_box;
-      }else{
+      } else {
         // Futura mejora
         _iconoCheckDuplicados = Icons.check_box;
-      }      
+      }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,127 +83,136 @@ class SettingsPageState extends State<SettingsPage> {
               ),
             ),
             SizedBox(
-              height: _deviceHeight! * 0.50,
+              height: _deviceHeight! * 0.60,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Flex(
                   direction: Axis.vertical,
-                  children: [ Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Opacity(
-                          opacity: 0.5,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                  
-                            ],
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Opacity(
+                            opacity: 0.5,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [],
+                            ),
                           ),
-                        ),
-                        
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Cuenta regresiva',
-                              style: _estiloPersonalizado,
+                          Opacity(
+                            opacity: opacidadCuentaRegresiva!,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Cuenta regresiva',
+                                  style: _estiloPersonalizado,
+                                ),
+                                (opacidadCuentaRegresiva == 1.0)
+                                    ? _dropDownConteo()
+                                    : Text(
+                                        '0',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                              ],
                             ),
-                            _dropDownConteo(),
-                          ],
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Eliminar participantes post sorteo',
-                              style: _estiloPersonalizado,
-                            ),
-                            IconButton(
-                              icon: Icon(_iconoCheckEli),
-                              onPressed: () => {
-                                eliminarTodos = !eliminarTodos,
-                                eliTodos()
-                              },
-                            )
-                          ],
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Activar animacion',
-                              style: _estiloPersonalizado,
-                            ),
-                            IconButton(
-                              icon:Icon(_iconoCheckAnimacion),
-                              onPressed:() =>  {
-                                activarAnimacion = !activarAnimacion,
-                                checkActivarAnimacion()
-                              },
-                            )
-                          ],
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Opacity(
-                          opacity: 0.5,
-                          child: Row(
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Permitir nombres duplicados',
+                                'Eliminar participantes post sorteo',
                                 style: _estiloPersonalizado,
                               ),
                               IconButton(
-                                icon:Icon(_iconoCheckDuplicados),
+                                icon: Icon(_iconoCheckEli),
                                 onPressed: () => {
-                                  // nombresDuplicados = !nombresDuplicados,
-                                  // checkNombresDuplicados()
-                                  print('Futura mejora')
+                                  eliminarTodos = !eliminarTodos,
+                                  eliTodos()
                                 },
                               )
                             ],
                           ),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Opacity(
-                          opacity: 0.45,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                               Text('Activar modo oscuro', style: _estiloPersonalizado,),
-                               IconButton(
-                                icon: Icon(Icons.check_box_outline_blank),
+                              Text(
+                                'Activar animacion',
+                                style: _estiloPersonalizado,
+                              ),
+                              IconButton(
+                                icon: Icon(_iconoCheckAnimacion),
                                 onPressed: () => {
-                                  print('Futura mejora')
+                                  activarAnimacion = !activarAnimacion,
+                                  checkActivarAnimacion()
                                 },
-                               )
+                              )
                             ],
                           ),
-                        ),
-                        Divider(
-                          color:Colors.grey
-                        )
-                      ],
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Opacity(
+                            opacity: 0.5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Permitir nombres duplicados',
+                                  style: _estiloPersonalizado,
+                                ),
+                                IconButton(
+                                  icon: Icon(_iconoCheckDuplicados),
+                                  onPressed: () => {
+                                    // nombresDuplicados = !nombresDuplicados,
+                                    // checkNombresDuplicados()
+                                    print('Futura mejora')
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Opacity(
+                            opacity: 0.45,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Activar modo oscuro',
+                                  style: _estiloPersonalizado,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.check_box_outline_blank),
+                                  onPressed: () => {print('Futura mejora')},
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(color: Colors.grey)
+                        ],
+                      ),
                     ),
-                  ),],
+                  ],
                 ),
               ),
             ),
@@ -219,27 +222,26 @@ class SettingsPageState extends State<SettingsPage> {
     ));
   }
 
-  Widget _dropDownConteo(){
+  Widget _dropDownConteo() {
     return DropdownButton(
-      value: cuentaRegresiva,
-      underline: Container(
-        color:Colors.pink,
-        height: 2,
-      ),
-      icon: Icon(Icons.format_list_numbered),
-      items: listaConteo.map<DropdownMenuItem<int>>(
-        (int valor){
+        value: cuentaRegresiva,
+        underline: Container(
+          color: Colors.pink,
+          height: 2,
+        ),
+        icon: Icon(Icons.format_list_numbered_rtl_sharp),
+        items: listaConteo.map<DropdownMenuItem<int>>((int valor) {
           return DropdownMenuItem<int>(
-            value: valor,
-            child: Text(valor.toString(),style: TextStyle(fontSize: 18),)
-            );
-        }
-      ).toList(),
-       onChanged: (_){
-        setState(() {
-          cuentaRegresiva = _!;
-          print(cuentaRegresiva);
+              value: valor,
+              child: Text(
+                valor.toString(),
+                style: TextStyle(fontSize: 18),
+              ));
+        }).toList(),
+        onChanged: (_) {
+          setState(() {
+            cuentaRegresiva = _!;
+          });
         });
-      });
   }
 }

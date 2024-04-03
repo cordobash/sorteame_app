@@ -5,26 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 // Vistas.
 import 'package:app_sorteos/pages/SettingsPage.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 import 'package:app_sorteos/pages/AboutPage.dart';
 import 'package:app_sorteos/pages/AnterioresPage.dart';
+
 // Modelos.
 import 'package:app_sorteos/models/boxes.dart';
 
-void main(List<String> args)async {
+// Floating
+import './widgets/expandable_floating.dart';
+
+void main(List<String> args) async {
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
-  runApp(
-    
-    MaterialApp(
+  runApp(MaterialApp(
       initialRoute: '/',
-      routes: {
-        '/crpage': (context) => PostPage()
-      },
+      routes: {'/crpage': (context) => PostPage()},
       home: MyApp()));
 }
 
@@ -45,13 +46,15 @@ class _MyAppState extends State<MyApp> {
   // Aqui se almacenara a cada uno de los participantes.
   List<String?> _listaParticipantes = List.empty(growable: true);
   String? _nuevoParticipante;
+
   // String? ganadorSorteo;
-  int? _selectedIndex = 0;
+  late int _selectedIndex = 0;
+  
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
   // Manejo de campos vacios
-  bool? _campoVacioTitulo = false;
+  bool? _campoVacioTitulo = true;
 
   List<Widget> _listaWidgets = [
     Text(
@@ -66,23 +69,19 @@ class _MyAppState extends State<MyApp> {
   void cambiarPagina(int indice) {
     setState(() {
       _selectedIndex = indice;
+      visibleFloating = (indice == 0) ? true : false;
     });
   }
 
-  void cambiarAnimada(){
+  void cambiarAnimada() {
     Navigator.pushNamed(context, '/crpage');
     validarEliminarTodos();
   }
-  bool validarTituloSorteo(String? tituloSorteo) {
-    if (tituloSorteo != null) {
-      return true;
-    }
-    return false;
-  }
-  void validarEliminarTodos(){
-    if(eliminarTodos == true){
+
+  void validarEliminarTodos() {
+    if (eliminarTodos == true) {
       setState(() {
-      _listaParticipantes = [];
+        _listaParticipantes = [];
       });
     }
   }
@@ -91,10 +90,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
-    // TODO: implement build
+
     return MaterialApp(
-      theme:
-          ThemeData.light(),
+      theme: ThemeData.light(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -194,6 +192,25 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
+        floatingActionButton: (visibleFloating!)
+            ? ExpandableFab(
+                distance: 112,
+                children: [
+                  ActionButton(
+                    onPressed: () => {},
+                    icon: const Icon(Icons.format_size),
+                  ),
+                  ActionButton(
+                    onPressed: () => {},
+                    icon: const Icon(Icons.insert_photo),
+                  ),
+                  ActionButton(
+                    onPressed: () => {},
+                    icon: const Icon(Icons.videocam),
+                  ),
+                ],
+              )
+            : null,
       ),
     );
   }
@@ -207,7 +224,7 @@ class _MyAppState extends State<MyApp> {
                 vTituloSorteo = _;
                 if (vTituloSorteo!.length == 0) {
                   _campoVacioTitulo = true;
-                }else{
+                } else {
                   _campoVacioTitulo = false;
                 }
               });
@@ -242,12 +259,12 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Text('${_listaParticipantes.length}'),
                 IconButton(
-                  onPressed: () => {
-                    setState(() {
-                    _listaParticipantes = [];  
-                    })
-                  }, 
-                icon: Icon(Icons.delete))
+                    onPressed: () => {
+                          setState(() {
+                            _listaParticipantes = [];
+                          })
+                        },
+                    icon: Icon(Icons.delete))
               ],
             )
           ],
@@ -324,73 +341,85 @@ class _MyAppState extends State<MyApp> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        Opacity(
-          opacity: (_campoVacioTitulo == false ) ? 1.0 : 0.5,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-              onPressed: () => {
-                calcularGanador(),
-                boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo)),
-                activarAnimacion ?
-                cambiarAnimada()                 
-                 : 
-                    showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (BuildContext context) =>  
-                        AlertDialog(
-                              title: Text((vTituloSorteo != null)
-                                  ? vTituloSorteo!
-                                  : vTituloSorteo = "Sorteo sin nombre"),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                      'El gran ganador/a del $vTituloSorteo es...'),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: _deviceHeight! * 0.03),
-                                    child: Text(
-                                      '$ganadorSorteo',
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
-                                    ),
-                                  )
+        (_campoVacioTitulo == true)
+            ? SizedBox()
+            : ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                onPressed: () => {
+                      calcularGanador(),
+                      boxSorteo.put(
+                          'key_${vTituloSorteo}_${ganadorSorteo}',
+                          Sorteo.conDatos(
+                              tituloSorteo: vTituloSorteo,
+                              cantParticipantes: _listaParticipantes.length,
+                              ganadorSorteo: ganadorSorteo)),
+                      activarAnimacion
+                          ? cambiarAnimada()
+                          : showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: Text((vTituloSorteo != null)
+                                    ? vTituloSorteo!
+                                    : vTituloSorteo = "Sorteo sin nombre"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        'El gran ganador/a del $vTituloSorteo es...'),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: _deviceHeight! * 0.03),
+                                      child: Text(
+                                        '$ganadorSorteo',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => {
+                                            setState(() {
+                                              boxSorteo.put(
+                                                  'key_${vTituloSorteo}_${ganadorSorteo}',
+                                                  Sorteo.conDatos(
+                                                      tituloSorteo:
+                                                          vTituloSorteo,
+                                                      cantParticipantes:
+                                                          _listaParticipantes
+                                                              .length,
+                                                      ganadorSorteo:
+                                                          ganadorSorteo));
+                                              validarEliminarTodos();
+                                            }),
+                                            Navigator.pop(context),
+                                          },
+                                      child: const Text('OK'))
                                 ],
                               ),
-                              actions: [
-                                TextButton(
-                                    onPressed: () => {
-                                      setState(() {
-                                      boxSorteo.put('key_${vTituloSorteo}_${ganadorSorteo}', Sorteo.conDatos(tituloSorteo: vTituloSorteo, cantParticipantes: _listaParticipantes.length, ganadorSorteo: ganadorSorteo));  
-                                      validarEliminarTodos();
-                                      }),
-                                      Navigator.pop(context),
-                                    },
-                                    child: const Text('OK'))
-                              ],
-                            ))
-                  },
-              child: const Text(
-                'Realizar sorteo',
-                style: TextStyle(color: Colors.white),
-              )),
-        ),
+                            ),
+                    },
+                child: const Text(
+                  'Realizar sorteo',
+                  style: TextStyle(color: Colors.white),
+                )),
       ],
     );
   }
 
-
-  Widget _alertError(){
+  Widget _alertError() {
     return AlertDialog(
       title: const Text('Error'),
       content: const Text('Se necesita agregar al menos a 1 participante'),
       actions: [
-        ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Ok'))
+        ElevatedButton(
+            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
       ],
     );
   }
