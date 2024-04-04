@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
 
   // String? ganadorSorteo;
   late int _selectedIndex = 0;
+  bool _mostrarErrorText = false;
 
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
@@ -247,9 +248,14 @@ class _MyAppState extends State<MyApp> {
                 }
               });
             },
+            onSubmitted: (valor) => {
+                  setState(() {
+                    valor.isNotEmpty ? _mostrarErrorText = false : true;
+                  })
+                },
             obscureText: false,
             decoration: InputDecoration(
-                errorText: (vTituloSorteo!.isEmpty)
+                errorText: (_mostrarErrorText)
                     ? 'El titulo del sorteo no puede estar vacio'
                     : null,
                 border:
@@ -350,7 +356,9 @@ class _MyAppState extends State<MyApp> {
                     else
                       {
                         // No hacer nada
-                        null
+                        setState(() {
+                          _mostrarErrorText = true;
+                        })
                       }
                   },
               child: Row(
