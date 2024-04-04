@@ -33,6 +33,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
             itemCount: boxSorteo.length,
             itemBuilder: (context, index) {
             Sorteo sort = boxSorteo.getAt(index);
+            visibleFloating = (boxSorteo.isNotEmpty) ? true : false;
             return ListTile(
               title: _contenedorResultados(tituloSorteo: sort.getTitulo(), ganadorSorteo: sort.getGanador(), cantidadParticipantes: sort.getCantParticipantes(),index: index),
           );

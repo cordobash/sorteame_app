@@ -1,17 +1,17 @@
 // main.dart: Archivo principal de ejecucion.
 // Paquetes de la libreria o externos.
 import 'dart:math';
-import 'package:app_sorteos/pages/PostSorteoPage.dart';
+import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Vistas.
-import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:app_sorteos/pages/settings_page.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
-import 'package:app_sorteos/pages/AboutPage.dart';
-import 'package:app_sorteos/pages/AnterioresPage.dart';
+import 'package:app_sorteos/pages/about_page.dart';
+import 'package:app_sorteos/pages/anteriores_page.dart';
 // Modelos.
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:app_sorteos/models/Archivo.dart';
@@ -23,7 +23,7 @@ void main(List<String> args) async {
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
-  
+
   runApp(MaterialApp(
       initialRoute: '/',
       routes: {'/crpage': (context) => PostPage()},
@@ -43,12 +43,12 @@ class _MyAppState extends State<MyApp> {
   var objSettings = new SettingsPageState();
 
   double? _deviceWidth, _deviceHeight;
-Archivo archivo = Archivo(participantes: listaParticipantes);
+  Archivo archivo = Archivo(participantes: listaParticipantes);
   String? _nuevoParticipante;
 
   // String? ganadorSorteo;
   late int _selectedIndex = 0;
-  
+
   static const TextStyle optionStyle =
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
@@ -87,6 +87,10 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
     }
   }
 
+  void eliminarTitulo() {
+    vTituloSorteo = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -114,7 +118,12 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                       style: TextStyle(fontWeight: FontWeight.w700)),
                   _tituloSorteo(),
                   const Text('Lista de participantes'),
-                  _visibleLabel! ? Text('Añade al menos 1 participante', style: TextStyle(color: Colors.red,fontSize: 15),): SizedBox(),
+                  _visibleLabel!
+                      ? Text(
+                          'Añade al menos 1 participante',
+                          style: TextStyle(color: Colors.red, fontSize: 15),
+                        )
+                      : SizedBox(),
                   _contenedorListaParticipantes(),
                   _botones(context)
                 ],
@@ -201,17 +210,19 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                   ActionButton(
                     onPressed: () => {
                       showDialog(
-                        context: context, builder: (BuildContext context) => _alertAnadirArchivo(archivo)
-                          ),
+                          context: context,
+                          builder: (BuildContext context) =>
+                              _alertAnadirArchivo(archivo)),
                     },
                     icon: const Icon(Icons.insert_drive_file),
                   ),
                   ActionButton(
                     onPressed: () => {
                       showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (BuildContext context) => _alertAnadirUnParticipante())
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) =>
+                              _alertAnadirUnParticipante())
                     },
                     icon: const Icon(Icons.plus_one_sharp),
                   ),
@@ -238,7 +249,7 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
             },
             obscureText: false,
             decoration: InputDecoration(
-                errorText: (vTituloSorteo!.length == 0)
+                errorText: (vTituloSorteo!.isEmpty)
                     ? 'El titulo del sorteo no puede estar vacio'
                     : null,
                 border:
@@ -274,8 +285,7 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                             archivo.ltsParticipantes = [];
                           })
                         },
-                    icon: Icon(Icons.delete)
-                    ),
+                    icon: Icon(Icons.delete)),
               ],
             )
           ],
@@ -289,38 +299,40 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
     // Tendra como rango maximo hasta la longitud maxima del arreglo en donde estan almacenado los participantes
     //                          1 - capacidad actual del arreglo
     try {
-        int? indice = ran.nextInt(listaParticipantes.length);
-        ganadorSorteo = listaParticipantes[indice];
-        setState(() {
-          visibleFloatingAnteriores = true;
-          _colorContenedorBorder = Colors.grey;
-          _visibleLabel = false;    
-        });
+      int? indice = ran.nextInt(listaParticipantes.length);
+      ganadorSorteo = listaParticipantes[indice];
+      setState(() {
+        visibleFloatingAnteriores = true;
+        _colorContenedorBorder = Colors.grey;
+        _visibleLabel = false;
+      });
     } catch (e) {
       setState(() {
         _colorContenedorBorder = Colors.red;
         _visibleLabel = true;
       });
     }
-
   }
 
   Widget _botones(dynamic context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-            Opacity(
-              opacity: (!_campoVacioTitulo! && listaParticipantes.isNotEmpty) ? 1.0 : 0.5,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )),
-                  onPressed: () => {
-                        calcularGanador(),
-                        if(listaParticipantes.isNotEmpty && !_campoVacioTitulo!){
-                           boxSorteo.put(
+        Opacity(
+          opacity: (!_campoVacioTitulo! && listaParticipantes.isNotEmpty)
+              ? 1.0
+              : 0.5,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              onPressed: () => {
+                    calcularGanador(),
+                    if (listaParticipantes.isNotEmpty && !_campoVacioTitulo!)
+                      {
+                        boxSorteo.put(
                             'key_${vTituloSorteo}_${ganadorSorteo}',
                             Sorteo.conDatos(
                                 tituloSorteo: vTituloSorteo,
@@ -331,32 +343,37 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                             : showDialog(
                                 barrierDismissible: false,
                                 context: context,
-                                builder: (BuildContext context) => _alertDialogSinAnimacion(),
+                                builder: (BuildContext context) =>
+                                    _alertDialogSinAnimacion(),
                               )
-                        }else{
-                          null
-                        }
-                       
-                      },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                     Icon(Icons.sports_esports_rounded,color: Colors.white,),
-                      const Text(
-                        'Realizar sorteo',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                     
-                    ],
-                  )),
-            ),
+                      }
+                    else
+                      {
+                        // No hacer nada
+                        null
+                      }
+                  },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.sports_esports_rounded,
+                    color: Colors.white,
+                  ),
+                  const Text(
+                    'Realizar sorteo',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              )),
+        ),
       ],
     );
   }
 
-
-  Widget _alertAnadirArchivo(Archivo archivo){
-    String _nombreArchivoSeleccionado = archivo.nombreArchivo ?? "Ningun archivo seleccionado";
+  Widget _alertAnadirArchivo(Archivo archivo) {
+    String _nombreArchivoSeleccionado =
+        archivo.nombreArchivo ?? "Ningun archivo seleccionado";
     return AlertDialog(
       title: Text('Añade los participantes de tu sorteo desde un archivo'),
       content: SizedBox(
@@ -365,122 +382,113 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Text('El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
+            const Text(
+                'El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
             Text("${_nombreArchivoSeleccionado}"),
-            ElevatedButton(onPressed: () => {
-              setState(() {
-                archivo.seleccionarArchivo();
-              _nombreArchivoSeleccionado = archivo.nombreArchivo.toString();
-              listaParticipantes = archivo.ltsParticipantes;
-              })
-              
-            }, child: Text('Selecciona un archivo'))
+            ElevatedButton(
+                onPressed: () => {
+                      setState(() {
+                        archivo.seleccionarArchivo();
+                        _nombreArchivoSeleccionado =
+                            archivo.nombreArchivo.toString();
+                        listaParticipantes = archivo.ltsParticipantes;
+                      })
+                    },
+                child: Text('Selecciona un archivo'))
           ],
         ),
       ),
       actions: [
         TextButton(
-          onPressed: () => {
-            Navigator.pop(context),
-            setState(() {
-              
-            })
-          },
+          onPressed: () => {Navigator.pop(context), setState(() {})},
           child: const Text('Salir'),
         )
       ],
     );
   }
 
-  Widget _alertAnadirUnParticipante(){
+  Widget _alertAnadirUnParticipante() {
     return AlertDialog(
-                    title: Text('Añadir participante'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                            'En el siguiente campo anote el nombre del participante: '),
-                        Padding(
-                          padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
-                          child: TextField(
-                            onChanged: (_) {
-                              setState(() {
-                                _nuevoParticipante = _;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Nombre del participante',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => {
-                          Navigator.pop(context),
-                          setState(() {
-                            listaParticipantes.add(_nuevoParticipante!);
-                            _visibleLabel = false;
-                            _colorContenedorBorder = Colors.grey;
-                          })
-                        },
-                        child: const Text('OK'),
-                      ),
-                      TextButton(
-                          onPressed: () => {
-                                // Se devuelve a inicio y no agrega a la lista el participante
-                                Navigator.pop(context)
-                              },
-                          child: const Text('Cancelar'))
-                    ],
-                  );
+      title: Text('Añadir participante'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+              'En el siguiente campo anote el nombre del participante: '),
+          Padding(
+            padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
+            child: TextField(
+              onChanged: (_) {
+                setState(() {
+                  _nuevoParticipante = _;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Nombre del participante',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => {
+            Navigator.pop(context),
+            setState(() {
+              listaParticipantes.add(_nuevoParticipante!);
+              _visibleLabel = false;
+              _colorContenedorBorder = Colors.grey;
+            })
+          },
+          child: const Text('OK'),
+        ),
+        TextButton(
+            onPressed: () => {
+                  // Se devuelve a inicio y no agrega a la lista el participante
+                  Navigator.pop(context)
+                },
+            child: const Text('Cancelar'))
+      ],
+    );
   }
 
-  Widget _alertDialogSinAnimacion(){
+  Widget _alertDialogSinAnimacion() {
     return AlertDialog(
-                                  title: Text((vTituloSorteo != null)
-                                      ? vTituloSorteo!
-                                      : vTituloSorteo = "Sorteo sin nombre"),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                          'El gran ganador/a del $vTituloSorteo es...'),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: _deviceHeight! * 0.03),
-                                        child: Text(
-                                          '$ganadorSorteo',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () => {
-                                              setState(() {
-                                                boxSorteo.put(
-                                                    'key_${vTituloSorteo}_${ganadorSorteo}',
-                                                    Sorteo.conDatos(
-                                                        tituloSorteo:
-                                                            vTituloSorteo,
-                                                        cantParticipantes:
-                                                            listaParticipantes
-                                                                .length,
-                                                        ganadorSorteo:
-                                                            ganadorSorteo));
-                                                validarEliminarTodos();
-                                              }),
-                                              Navigator.pop(context),
-                                            },
-                                        child: const Text('OK'))
-                                  ],
-                                );
+      title: Text((vTituloSorteo != null)
+          ? vTituloSorteo!
+          : vTituloSorteo = "Sorteo sin nombre"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('El gran ganador/a del $vTituloSorteo es...'),
+          Padding(
+            padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
+            child: Text(
+              '$ganadorSorteo',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          )
+        ],
+      ),
+      actions: [
+        TextButton(
+            onPressed: () => {
+                  setState(() {
+                    boxSorteo.put(
+                        'key_${vTituloSorteo}_${ganadorSorteo}',
+                        Sorteo.conDatos(
+                            tituloSorteo: vTituloSorteo,
+                            cantParticipantes: listaParticipantes.length,
+                            ganadorSorteo: ganadorSorteo));
+                    validarEliminarTodos();
+                  }),
+                  Navigator.pop(context),
+                },
+            child: const Text('OK'))
+      ],
+    );
   }
 }

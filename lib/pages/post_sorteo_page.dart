@@ -1,5 +1,5 @@
 import 'package:app_sorteos/models/boxes.dart';
-import 'package:app_sorteos/pages/SettingsPage.dart';
+import 'package:app_sorteos/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';
@@ -114,9 +114,15 @@ class _ResultadosPageState extends State<ResultadosPage> {
               ),
               child: Center(
                 child: Container(
-                    child: Text(
-                  "${ganadorSorteo}",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${ganadorSorteo}",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ],
                 )),
               ),
             ),
