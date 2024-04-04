@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
 
+@immutable
 class AboutPage extends StatelessWidget {
   AboutPage({Key? key});
 
@@ -22,7 +23,7 @@ class AboutPage extends StatelessWidget {
             style: _estiloCabecera,
           ),
           Text(
-            'Isaias Cordova - (Ingeniero en Software)',
+            'Isaias Cordova - (Software Developer)',
             style: _estiloCabecera,
           ),
           Padding(
@@ -37,7 +38,7 @@ class AboutPage extends StatelessWidget {
                 child: Text(
                   'Hagamos realidad tus ideas!',
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
                 ),
@@ -50,7 +51,7 @@ class AboutPage extends StatelessWidget {
           ),
           // Redes sociales
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 23),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
