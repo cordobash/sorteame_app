@@ -268,18 +268,14 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                 IconButton(
                     onPressed: () => {
                           setState(() {
+                            // Vaciamos la lista general
                             listaParticipantes = [];
+                            // y la lista del archivo
+                            archivo.ltsParticipantes = [];
                           })
                         },
                     icon: Icon(Icons.delete)
                     ),
-                IconButton(onPressed: () => {
-                  setState(() {
-                    listaParticipantes;
-                    
-                  })
-                },
-                 icon: Icon(Icons.refresh))
               ],
             )
           ],
@@ -298,12 +294,9 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
         setState(() {
           visibleFloatingAnteriores = true;
           _colorContenedorBorder = Colors.grey;
-          _visibleLabel = false;
-        print('se metio al try');
-    
+          _visibleLabel = false;    
         });
     } catch (e) {
-      print('Se metio al catch');
       setState(() {
         _colorContenedorBorder = Colors.red;
         _visibleLabel = true;
@@ -326,7 +319,8 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                       )),
                   onPressed: () => {
                         calcularGanador(),
-                        boxSorteo.put(
+                        if(listaParticipantes.isNotEmpty && !_campoVacioTitulo!){
+                           boxSorteo.put(
                             'key_${vTituloSorteo}_${ganadorSorteo}',
                             Sorteo.conDatos(
                                 tituloSorteo: vTituloSorteo,
@@ -337,68 +331,29 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                             : showDialog(
                                 barrierDismissible: false,
                                 context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text((vTituloSorteo != null)
-                                      ? vTituloSorteo!
-                                      : vTituloSorteo = "Sorteo sin nombre"),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                          'El gran ganador/a del $vTituloSorteo es...'),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: _deviceHeight! * 0.03),
-                                        child: Text(
-                                          '$ganadorSorteo',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () => {
-                                              setState(() {
-                                                boxSorteo.put(
-                                                    'key_${vTituloSorteo}_${ganadorSorteo}',
-                                                    Sorteo.conDatos(
-                                                        tituloSorteo:
-                                                            vTituloSorteo,
-                                                        cantParticipantes:
-                                                            listaParticipantes
-                                                                .length,
-                                                        ganadorSorteo:
-                                                            ganadorSorteo));
-                                                validarEliminarTodos();
-                                              }),
-                                              Navigator.pop(context),
-                                            },
-                                        child: const Text('OK'))
-                                  ],
-                                ),
-                              ),
+                                builder: (BuildContext context) => _alertDialogSinAnimacion(),
+                              )
+                        }else{
+                          null
+                        }
+                       
                       },
-                  child: const Text(
-                    'Realizar sorteo',
-                    style: TextStyle(color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                     Icon(Icons.sports_esports_rounded,color: Colors.white,),
+                      const Text(
+                        'Realizar sorteo',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                     
+                    ],
                   )),
             ),
       ],
     );
   }
 
-  Widget _alertError() {
-    return AlertDialog(
-      title: const Text('Error'),
-      content: const Text('Se necesita agregar al menos a 1 participante'),
-      actions: [
-        ElevatedButton(
-            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
-      ],
-    );
-  }
 
   Widget _alertAnadirArchivo(Archivo archivo){
     String _nombreArchivoSeleccionado = archivo.nombreArchivo ?? "Ningun archivo seleccionado";
@@ -483,6 +438,49 @@ Archivo archivo = Archivo(participantes: listaParticipantes);
                           child: const Text('Cancelar'))
                     ],
                   );
+  }
 
+  Widget _alertDialogSinAnimacion(){
+    return AlertDialog(
+                                  title: Text((vTituloSorteo != null)
+                                      ? vTituloSorteo!
+                                      : vTituloSorteo = "Sorteo sin nombre"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                          'El gran ganador/a del $vTituloSorteo es...'),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: _deviceHeight! * 0.03),
+                                        child: Text(
+                                          '$ganadorSorteo',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => {
+                                              setState(() {
+                                                boxSorteo.put(
+                                                    'key_${vTituloSorteo}_${ganadorSorteo}',
+                                                    Sorteo.conDatos(
+                                                        tituloSorteo:
+                                                            vTituloSorteo,
+                                                        cantParticipantes:
+                                                            listaParticipantes
+                                                                .length,
+                                                        ganadorSorteo:
+                                                            ganadorSorteo));
+                                                validarEliminarTodos();
+                                              }),
+                                              Navigator.pop(context),
+                                            },
+                                        child: const Text('OK'))
+                                  ],
+                                );
   }
 }
