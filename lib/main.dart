@@ -46,12 +46,8 @@ class _MyAppState extends State<MyApp> {
   Archivo archivo = Archivo(participantes: listaParticipantes);
   String? _nuevoParticipante;
 
-  // String? ganadorSorteo;
   late int _selectedIndex = 0;
   bool _mostrarErrorText = false;
-
-  static const TextStyle optionStyle =
-      TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;

@@ -104,6 +104,10 @@ class _ResultadosPageState extends State<ResultadosPage> {
               numberOfParticles: 1,
               gravity: 0.1,
             ),
+            Image(
+                height: 140,
+                width: 120,
+                image: AssetImage('lib/src/images/trophy.png')),
             const Text('Felicidades al ganador!'),
             Container(
               width: _deviceWidth! * 0.50,
