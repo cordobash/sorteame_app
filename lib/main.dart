@@ -215,6 +215,7 @@ class _MyAppState extends State<MyApp> {
                           builder: (BuildContext context) =>
                               _alertAnadirArchivo(archivo)),
                     },
+                    color: Colors.pink.shade900,
                     icon: const Icon(Icons.insert_drive_file),
                   ),
                   ActionButton(
@@ -225,6 +226,7 @@ class _MyAppState extends State<MyApp> {
                           builder: (BuildContext context) =>
                               _alertAnadirUnParticipante())
                     },
+                    color: Colors.pink.shade900,
                     icon: const Icon(Icons.plus_one_sharp),
                   ),
                 ],

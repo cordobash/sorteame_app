@@ -101,14 +101,17 @@ class _ExpandableFabState extends State<ExpandableFab>
   List<Widget> _buildExpandingActionButtons() {
     final children = <Widget>[];
     final count = widget.children.length;
-    final step = 90.0 / (count - 1);
-    for (var i = 0, angleInDegrees = 0.0;
+    // final step = 100 / (count - 1);
+    final step = 110;
+    for (var i = 0, angleInDegrees = 50.0;
         i < count;
-        i++, angleInDegrees += step) {
+        i++, angleInDegrees += step - 65) {
       children.add(
         _ExpandingActionButton(
           directionInDegrees: angleInDegrees,
-          maxDistance: widget.distance,
+          // directionInDegrees: 90,
+          // maxDistance: widget.distance,
+          maxDistance: widget.distance - 10,
           progress: _expandAnimation,
           child: widget.children[i],
         ),
@@ -190,10 +193,12 @@ class ActionButton extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.icon,
+    required this.color,
   });
 
   final VoidCallback? onPressed;
   final Widget icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -201,9 +206,11 @@ class ActionButton extends StatelessWidget {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: theme.colorScheme.secondary,
-      elevation: 4,
+      // color: theme.colorScheme.secondary,
+      color: color,
+      elevation: 10,
       child: IconButton(
+        iconSize: 25,
         onPressed: onPressed,
         icon: icon,
         color: theme.colorScheme.onSecondary,
