@@ -136,7 +136,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           child: FloatingActionButton(
             backgroundColor: Colors.pink,
             onPressed: _toggle,
-            child: const Icon(Icons.add,color:Colors.white),
+            child: const Icon(Icons.add, color: Colors.white),
           ),
         ),
       ),
@@ -211,4 +211,3 @@ class ActionButton extends StatelessWidget {
     );
   }
 }
-

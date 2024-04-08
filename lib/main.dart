@@ -126,7 +126,7 @@ class _MyAppState extends State<MyApp> {
                         )
                       : SizedBox(),
                   _contenedorListaParticipantes(),
-                  _botones(context)
+                  _btnRealizarSorteo(context)
                 ],
               ))
             : _listaWidgets[_selectedIndex!],
@@ -241,18 +241,14 @@ class _MyAppState extends State<MyApp> {
             onChanged: (_) {
               setState(() {
                 vTituloSorteo = _;
-                if (vTituloSorteo!.length == 0) {
-                  _campoVacioTitulo = true;
+                if (vTituloSorteo!.isEmpty) {
+                  _mostrarErrorText = true;
                 } else {
-                  _campoVacioTitulo = false;
+                  print('Aqui esta entrando');
+                  _mostrarErrorText = false;
                 }
               });
             },
-            onSubmitted: (valor) => {
-                  setState(() {
-                    valor.isNotEmpty ? _mostrarErrorText = false : true;
-                  })
-                },
             obscureText: false,
             decoration: InputDecoration(
                 errorText: (_mostrarErrorText)
@@ -277,7 +273,7 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('$listaParticipantes'),
+            Text('${listaParticipantes.join(', ')}'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -320,60 +316,69 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Widget _botones(dynamic context) {
+  Widget _btnRealizarSorteo(dynamic context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Opacity(
-          opacity: (!_campoVacioTitulo! && listaParticipantes.isNotEmpty)
-              ? 1.0
-              : 0.5,
-          child: ElevatedButton(
+        SizedBox(
+          height: _deviceHeight! * 0.06,
+          child: Opacity(
+            opacity:
+                (vTituloSorteo!.isNotEmpty && listaParticipantes.isNotEmpty)
+                    ? 1.0
+                    : 0.5,
+            child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   )),
               onPressed: () => {
-                    calcularGanador(),
-                    if (listaParticipantes.isNotEmpty && !_campoVacioTitulo!)
-                      {
-                        boxSorteo.put(
-                            'key_${vTituloSorteo}_${ganadorSorteo}',
-                            Sorteo.conDatos(
-                                tituloSorteo: vTituloSorteo,
-                                cantParticipantes: listaParticipantes.length,
-                                ganadorSorteo: ganadorSorteo)),
-                        activarAnimacion
-                            ? cambiarAnimada()
-                            : showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    _alertDialogSinAnimacion(),
-                              )
-                      }
-                    else
-                      {
-                        // No hacer nada
-                        setState(() {
-                          _mostrarErrorText = true;
-                        })
-                      }
-                  },
+                calcularGanador(),
+                if (listaParticipantes.isNotEmpty && vTituloSorteo!.isNotEmpty)
+                  {
+                    boxSorteo.put(
+                        'key_${vTituloSorteo}_${ganadorSorteo}',
+                        Sorteo.conDatos(
+                            tituloSorteo: vTituloSorteo,
+                            cantParticipantes: listaParticipantes.length,
+                            ganadorSorteo: ganadorSorteo)),
+                    activarAnimacion
+                        ? cambiarAnimada()
+                        : showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) =>
+                                _alertDialogSinAnimacion(),
+                          )
+                  }
+                else
+                  {
+                    // No hacer nada
+                    setState(() {
+                      vTituloSorteo!.isEmpty || vTituloSorteo == ' '
+                          ? _mostrarErrorText = true
+                          : _mostrarErrorText = false;
+                    })
+                  }
+              },
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Icon(
-                    Icons.sports_esports_rounded,
-                    color: Colors.white,
-                  ),
-                  const Text(
+                      (vTituloSorteo!.isNotEmpty &&
+                              listaParticipantes.isNotEmpty)
+                          ? Icons.play_circle
+                          : Icons.play_disabled,
+                      color: Colors.white),
+                  Text(
                     'Realizar sorteo',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
-              )),
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -381,7 +386,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertAnadirArchivo(Archivo archivo) {
     String _nombreArchivoSeleccionado =
-        archivo.nombreArchivo ?? "Ningun archivo seleccionado";
+        archivo.nombreArchivo ?? "[Ningun archivo seleccionado]";
     return AlertDialog(
       title: Text('Añade los participantes de tu sorteo desde un archivo'),
       content: SizedBox(
@@ -392,7 +397,8 @@ class _MyAppState extends State<MyApp> {
           children: [
             const Text(
                 'El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
-            Text("${_nombreArchivoSeleccionado}"),
+            Text(
+                "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
                 onPressed: () => {
                       setState(() {
