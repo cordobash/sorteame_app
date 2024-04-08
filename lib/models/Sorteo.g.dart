@@ -19,19 +19,22 @@ class SorteoAdapter extends TypeAdapter<Sorteo> {
     return Sorteo()
       .._tituloSorteo = fields[0] as String?
       .._ganadorSorteo = fields[1] as String?
-      .._cantidadParticipantes = fields[2] as int?;
+      .._cantidadParticipantes = fields[2] as int?
+      .._fechaRealizacion = fields[3] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Sorteo obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj._tituloSorteo)
       ..writeByte(1)
       ..write(obj._ganadorSorteo)
       ..writeByte(2)
-      ..write(obj._cantidadParticipantes);
+      ..write(obj._cantidadParticipantes)
+      ..writeByte(3)
+      ..write(obj._fechaRealizacion);
   }
 
   @override

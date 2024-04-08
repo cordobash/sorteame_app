@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'Sorteo.g.dart';
 
 @HiveType(typeId: 1)
-class Sorteo{
+class Sorteo {
   @HiveField(0)
   String? _tituloSorteo;
 
@@ -12,36 +12,35 @@ class Sorteo{
   @HiveField(2)
   int? _cantidadParticipantes;
 
+  @HiveField(3)
+  DateTime? _fechaRealizacion;
+
   // Constructor por defecto
   Sorteo();
-  Sorteo.conDatos({required tituloSorteo, required ganadorSorteo, required cantParticipantes}){
+  Sorteo.conDatos(
+      {required tituloSorteo,
+      required ganadorSorteo,
+      required cantParticipantes}) {
     this._tituloSorteo = tituloSorteo;
     this._ganadorSorteo = ganadorSorteo;
     this._cantidadParticipantes = cantParticipantes;
+    this._fechaRealizacion = DateTime.now();
   }
 
   // Getters
-  String? getTitulo(){
+  String? getTitulo() {
     return _tituloSorteo;
   }
-  String? getGanador(){
+
+  String? getGanador() {
     return _ganadorSorteo;
   }
-  int? getCantParticipantes(){
+
+  int? getCantParticipantes() {
     return _cantidadParticipantes;
   }
 
-  // Setters
-  void setTitulo(String nuevoTitulo){
-    this._tituloSorteo = nuevoTitulo;
+  DateTime? getFechaSorteo() {
+    return _fechaRealizacion;
   }
-
-  void setGanador(String ganadorNuevo){
-    this._ganadorSorteo = ganadorNuevo;
-  }
-
-  void setCantParticipantes(int nuevaCant){
-    this._cantidadParticipantes = nuevaCant;
-  }
-
 }
