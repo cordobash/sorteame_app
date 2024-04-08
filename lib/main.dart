@@ -54,7 +54,6 @@ class _MyAppState extends State<MyApp> {
       TextStyle(fontWeight: FontWeight.w900, fontSize: 25);
 
   // Manejo de campos vacios
-  bool? _campoVacioTitulo = true;
   Color _colorContenedorBorder = Colors.grey;
   bool? _visibleLabel = false;
 
@@ -88,10 +87,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void eliminarTitulo() {
-    vTituloSorteo = "";
-  }
-
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -110,25 +105,7 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
         ),
         body: (_selectedIndex == 0)
-            ? Center(
-                child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  const Text('Realiza tus sorteos en nuestra app!',
-                      style: TextStyle(fontWeight: FontWeight.w700)),
-                  _tituloSorteo(),
-                  const Text('Lista de participantes'),
-                  _visibleLabel!
-                      ? Text(
-                          'Añade al menos 1 participante',
-                          style: TextStyle(color: Colors.red, fontSize: 15),
-                        )
-                      : SizedBox(),
-                  _contenedorListaParticipantes(),
-                  _btnRealizarSorteo(context)
-                ],
-              ))
+            ? _menuPrincipal()
             : _listaWidgets[_selectedIndex!],
         drawer: Drawer(
           shadowColor: Colors.white,
@@ -151,6 +128,12 @@ class _MyAppState extends State<MyApp> {
               ),
               Builder(builder: (context) {
                 return ListTile(
+                  leading: Icon(
+                    Icons.menu,
+                    color: (_selectedIndex == 0)
+                        ? Colors.pink
+                        : Colors.pink.shade900,
+                  ),
                   selected: (_selectedIndex == 0) ? true : false,
                   onTap: () {
                     setState(() {
@@ -164,6 +147,10 @@ class _MyAppState extends State<MyApp> {
               }),
               Builder(builder: (context) {
                 return ListTile(
+                  leading: Icon(Icons.history,
+                      color: (_selectedIndex == 1)
+                          ? Colors.pink
+                          : Colors.pink.shade900),
                   onTap: () {
                     setState(() {
                       cambiarPagina(1);
@@ -177,6 +164,10 @@ class _MyAppState extends State<MyApp> {
               }),
               Builder(builder: (context) {
                 return ListTile(
+                  leading: Icon(Icons.settings,
+                      color: (_selectedIndex == 2)
+                          ? Colors.pink
+                          : Colors.pink.shade900),
                   onTap: () {
                     setState(() {
                       cambiarPagina(2);
@@ -190,6 +181,10 @@ class _MyAppState extends State<MyApp> {
               }),
               Builder(builder: (context) {
                 return ListTile(
+                  leading: Icon(Icons.message,
+                      color: (_selectedIndex == 3)
+                          ? Colors.blue
+                          : Colors.pink.shade900),
                   selected: (_selectedIndex == 3) ? true : false,
                   onTap: () {
                     setState(() {
@@ -232,6 +227,29 @@ class _MyAppState extends State<MyApp> {
                 ],
               )
             : null,
+      ),
+    );
+  }
+
+  Widget _menuPrincipal() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const Text('Realiza tus sorteos en nuestra app!',
+              style: TextStyle(fontWeight: FontWeight.w700)),
+          _tituloSorteo(),
+          const Text('Lista de participantes'),
+          _visibleLabel!
+              ? Text(
+                  'Añade al menos 1 participante',
+                  style: TextStyle(color: Colors.red, fontSize: 15),
+                )
+              : SizedBox(),
+          _contenedorListaParticipantes(),
+          _btnRealizarSorteo(context)
+        ],
       ),
     );
   }
