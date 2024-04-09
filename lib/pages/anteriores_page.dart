@@ -41,6 +41,11 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             tituloSorteo: sort.getTitulo(),
                             ganadorSorteo: sort.getGanador(),
                             cantidadParticipantes: sort.getCantParticipantes(),
+                            dia: sort.getFechaSorteo()!.day,
+                            hora: sort.getFechaSorteo()!.hour,
+                            anio: sort.getFechaSorteo()!.year,
+                            mes: sort.getFechaSorteo()!.month,
+                            minuto: sort.getFechaSorteo()!.minute,
                             index: index),
                       );
                     },
@@ -97,16 +102,22 @@ class _AnterioresPageState extends State<AnterioresPage> {
     );
   }
 
-  Widget _contenedorResultados(
-      {required tituloSorteo,
-      required ganadorSorteo,
-      required cantidadParticipantes,
-      required index}) {
+  Widget _contenedorResultados({
+    required tituloSorteo,
+    required ganadorSorteo,
+    required cantidadParticipantes,
+    required index,
+    required dia,
+    required mes,
+    required anio,
+    required hora,
+    required minuto,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Center(
         child: Container(
-            height: _deviceHeight! * 0.20,
+            height: _deviceHeight! * 0.25,
             width: _deviceWidth! * 0.90,
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -161,8 +172,15 @@ class _AnterioresPageState extends State<AnterioresPage> {
                       Text(
                         "$cantidadParticipantes",
                         style: TextStyle(color: Colors.grey.shade500),
-                      )
+                      ),
                     ],
+                  ),
+                  SizedBox(
+                    width: _deviceWidth,
+                    child: Text(
+                      "Fecha del sorteo: $dia de $mes del $anio a las $hora:$minuto",
+                      textAlign: TextAlign.left,
+                    ),
                   )
                 ],
               ),
