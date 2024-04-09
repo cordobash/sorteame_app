@@ -43,4 +43,22 @@ class Sorteo {
   DateTime? getFechaSorteo() {
     return _fechaRealizacion;
   }
+
+  String? getNombreMes(int mes) {
+    List<String> _listaMeses = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ];
+    return _listaMeses[mes - 1];
+  }
 }

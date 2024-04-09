@@ -35,6 +35,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                     itemCount: boxSorteo.length,
                     itemBuilder: (context, index) {
                       Sorteo sort = boxSorteo.getAt(index);
+                      int indiceMes = sort.getFechaSorteo()!.month;
                       visibleFloating = (boxSorteo.isNotEmpty) ? true : false;
                       return ListTile(
                         title: _contenedorResultados(
@@ -44,7 +45,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             dia: sort.getFechaSorteo()!.day,
                             hora: sort.getFechaSorteo()!.hour,
                             anio: sort.getFechaSorteo()!.year,
-                            mes: sort.getFechaSorteo()!.month,
+                            mes: sort.getNombreMes(indiceMes),
                             minuto: sort.getFechaSorteo()!.minute,
                             index: index),
                       );
@@ -117,74 +118,75 @@ class _AnterioresPageState extends State<AnterioresPage> {
       padding: const EdgeInsets.only(top: 20),
       child: Center(
         child: Container(
-            height: _deviceHeight! * 0.25,
-            width: _deviceWidth! * 0.90,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.black)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                      width: _deviceWidth,
-                      child: Text(
-                        tituloSorteo,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
-                      )),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Ganador: $ganadorSorteo',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                        IconButton(
-                          color: Colors.red,
-                          hoverColor: Colors.grey.shade500,
-                          iconSize: 30,
-                          onPressed: () => {
-                            setState(() {
-                              boxSorteo.deleteAt(index);
-                              if (boxSorteo.isEmpty) {
-                                visibleFloatingAnteriores = false;
-                                _cajaVacia = true;
-                              } else {
-                                visibleFloating = true;
-                              }
-                            })
-                          },
-                          icon: Icon(Icons.delete),
-                        )
-                      ]),
-                  Row(
-                    children: [
-                      Text(
-                        'Numero de participantes: ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade500),
-                      ),
-                      Text(
-                        "$cantidadParticipantes",
-                        style: TextStyle(color: Colors.grey.shade500),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
+          height: _deviceHeight! * 0.25,
+          width: _deviceWidth! * 0.90,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.black)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
                     width: _deviceWidth,
                     child: Text(
-                      "Fecha del sorteo: $dia de $mes del $anio a las $hora:$minuto",
-                      textAlign: TextAlign.left,
+                      tituloSorteo,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    )),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Ganador: $ganadorSorteo',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      IconButton(
+                        color: Colors.red,
+                        hoverColor: Colors.grey.shade500,
+                        iconSize: 30,
+                        onPressed: () => {
+                          setState(() {
+                            boxSorteo.deleteAt(index);
+                            if (boxSorteo.isEmpty) {
+                              visibleFloatingAnteriores = false;
+                              _cajaVacia = true;
+                            } else {
+                              visibleFloating = true;
+                            }
+                          })
+                        },
+                        icon: Icon(Icons.delete),
+                      )
+                    ]),
+                Row(
+                  children: [
+                    Text(
+                      'Numero de participantes: ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade500),
                     ),
-                  )
-                ],
-              ),
-            )),
+                    Text(
+                      "$cantidadParticipantes",
+                      style: TextStyle(color: Colors.grey.shade500),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: _deviceWidth,
+                  child: Text(
+                    "Fecha del sorteo: $dia de $mes del $anio a las $hora:$minuto",
+                    textAlign: TextAlign.left,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
