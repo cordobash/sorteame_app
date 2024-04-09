@@ -17,6 +17,7 @@ class Sorteo {
 
   // Constructor por defecto
   Sorteo();
+  // Constructor que se usara para la insercion de datos a la db
   Sorteo.conDatos(
       {required tituloSorteo,
       required ganadorSorteo,
