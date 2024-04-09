@@ -112,15 +112,7 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Cuenta regresiva',
                                   style: _estiloPersonalizado,
                                 ),
-                                (opacidadCuentaRegresiva == 1.0)
-                                    ? _dropDownConteo()
-                                    : Text(
-                                        '0',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                _dropDownConteo()
                               ],
                             ),
                           ),
@@ -240,7 +232,7 @@ class SettingsPageState extends State<SettingsPage> {
         }).toList(),
         onChanged: (_) {
           setState(() {
-            cuentaRegresiva = _!;
+            (activarAnimacion) ? cuentaRegresiva = _! : 0;
           });
         });
   }

@@ -1,7 +1,8 @@
 // Packages
-import 'dart:math';
+
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+
 // Models
 import '../models/Sorteo.dart';
 
@@ -16,7 +17,6 @@ class AnterioresPage extends StatefulWidget {
 class _AnterioresPageState extends State<AnterioresPage> {
   double? _deviceWidth, _deviceHeight;
   bool _cajaVacia = boxSorteo.isEmpty;
-
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -36,6 +36,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                     itemBuilder: (context, index) {
                       Sorteo sort = boxSorteo.getAt(index);
                       int indiceMes = sort.getFechaSorteo()!.month;
+                      String _formatoMinuto =
+                          sort.validarMinutos(sort.getFechaSorteo()!.minute);
                       visibleFloating = (boxSorteo.isNotEmpty) ? true : false;
                       return ListTile(
                         title: _contenedorResultados(
@@ -46,7 +48,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             hora: sort.getFechaSorteo()!.hour,
                             anio: sort.getFechaSorteo()!.year,
                             mes: sort.getNombreMes(indiceMes),
-                            minuto: sort.getFechaSorteo()!.minute,
+                            minuto: _formatoMinuto,
                             index: index),
                       );
                     },
@@ -179,7 +181,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                 SizedBox(
                   width: _deviceWidth,
                   child: Text(
-                    "Fecha del sorteo: $dia de $mes del $anio a las $hora:$minuto",
+                    "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
                     textAlign: TextAlign.left,
                   ),
                 )

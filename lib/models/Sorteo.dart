@@ -62,4 +62,11 @@ class Sorteo {
     ];
     return _listaMeses[mes - 1];
   }
+
+  String validarMinutos(int minuto) {
+    if (minuto >= 0 && minuto <= 9) {
+      return "0" + minuto.toString();
+    }
+    return minuto.toString();
+  }
 }
