@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   var objSettings = new SettingsPageState();
 
   double? _deviceWidth, _deviceHeight;
-  Archivo archivo = Archivo(participantes: listaParticipantes);
+  Archivo archivo = Archivo(listaParticipantesActual: listaParticipantes);
   String? _nuevoParticipante;
 
   late int _selectedIndex = 0;
@@ -165,7 +165,7 @@ class _MyAppState extends State<MyApp> {
                 return ListTile(
                   leading: Icon(Icons.settings,
                       color: (_selectedIndex == 2)
-                          ? Colors.pink
+                          ? Colors.grey.shade900
                           : Colors.pink.shade900),
                   onTap: () {
                     setState(() {
@@ -174,7 +174,7 @@ class _MyAppState extends State<MyApp> {
                     });
                   },
                   selected: (_selectedIndex == 2) ? true : false,
-                  selectedColor: Colors.pinkAccent,
+                  selectedColor: Colors.grey.shade900,
                   title: const Text('Ajustes'),
                 );
               }),
@@ -303,7 +303,7 @@ class _MyAppState extends State<MyApp> {
                             // Vaciamos la lista general
                             listaParticipantes = [];
                             // y la lista del archivo
-                            archivo.ltsParticipantes = [];
+                            // archivo.ltsParticipantes = [];
                           })
                         },
                     icon: Icon(Icons.delete)),
@@ -405,7 +405,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertAnadirArchivo(Archivo archivo) {
     String _nombreArchivoSeleccionado =
-        archivo.nombreArchivo ?? "[Ningun archivo seleccionado]";
+        archivo.getNombreArchivo() ?? "[Ningun archivo seleccionado]";
     return AlertDialog(
       title: Text('Añade los participantes de tu sorteo desde un archivo'),
       content: SizedBox(
@@ -421,10 +421,9 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
                 onPressed: () => {
                       setState(() {
-                        archivo.seleccionarArchivo();
+                        archivo.abrirArchivo();
                         _nombreArchivoSeleccionado =
-                            archivo.nombreArchivo.toString();
-                        listaParticipantes = archivo.ltsParticipantes;
+                            archivo.getNombreArchivo().toString();
                       })
                     },
                 child: Text('Selecciona un archivo'))

@@ -98,7 +98,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             ),
                           ],
                         )),
-                icon: Icon(Icons.delete),
+                icon: Icon(Icons.delete_rounded),
               ),
             )
           : null,
