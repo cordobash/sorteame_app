@@ -15,14 +15,14 @@ class Archivo {
   List<int> _listaCaracteres = [];
 
   // Constructor por defecto.
-  Archivo({required listaParticipantesActual}) {
+  Archivo() {
     _generadorElementos(lista: _listaMayusculas, inicio: 65, fin: 90);
     _generadorElementos(lista: _listaMinusculas, inicio: 97, fin: 122);
     _listaCaracteres = [
-      ..._listaMayusculas,
-      ..._listaMinusculas,
-      164,
-      165,
+      ..._listaMayusculas, // A-Z
+      ..._listaMinusculas, // a-z
+      164, // ñ
+      165, // Ñ
     ];
     // Dado que se usara busqueda binaria sera necesario ordenar la lista de forma ascendente.
     _listaCaracteres.sort();

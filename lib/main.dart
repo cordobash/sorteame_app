@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   var objSettings = new SettingsPageState();
 
   double? _deviceWidth, _deviceHeight;
-  Archivo archivo = Archivo(listaParticipantesActual: listaParticipantes);
+  Archivo archivo = Archivo();
   String? _nuevoParticipante;
 
   late int _selectedIndex = 0;
@@ -416,8 +416,8 @@ class _MyAppState extends State<MyApp> {
           children: [
             const Text(
                 'El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
-            Text(
-                "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
+            Text("${_nombreArchivoSeleccionado}"),
+            // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
                 onPressed: () => {
                       setState(() {
