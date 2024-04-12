@@ -52,7 +52,10 @@ class Archivo {
       }
       (_rachaCadena.isNotEmpty) ? _nuevaLista.add(_rachaCadena) : null;
       _rachaCadena = "";
+      // Anadimos a la lista global a los participantes ya filtrados
       listaParticipantes += [..._nuevaLista];
+      // Una vez anadidos podemos eliminar la listaNueva para que no queden en cache los participantes.
+      _nuevaLista = [];
     }
   }
 
@@ -81,6 +84,10 @@ class Archivo {
       // Va anadiendo los numeros a la lista.
       lista.add(valor);
     }
+  }
+
+  List<dynamic> _vaciarLista(List<dynamic> eliLista) {
+    return eliLista = [];
   }
 
   // Getters

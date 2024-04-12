@@ -346,55 +346,67 @@ class _MyAppState extends State<MyApp> {
                 (vTituloSorteo!.isNotEmpty && listaParticipantes.isNotEmpty)
                     ? 1.0
                     : 0.5,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(254, 31, 92, 1.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-              onPressed: () => {
-                calcularGanador(),
-                if (listaParticipantes.isNotEmpty && vTituloSorteo!.isNotEmpty)
-                  {
-                    boxSorteo.put(
-                        'key_${vTituloSorteo}_${ganadorSorteo}',
-                        Sorteo.conDatos(
-                            tituloSorteo: vTituloSorteo,
-                            cantParticipantes: listaParticipantes.length,
-                            ganadorSorteo: ganadorSorteo)),
-                    activarAnimacion
-                        ? cambiarAnimada()
-                        : showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                _alertDialogSinAnimacion(),
-                          )
-                  }
-                else
-                  {
-                    // No hacer nada
-                    setState(() {
-                      vTituloSorteo!.isEmpty || vTituloSorteo == ' '
-                          ? _mostrarErrorText = true
-                          : _mostrarErrorText = false;
-                    })
-                  }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(
-                      (vTituloSorteo!.isNotEmpty &&
-                              listaParticipantes.isNotEmpty)
-                          ? Icons.play_circle
-                          : Icons.play_disabled,
-                      color: Colors.white),
-                  Text(
-                    'Realizar sorteo',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                Colors.pink,
+                Colors.red,
+                Colors.pink.shade400,
+                Colors.pink.shade600,
+                Colors.blue.shade900
+              ])),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                onPressed: () => {
+                  calcularGanador(),
+                  if (listaParticipantes.isNotEmpty &&
+                      vTituloSorteo!.isNotEmpty)
+                    {
+                      boxSorteo.put(
+                          'key_${vTituloSorteo}_${ganadorSorteo}',
+                          Sorteo.conDatos(
+                              tituloSorteo: vTituloSorteo,
+                              cantParticipantes: listaParticipantes.length,
+                              ganadorSorteo: ganadorSorteo)),
+                      activarAnimacion
+                          ? cambiarAnimada()
+                          : showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  _alertDialogSinAnimacion(),
+                            )
+                    }
+                  else
+                    {
+                      // No hacer nada
+                      setState(() {
+                        vTituloSorteo!.isEmpty || vTituloSorteo == ' '
+                            ? _mostrarErrorText = true
+                            : _mostrarErrorText = false;
+                      })
+                    }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(
+                        (vTituloSorteo!.isNotEmpty &&
+                                listaParticipantes.isNotEmpty)
+                            ? Icons.play_circle
+                            : Icons.play_disabled,
+                        color: Colors.white),
+                    Text(
+                      'Realizar sorteo',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
