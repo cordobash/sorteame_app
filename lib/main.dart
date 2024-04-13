@@ -263,7 +263,6 @@ class _MyAppState extends State<MyApp> {
                 if (vTituloSorteo!.isEmpty) {
                   _mostrarErrorText = true;
                 } else {
-                  print('Aqui esta entrando');
                   _mostrarErrorText = false;
                 }
               });
@@ -302,8 +301,6 @@ class _MyAppState extends State<MyApp> {
                           setState(() {
                             // Vaciamos la lista general
                             listaParticipantes = [];
-                            // y la lista del archivo
-                            // archivo.ltsParticipantes = [];
                           })
                         },
                     icon: Icon(Icons.delete)),
@@ -384,7 +381,6 @@ class _MyAppState extends State<MyApp> {
                     }
                   else
                     {
-                      // No hacer nada
                       setState(() {
                         vTituloSorteo!.isEmpty || vTituloSorteo == ' '
                             ? _mostrarErrorText = true
@@ -419,7 +415,7 @@ class _MyAppState extends State<MyApp> {
     String _nombreArchivoSeleccionado =
         archivo.getNombreArchivo() ?? "[Ningun archivo seleccionado]";
     return AlertDialog(
-      title: Text('Añade los participantes de tu sorteo desde un archivo'),
+      title: const Text('Añade los participantes de tu sorteo desde un archivo'),
       content: SizedBox(
         height: _deviceHeight! * 0.30,
         child: Column(
@@ -432,8 +428,8 @@ class _MyAppState extends State<MyApp> {
             // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
                 onPressed: () => {
+                      archivo.abrirArchivo(),
                       setState(() {
-                        archivo.abrirArchivo();
                         _nombreArchivoSeleccionado =
                             archivo.getNombreArchivo().toString();
                       })
@@ -453,7 +449,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertAnadirUnParticipante() {
     return AlertDialog(
-      title: Text('Añadir participante'),
+      title: const Text('Añadir participante'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

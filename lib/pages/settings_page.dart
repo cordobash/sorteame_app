@@ -16,51 +16,26 @@ class SettingsPageState extends State<SettingsPage> {
   // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
 
-  // Iconos para los respectivos checkbox
-  // Check eliminar participantes post sorteo.
-  IconData _iconoCheckEli =
-      (eliminarTodos) ? Icons.check_box : Icons.check_box_outline_blank;
 
-  // Check animaciones
-  IconData _iconoCheckAnimacion =
-      (activarAnimacion) ? Icons.check_box : Icons.check_box_outline_blank;
 
-  // Check nombres duplicados
-  IconData _iconoCheckDuplicados =
-      (nombresDuplicados) ? Icons.check_box : Icons.check_box_outline_blank;
 
-  void eliTodos() {
-    setState(() {
-      if (eliminarTodos == true) {
-        _iconoCheckEli = Icons.check_box;
-      } else {
-        _iconoCheckEli = Icons.check_box_outline_blank;
-      }
-    });
-  }
-
+void _invertirSwitch(bool estadoActual){
+  setState(() {
+    estadoActual = !estadoActual;
+  });
+}
   void checkActivarAnimacion() {
     setState(() {
       if (activarAnimacion) {
         opacidadCuentaRegresiva = 1.0;
-        _iconoCheckAnimacion = Icons.check_box;
+
       } else {
         opacidadCuentaRegresiva = 0.50;
-        _iconoCheckAnimacion = Icons.check_box_outline_blank;
       }
     });
   }
 
-  void checkNombresDuplicados() {
-    setState(() {
-      if (nombresDuplicados) {
-        _iconoCheckDuplicados = Icons.check_box;
-      } else {
-        // Futura mejora
-        _iconoCheckDuplicados = Icons.check_box;
-      }
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -127,13 +102,12 @@ class SettingsPageState extends State<SettingsPage> {
                                 'Eliminar participantes post sorteo',
                                 style: _estiloPersonalizado,
                               ),
-                              IconButton(
-                                icon: Icon(_iconoCheckEli),
-                                onPressed: () => {
-                                  eliminarTodos = !eliminarTodos,
-                                  eliTodos()
-                                },
-                              )
+                              _switchWidget(() => {
+                                setState(() {
+                                eliminarTodos = !eliminarTodos;
+                                  
+                                })
+                              }, disparador: eliminarTodos, activarDisparador: true)
                             ],
                           ),
                           Divider(
@@ -147,13 +121,10 @@ class SettingsPageState extends State<SettingsPage> {
                                 'Activar animacion',
                                 style: _estiloPersonalizado,
                               ),
-                              IconButton(
-                                icon: Icon(_iconoCheckAnimacion),
-                                onPressed: () => {
-                                  activarAnimacion = !activarAnimacion,
-                                  checkActivarAnimacion()
-                                },
-                              )
+                              _switchWidget(() => {
+                                activarAnimacion = !activarAnimacion,
+                                checkActivarAnimacion(),
+                              }, disparador: activarAnimacion, activarDisparador: true)
                             ],
                           ),
                           Divider(
@@ -169,19 +140,12 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Permitir nombres duplicados',
                                   style: _estiloPersonalizado,
                                 ),
-                                IconButton(
-                                  icon: Icon(_iconoCheckDuplicados),
-                                  onPressed: () => {
-                                    // nombresDuplicados = !nombresDuplicados,
-                                    // checkNombresDuplicados()
-                                    print('Futura mejora')
-                                  },
-                                )
+                                _switchWidget(() => {},disparador: nombresDuplicados, activarDisparador: false)
                               ],
                             ),
                           ),
                           Divider(
-                            color: Colors.grey,
+                            color: const Color.fromARGB(255, 132, 132, 132),
                           ),
                           Opacity(
                             opacity: 0.45,
@@ -195,7 +159,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.check_box_outline_blank),
-                                  onPressed: () => {print('Futura mejora')},
+                                  onPressed: () => {null},
                                 )
                               ],
                             ),
@@ -235,5 +199,24 @@ class SettingsPageState extends State<SettingsPage> {
             (activarAnimacion) ? cuentaRegresiva = _! : 0;
           });
         });
+  }
+
+  Widget _switchWidget(Function() funcion,{required bool disparador,required bool activarDisparador}){
+    return Switch(
+      value: disparador,
+      activeColor: Colors.white,
+      activeTrackColor: Colors.pink.shade900,
+      onChanged: (_) => {
+         if(activarDisparador){
+            disparador = !_,
+            print('Valor de disparador: $disparador'),
+            // Ejecutamos el metodo para las validaciones pertinentes
+            funcion(),
+          },
+        setState(() {
+         
+        })
+      },
+    );
   }
 }
