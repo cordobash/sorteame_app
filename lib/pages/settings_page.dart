@@ -15,15 +15,6 @@ class SettingsPageState extends State<SettingsPage> {
 
   // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
-
-
-
-
-void _invertirSwitch(bool estadoActual){
-  setState(() {
-    estadoActual = !estadoActual;
-  });
-}
   void checkActivarAnimacion() {
     setState(() {
       if (activarAnimacion) {
