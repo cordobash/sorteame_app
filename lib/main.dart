@@ -57,13 +57,13 @@ class _MyAppState extends State<MyApp> {
   bool? _visibleLabel = false;
   List<Color> _gradienteRosaRojoAzul = [
     Colors.pink,
-    Colors.red,
+    Colors.red.shade500,
     Colors.pink.shade400,
     Colors.pink.shade600,
     Colors.blue.shade900,
   ];
 
-  List<String> _titulosSuperior = [
+  final List<String> _titulosSuperior = [
     "Principal",
     "Resultados anteriores",
     "Ajustes",
@@ -431,7 +431,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertAnadirArchivo(Archivo archivo) {
     String _nombreArchivoSeleccionado =
-        archivo.getNombreArchivo() ?? "[Ningun archivo seleccionado]";
+        archivo.getNombreArchivo() ?? "Ningun archivo seleccionado";
     return AlertDialog(
       title:
           const Text('Añade los participantes de tu sorteo desde un archivo'),
@@ -498,8 +498,8 @@ class _MyAppState extends State<MyApp> {
             Navigator.pop(context),
             setState(() {
               listaParticipantes.add(_nuevoParticipante!);
-              _visibleLabel = false;
-              _colorContenedorBorder = Colors.grey;
+              // _visibleLabel = false;
+              // _colorContenedorBorder = Colors.grey;
             })
           },
           child: const Text('OK'),
