@@ -359,9 +359,11 @@ class _MyAppState extends State<MyApp> {
       });
     } catch (e) {
       setState(() {
-        _colorContenedorBorder = Colors.red;
-        _visibleLabel = true;
-        print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
+        if (listaParticipantes.isEmpty) {
+          _colorContenedorBorder = Colors.red;
+          _visibleLabel = true;
+        }
+        // print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
       });
     }
   }
