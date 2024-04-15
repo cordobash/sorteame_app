@@ -70,13 +70,6 @@ class _MyAppState extends State<MyApp> {
     "Acerca de mi"
   ];
 
-  List<Color> _gradienteMoradoRosa = [
-    Color.fromRGBO(134, 70, 156, 1.0),
-    Color.fromRGBO(188, 127, 205, 1.0),
-    Color.fromRGBO(251, 154, 209, 1.0),
-    Color.fromRGBO(255, 205, 234, 1.0),
-  ];
-
   List<Widget> _listaWidgets = [
     Text(
       'No implementation for this page',
@@ -121,6 +114,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedIndex != 0) {
+      vTituloSorteo = '';
+    }
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
@@ -302,6 +298,7 @@ class _MyAppState extends State<MyApp> {
                 }
               });
             },
+            onSubmitted: (_nuevoValor) => {vTituloSorteo = _nuevoValor},
             obscureText: false,
             decoration: InputDecoration(
                 errorText: (_mostrarErrorText)
@@ -358,11 +355,13 @@ class _MyAppState extends State<MyApp> {
         visibleFloatingAnteriores = true;
         _colorContenedorBorder = Colors.grey;
         _visibleLabel = false;
+        print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
       });
     } catch (e) {
       setState(() {
         _colorContenedorBorder = Colors.red;
         _visibleLabel = true;
+        print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
       });
     }
   }
@@ -374,10 +373,9 @@ class _MyAppState extends State<MyApp> {
         SizedBox(
           height: _deviceHeight! * 0.06,
           child: Opacity(
-            opacity:
-                (vTituloSorteo!.isNotEmpty && listaParticipantes.isNotEmpty)
-                    ? 1.0
-                    : 0.5,
+            opacity: (vTituloSorteo.isNotEmpty && listaParticipantes.isNotEmpty)
+                ? 1.0
+                : 0.5,
             child: Container(
               decoration: BoxDecoration(
                   gradient:
@@ -391,8 +389,7 @@ class _MyAppState extends State<MyApp> {
                     )),
                 onPressed: () => {
                   calcularGanador(),
-                  if (listaParticipantes.isNotEmpty &&
-                      vTituloSorteo!.isNotEmpty)
+                  if (listaParticipantes.isNotEmpty && vTituloSorteo.isNotEmpty)
                     {
                       boxSorteo.put(
                           'key_${vTituloSorteo}_${ganadorSorteo}',
@@ -412,7 +409,8 @@ class _MyAppState extends State<MyApp> {
                   else
                     {
                       setState(() {
-                        vTituloSorteo!.isEmpty || vTituloSorteo == ' '
+                        vTituloSorteo.isEmpty ||
+                                vTituloSorteo.toString().codeUnitAt(0) == 32
                             ? _mostrarErrorText = true
                             : _mostrarErrorText = false;
                       })
@@ -471,7 +469,15 @@ class _MyAppState extends State<MyApp> {
       ),
       actions: [
         TextButton(
-          onPressed: () => {Navigator.pop(context), setState(() {})},
+          onPressed: () => {
+            Navigator.pop(context),
+            setState(() {
+              if (listaParticipantes.isNotEmpty) {
+                _visibleLabel = false;
+                _colorContenedorBorder = Colors.grey;
+              }
+            })
+          },
           child: const Text('Salir'),
         )
       ],
