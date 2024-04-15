@@ -108,6 +108,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -498,8 +510,13 @@ class _MyAppState extends State<MyApp> {
             Navigator.pop(context),
             setState(() {
               listaParticipantes.add(_nuevoParticipante!);
-              // _visibleLabel = false;
-              // _colorContenedorBorder = Colors.grey;
+              if (listaParticipantes.isNotEmpty) {
+                _colorContenedorBorder = Colors.grey;
+                _visibleLabel = false;
+              } else {
+                _colorContenedorBorder = Colors.red;
+                _visibleLabel = true;
+              }
             })
           },
           child: const Text('OK'),

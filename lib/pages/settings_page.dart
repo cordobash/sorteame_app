@@ -19,14 +19,11 @@ class SettingsPageState extends State<SettingsPage> {
     setState(() {
       if (activarAnimacion) {
         opacidadCuentaRegresiva = 1.0;
-
       } else {
         opacidadCuentaRegresiva = 0.50;
       }
     });
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +90,14 @@ class SettingsPageState extends State<SettingsPage> {
                                 'Eliminar participantes post sorteo',
                                 style: _estiloPersonalizado,
                               ),
-                              _switchWidget(() => {
-                                setState(() {
-                                eliminarTodos = !eliminarTodos;
-                                  
-                                })
-                              }, disparador: eliminarTodos, activarDisparador: true)
+                              _switchWidget(
+                                  () => {
+                                        setState(() {
+                                          eliminarTodos = !eliminarTodos;
+                                        })
+                                      },
+                                  disparador: eliminarTodos,
+                                  activarDisparador: true)
                             ],
                           ),
                           Divider(
@@ -112,10 +111,13 @@ class SettingsPageState extends State<SettingsPage> {
                                 'Activar animacion',
                                 style: _estiloPersonalizado,
                               ),
-                              _switchWidget(() => {
-                                activarAnimacion = !activarAnimacion,
-                                checkActivarAnimacion(),
-                              }, disparador: activarAnimacion, activarDisparador: true)
+                              _switchWidget(
+                                  () => {
+                                        activarAnimacion = !activarAnimacion,
+                                        checkActivarAnimacion(),
+                                      },
+                                  disparador: activarAnimacion,
+                                  activarDisparador: true)
                             ],
                           ),
                           Divider(
@@ -131,7 +133,9 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Permitir nombres duplicados',
                                   style: _estiloPersonalizado,
                                 ),
-                                _switchWidget(() => {},disparador: nombresDuplicados, activarDisparador: false)
+                                _switchWidget(() => {},
+                                    disparador: nombresDuplicados,
+                                    activarDisparador: false)
                               ],
                             ),
                           ),
@@ -192,21 +196,21 @@ class SettingsPageState extends State<SettingsPage> {
         });
   }
 
-  Widget _switchWidget(Function() funcion,{required bool disparador,required bool activarDisparador}){
+  Widget _switchWidget(Function() funcion,
+      {required bool disparador, required bool activarDisparador}) {
     return Switch(
       value: disparador,
       activeColor: Colors.white,
       activeTrackColor: Colors.pink.shade900,
       onChanged: (_) => {
-         if(activarDisparador){
+        if (activarDisparador)
+          {
             disparador = !_,
             print('Valor de disparador: $disparador'),
             // Ejecutamos el metodo para las validaciones pertinentes
             funcion(),
           },
-        setState(() {
-         
-        })
+        setState(() {})
       },
     );
   }

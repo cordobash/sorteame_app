@@ -14,6 +14,6 @@ int cuentaRegresiva = listaConteo.first;
 bool visibleFloating = true;
 bool visibleFloatingAnteriores = (boxSorteo.isNotEmpty) ? true : false;
 String? ganadorSorteo;
-String? vTituloSorteo = ' ';
+String vTituloSorteo = '';
 
 double? opacidadCuentaRegresiva = 1.0;
