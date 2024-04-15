@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
 
-@immutable
 class AboutPage extends StatelessWidget {
   AboutPage({Key? key});
 

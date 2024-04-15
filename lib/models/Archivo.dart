@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:path/path.dart';
-import 'package:open_file/open_file.dart';
 
 class Archivo {
   String? _pathArchivo;
@@ -51,7 +49,7 @@ class Archivo {
         }
       }
       (_rachaCadena.isNotEmpty) ? _nuevaLista.add(_rachaCadena) : null;
-    
+
       // Anadimos a la lista global a los participantes ya filtrados
       listaParticipantes += [..._nuevaLista];
       // Una vez anadidos podemos eliminar la listaNueva para que no queden en cache los participantes.

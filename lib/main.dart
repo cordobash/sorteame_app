@@ -55,6 +55,20 @@ class _MyAppState extends State<MyApp> {
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;
   bool? _visibleLabel = false;
+  List<Color> _gradienteRosaRojoAzul = [
+    Colors.pink,
+    Colors.red,
+    Colors.pink.shade400,
+    Colors.pink.shade600,
+    Colors.blue.shade900,
+  ];
+
+  List<Color> _gradienteMoradoRosa = [
+    Color.fromRGBO(134, 70, 156, 1.0),
+    Color.fromRGBO(188, 127, 205, 1.0),
+    Color.fromRGBO(251, 154, 209, 1.0),
+    Color.fromRGBO(255, 205, 234, 1.0),
+  ];
 
   List<Widget> _listaWidgets = [
     Text(
@@ -105,7 +119,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: (_selectedIndex == 0)
             ? _menuPrincipal()
-            : _listaWidgets[_selectedIndex!],
+            : _listaWidgets[_selectedIndex],
         drawer: Drawer(
           shadowColor: Colors.white,
           semanticLabel: 'Drawer',
@@ -198,7 +212,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        floatingActionButton: (visibleFloating!)
+        floatingActionButton: (visibleFloating)
             ? ExpandableFab(
                 distance: 112,
                 children: [
@@ -345,13 +359,8 @@ class _MyAppState extends State<MyApp> {
                     : 0.5,
             child: Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                Colors.pink,
-                Colors.red,
-                Colors.pink.shade400,
-                Colors.pink.shade600,
-                Colors.blue.shade900
-              ])),
+                  gradient:
+                      LinearGradient(colors: [..._gradienteRosaRojoAzul])),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -415,7 +424,8 @@ class _MyAppState extends State<MyApp> {
     String _nombreArchivoSeleccionado =
         archivo.getNombreArchivo() ?? "[Ningun archivo seleccionado]";
     return AlertDialog(
-      title: const Text('Añade los participantes de tu sorteo desde un archivo'),
+      title:
+          const Text('Añade los participantes de tu sorteo desde un archivo'),
       content: SizedBox(
         height: _deviceHeight! * 0.30,
         child: Column(
