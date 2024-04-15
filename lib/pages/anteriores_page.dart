@@ -58,7 +58,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
             ),
       floatingActionButton: (visibleFloatingAnteriores)
           ? FloatingActionButton(
-            backgroundColor: Colors.pink.shade900,
+              backgroundColor: Colors.pink.shade900,
               onPressed: () => {},
               child: IconButton(
                 onPressed: () => showDialog(
@@ -99,7 +99,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             ),
                           ],
                         )),
-                icon: Icon(Icons.delete_rounded,color:Colors.white),
+                icon: Icon(fill: 1, Icons.delete_rounded, color: Colors.white),
               ),
             )
           : null,

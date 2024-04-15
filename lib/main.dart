@@ -63,6 +63,13 @@ class _MyAppState extends State<MyApp> {
     Colors.blue.shade900,
   ];
 
+  List<String> _titulosSuperior = [
+    "Principal",
+    "Resultados anteriores",
+    "Ajustes",
+    "Acerca de mi"
+  ];
+
   List<Color> _gradienteMoradoRosa = [
     Color.fromRGBO(134, 70, 156, 1.0),
     Color.fromRGBO(188, 127, 205, 1.0),
@@ -110,8 +117,8 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text(
-            'AppSorteos',
+          title: Text(
+            '${_titulosSuperior[_selectedIndex]}',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.pink,
@@ -121,6 +128,8 @@ class _MyAppState extends State<MyApp> {
             ? _menuPrincipal()
             : _listaWidgets[_selectedIndex],
         drawer: Drawer(
+          shape: ShapeBorder.lerp(null, null, 15.0),
+          backgroundColor: Colors.white,
           shadowColor: Colors.white,
           semanticLabel: 'Drawer',
           surfaceTintColor: Colors.yellow,
