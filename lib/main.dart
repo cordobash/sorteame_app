@@ -571,7 +571,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                   Navigator.pop(context),
                 },
-            child: const Text('O'))
+            child: const Text('Ok'))
       ],
     );
   }
