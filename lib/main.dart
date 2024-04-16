@@ -52,6 +52,8 @@ class _MyAppState extends State<MyApp> {
   late int _selectedIndex = 0;
   bool _mostrarErrorText = false;
 
+  bool _activarErrorTextAnadirParticipante = false;
+
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;
   bool? _visibleLabel = false;
@@ -237,8 +239,12 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () => {
                       showDialog(
                           context: context,
-                          builder: (BuildContext context) =>
-                              _alertAnadirArchivo(archivo)),
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) =>
+                                    _alertAnadirArchivo(archivo, setState));
+                          })
                     },
                     color: Colors.pink.shade900,
                     icon: const Icon(Icons.insert_drive_file),
@@ -248,8 +254,11 @@ class _MyAppState extends State<MyApp> {
                       showDialog(
                           barrierDismissible: false,
                           context: context,
-                          builder: (BuildContext context) =>
-                              _alertAnadirUnParticipante())
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) =>
+                                    _alertAnadirUnParticipante(setState));
+                          })
                     },
                     color: Colors.pink.shade900,
                     icon: const Icon(Icons.plus_one_sharp),
@@ -284,6 +293,46 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+//  Esta validacion se hace para el titulo y para los participantes(Solo modo manual, ya que el modo archivo esta validado de otra forma).
+  bool _validarCaracteres(String cadenaValidar) {
+    List<int> _caracteresNoValidos = [];
+    _generadorElementos(_caracteresNoValidos, 33, 47);
+    _generadorElementos(_caracteresNoValidos, 58, 64);
+    _generadorElementos(_caracteresNoValidos, 91, 95);
+    _generadorElementos(_caracteresNoValidos, 165, 255);
+
+    for (int i = 0; i < cadenaValidar.length; i++) {
+      if (_buscarElemento(
+          _caracteresNoValidos, cadenaValidar[i].codeUnitAt(0))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _buscarElemento(lista, elemento) {
+    int inicio = 0;
+    int fin = lista.length - 1;
+    while (inicio <= fin) {
+      int medio = ((inicio + fin) / 2).floor();
+      if (lista[medio] == elemento) {
+        return true;
+      }
+      if (lista[medio] < elemento) {
+        inicio = medio + 1;
+      } else {
+        fin = medio - 1;
+      }
+    }
+    return false;
+  }
+
+  void _generadorElementos(List<dynamic> lista, int inicio, int fin) {
+    for (int i = inicio; i <= fin; i++) {
+      lista.add(i);
+    }
+  }
+
   Widget _tituloSorteo() {
     return SizedBox(
         width: _deviceWidth! * 0.80,
@@ -291,7 +340,8 @@ class _MyAppState extends State<MyApp> {
             onChanged: (_) {
               setState(() {
                 vTituloSorteo = _;
-                if (vTituloSorteo!.isEmpty) {
+                if (vTituloSorteo.isEmpty ||
+                    _validarCaracteres(vTituloSorteo)) {
                   _mostrarErrorText = true;
                 } else {
                   _mostrarErrorText = false;
@@ -301,9 +351,10 @@ class _MyAppState extends State<MyApp> {
             onSubmitted: (_nuevoValor) => {vTituloSorteo = _nuevoValor},
             obscureText: false,
             decoration: InputDecoration(
-                errorText: (_mostrarErrorText)
-                    ? 'El titulo del sorteo no puede estar vacio'
-                    : null,
+                errorText:
+                    (_mostrarErrorText || _validarCaracteres(vTituloSorteo))
+                        ? 'El titulo esta vacio/tiene caracteres invalidos'
+                        : null,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 labelText: 'Titulo del sorteo')));
@@ -375,7 +426,9 @@ class _MyAppState extends State<MyApp> {
         SizedBox(
           height: _deviceHeight! * 0.06,
           child: Opacity(
-            opacity: (vTituloSorteo.isNotEmpty && listaParticipantes.isNotEmpty)
+            opacity: (vTituloSorteo.isNotEmpty &&
+                    listaParticipantes.isNotEmpty &&
+                    _validarCaracteres(vTituloSorteo) == false)
                 ? 1.0
                 : 0.5,
             child: Container(
@@ -391,7 +444,9 @@ class _MyAppState extends State<MyApp> {
                     )),
                 onPressed: () => {
                   calcularGanador(),
-                  if (listaParticipantes.isNotEmpty && vTituloSorteo.isNotEmpty)
+                  if (listaParticipantes.isNotEmpty &&
+                      vTituloSorteo.isNotEmpty &&
+                      _validarCaracteres(vTituloSorteo) == false)
                     {
                       boxSorteo.put(
                           'key_${vTituloSorteo}_${ganadorSorteo}',
@@ -441,7 +496,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _alertAnadirArchivo(Archivo archivo) {
+  Widget _alertAnadirArchivo(Archivo archivo, state) {
     String _nombreArchivoSeleccionado =
         archivo.getNombreArchivo() ?? "Ningun archivo seleccionado";
     return AlertDialog(
@@ -459,11 +514,15 @@ class _MyAppState extends State<MyApp> {
             // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
                 onPressed: () => {
-                      archivo.abrirArchivo(),
-                      setState(() {
+                      archivo.abrirArchivo().then((nombreArchivo) {
+                        _nombreArchivoSeleccionado = nombreArchivo;
+                      }).onError((error, stackTrace) {
                         _nombreArchivoSeleccionado =
-                            archivo.getNombreArchivo().toString();
-                      })
+                            'Error al cargar el archivo';
+                      }).whenComplete(() {
+                        // Actualizamos la ui una vez este seleccionado el archivo.
+                        state(() => {});
+                      }),
                     },
                 child: Text('Selecciona un archivo'))
           ],
@@ -486,7 +545,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _alertAnadirUnParticipante() {
+  Widget _alertAnadirUnParticipante(state) {
     return AlertDialog(
       title: const Text('Añadir participante'),
       content: Column(
@@ -498,11 +557,21 @@ class _MyAppState extends State<MyApp> {
             padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
             child: TextField(
               onChanged: (_) {
-                setState(() {
+                state(() {
                   _nuevoParticipante = _;
+                  if (_nuevoParticipante!.isEmpty ||
+                      _validarCaracteres(_nuevoParticipante!)) {
+                    _activarErrorTextAnadirParticipante = true;
+                  } else {
+                    _activarErrorTextAnadirParticipante = false;
+                  }
                 });
               },
               decoration: InputDecoration(
+                errorText: (_activarErrorTextAnadirParticipante)
+                    ? 'El campo esta vacio/contiene no validos'
+                    : null,
+                enabled: true,
                 labelText: 'Nombre del participante',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -515,9 +584,25 @@ class _MyAppState extends State<MyApp> {
       actions: [
         TextButton(
           onPressed: () => {
-            Navigator.pop(context),
             setState(() {
-              listaParticipantes.add(_nuevoParticipante!);
+              // Caso en el que todo este bien
+              // true | false
+              if (_nuevoParticipante!.isNotEmpty &&
+                  _validarCaracteres(_nuevoParticipante!) == false) {
+                listaParticipantes.add(_nuevoParticipante!);
+                _activarErrorTextAnadirParticipante = false;
+                Navigator.pop(context);
+                // Limipamos el nombre guardado en cache
+                _nuevoParticipante = '';
+              } else if (_validarCaracteres(_nuevoParticipante!) ||
+                  _nuevoParticipante!.isEmpty) {
+                state(() {
+                  _activarErrorTextAnadirParticipante = true;
+                });
+              }
+              // listaParticipantes.add(_nuevoParticipante!);
+              // Navigator.pop(context);
+              // print('El nuevo participante $_nuevoParticipante');
               if (listaParticipantes.isNotEmpty) {
                 _colorContenedorBorder = Colors.grey;
                 _visibleLabel = false;
@@ -532,7 +617,10 @@ class _MyAppState extends State<MyApp> {
         TextButton(
             onPressed: () => {
                   // Se devuelve a inicio y no agrega a la lista el participante
-                  Navigator.pop(context)
+                  Navigator.pop(context),
+                  setState(() {
+                    _activarErrorTextAnadirParticipante = false;
+                  })
                 },
             child: const Text('Cancelar'))
       ],

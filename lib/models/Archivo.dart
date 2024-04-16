@@ -27,7 +27,7 @@ class Archivo {
   }
 
   // Metodo para invocar al explordor de archivos de la plataforma.
-  Future<void> abrirArchivo() async {
+  Future<String> abrirArchivo() async {
     String _rachaCadena = "";
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -56,6 +56,7 @@ class Archivo {
       _rachaCadena = "";
       _nuevaLista = [];
     }
+    return Future.delayed(Duration(seconds: 0), () => _nombreArchivo!);
   }
 
   // Metodos
