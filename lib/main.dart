@@ -454,7 +454,7 @@ class _MyAppState extends State<MyApp> {
           mainAxisSize: MainAxisSize.max,
           children: [
             const Text(
-                'El tipo de archivo admitido para esta operacion es solamente en formato .tx'),
+                'El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
             Text("${_nombreArchivoSeleccionado}"),
             // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
