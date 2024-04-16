@@ -588,14 +588,17 @@ class _MyAppState extends State<MyApp> {
               // Caso en el que todo este bien
               // true | false
               if (_nuevoParticipante!.isNotEmpty &&
-                  _validarCaracteres(_nuevoParticipante!) == false) {
+                  _validarCaracteres(_nuevoParticipante!) == false &&
+                  _nuevoParticipante.toString().codeUnitAt(0) != 32) {
                 listaParticipantes.add(_nuevoParticipante!);
                 _activarErrorTextAnadirParticipante = false;
                 Navigator.pop(context);
+                print(_nuevoParticipante.toString().codeUnitAt(0));
                 // Limipamos el nombre guardado en cache
                 _nuevoParticipante = '';
               } else if (_validarCaracteres(_nuevoParticipante!) ||
-                  _nuevoParticipante!.isEmpty) {
+                  _nuevoParticipante!.isEmpty ||
+                  _nuevoParticipante.toString().codeUnitAt(0) == 32) {
                 state(() {
                   _activarErrorTextAnadirParticipante = true;
                 });
