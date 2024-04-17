@@ -125,175 +125,181 @@ class _MyAppState extends State<MyApp> {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: (_temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.menu, color: Colors.white),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            );
-          }),
-          actions: [
-            IconButton(
-                onPressed: () => {},
-                icon: Icon(
-                  Icons.help,
-                  color: Colors.white,
-                )),
-            IconButton(
-              onPressed: () => {
-                setState(() {
-                  _temaOscuro = !_temaOscuro;
-                })
-              },
-              icon: Icon(Icons.light_mode, color: Colors.white),
-            )
-          ],
-          title: Text(
-            '${_titulosSuperior[_selectedIndex]}',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.pink,
-          centerTitle: true,
-        ),
-        body: (_selectedIndex == 0)
-            ? _menuPrincipal()
-            : _listaWidgets[_selectedIndex],
-        drawer: Drawer(
-          shape: ShapeBorder.lerp(null, null, 15.0),
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          semanticLabel: 'Drawer',
-          surfaceTintColor: Colors.yellow,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                child: const Text(
-                  'Menu de opciones',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
+    return ThemeProvider(
+        initTheme:
+            (_temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
+        builder: (_, theme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: ThemeSwitchingArea(
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  leading: Builder(builder: (context) {
+                    return IconButton(
+                      icon: Icon(Icons.menu, color: Colors.white),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    );
+                  }),
+                  actions: [
+                    ThemeSwitcher(
+                        builder: (context) => IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _temaOscuro = !_temaOscuro;
+                                ThemeSwitcher.of(context).changeTheme(
+                                    theme: (_temaOscuro == false)
+                                        ? ThemeData.light()
+                                        : ThemeData.dark());
+                              });
+                            },
+                            icon: Icon(Icons.dark_mode)))
+                  ],
+                  title: Text(
+                    '${_titulosSuperior[_selectedIndex]}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Colors.pink,
+                  centerTitle: true,
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.pink,
+                body: (_selectedIndex == 0)
+                    ? _menuPrincipal()
+                    : _listaWidgets[_selectedIndex],
+                drawer: Drawer(
+                  shape: ShapeBorder.lerp(null, null, 15.0),
+                  backgroundColor: Colors.white,
+                  shadowColor: Colors.white,
+                  semanticLabel: 'Drawer',
+                  surfaceTintColor: Colors.yellow,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      DrawerHeader(
+                        child: const Text(
+                          'Menu de opciones',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.pink,
+                        ),
+                      ),
+                      Builder(builder: (context) {
+                        return ListTile(
+                          leading: Icon(
+                            Icons.menu,
+                            color: (_selectedIndex == 0)
+                                ? Colors.pink
+                                : Colors.pink.shade900,
+                          ),
+                          selected: (_selectedIndex == 0) ? true : false,
+                          onTap: () {
+                            setState(() {
+                              cambiarPagina(0);
+                              Navigator.pop(context);
+                            });
+                          },
+                          selectedColor: Colors.pinkAccent,
+                          title: const Text('Principal'),
+                        );
+                      }),
+                      Builder(builder: (context) {
+                        return ListTile(
+                          leading: Icon(Icons.history,
+                              color: (_selectedIndex == 1)
+                                  ? Colors.pink
+                                  : Colors.pink.shade900),
+                          onTap: () {
+                            setState(() {
+                              cambiarPagina(1);
+                              Navigator.pop(context);
+                            });
+                          },
+                          selected: (_selectedIndex == 1) ? true : false,
+                          selectedColor: Colors.pinkAccent,
+                          title: const Text('Resultados anteriores'),
+                        );
+                      }),
+                      Builder(builder: (context) {
+                        return ListTile(
+                          leading: Icon(Icons.settings,
+                              color: (_selectedIndex == 2)
+                                  ? Colors.grey.shade900
+                                  : Colors.pink.shade900),
+                          onTap: () {
+                            setState(() {
+                              cambiarPagina(2);
+                              Navigator.pop(context);
+                            });
+                          },
+                          selected: (_selectedIndex == 2) ? true : false,
+                          selectedColor: Colors.grey.shade900,
+                          title: const Text('Ajustes'),
+                        );
+                      }),
+                      Builder(builder: (context) {
+                        return ListTile(
+                          leading: Icon(Icons.message,
+                              color: (_selectedIndex == 3)
+                                  ? Colors.blue
+                                  : Colors.pink.shade900),
+                          selected: (_selectedIndex == 3) ? true : false,
+                          onTap: () {
+                            setState(() {
+                              cambiarPagina(3);
+                              Navigator.pop(context);
+                            });
+                          },
+                          selectedColor: Colors.blue,
+                          title: const Text('Acerca de'),
+                        );
+                      }),
+                    ],
+                  ),
                 ),
+                floatingActionButton: (visibleFloating)
+                    ? ExpandableFab(
+                        distance: 112,
+                        children: [
+                          ActionButton(
+                            onPressed: () => {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return StatefulBuilder(
+                                        builder: (context, setState) =>
+                                            _alertAnadirArchivo(
+                                                archivo, setState));
+                                  })
+                            },
+                            color: Colors.pink.shade900,
+                            icon: const Icon(Icons.insert_drive_file),
+                          ),
+                          ActionButton(
+                            onPressed: () => {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return StatefulBuilder(
+                                        builder: (context, setState) =>
+                                            _alertAnadirUnParticipante(
+                                                setState));
+                                  })
+                            },
+                            color: Colors.pink.shade900,
+                            icon: const Icon(Icons.plus_one_sharp),
+                          ),
+                        ],
+                      )
+                    : null,
               ),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.menu,
-                    color: (_selectedIndex == 0)
-                        ? Colors.pink
-                        : Colors.pink.shade900,
-                  ),
-                  selected: (_selectedIndex == 0) ? true : false,
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(0);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selectedColor: Colors.pinkAccent,
-                  title: const Text('Principal'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(Icons.history,
-                      color: (_selectedIndex == 1)
-                          ? Colors.pink
-                          : Colors.pink.shade900),
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(1);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selected: (_selectedIndex == 1) ? true : false,
-                  selectedColor: Colors.pinkAccent,
-                  title: const Text('Resultados anteriores'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(Icons.settings,
-                      color: (_selectedIndex == 2)
-                          ? Colors.grey.shade900
-                          : Colors.pink.shade900),
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(2);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selected: (_selectedIndex == 2) ? true : false,
-                  selectedColor: Colors.grey.shade900,
-                  title: const Text('Ajustes'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(Icons.message,
-                      color: (_selectedIndex == 3)
-                          ? Colors.blue
-                          : Colors.pink.shade900),
-                  selected: (_selectedIndex == 3) ? true : false,
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(3);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selectedColor: Colors.blue,
-                  title: const Text('Acerca de'),
-                );
-              }),
-            ],
-          ),
-        ),
-        floatingActionButton: (visibleFloating)
-            ? ExpandableFab(
-                distance: 112,
-                children: [
-                  ActionButton(
-                    onPressed: () => {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(
-                                builder: (context, setState) =>
-                                    _alertAnadirArchivo(archivo, setState));
-                          })
-                    },
-                    color: Colors.pink.shade900,
-                    icon: const Icon(Icons.insert_drive_file),
-                  ),
-                  ActionButton(
-                    onPressed: () => {
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(
-                                builder: (context, setState) =>
-                                    _alertAnadirUnParticipante(setState));
-                          })
-                    },
-                    color: Colors.pink.shade900,
-                    icon: const Icon(Icons.plus_one_sharp),
-                  ),
-                ],
-              )
-            : null,
-      ),
-    );
+            ),
+          );
+        });
   }
 
   Widget _menuPrincipal() {
