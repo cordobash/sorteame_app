@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 // Vistas.
 import 'package:app_sorteos/pages/settings_page.dart';
@@ -53,6 +54,8 @@ class _MyAppState extends State<MyApp> {
   bool _mostrarErrorText = false;
 
   bool _activarErrorTextAnadirParticipante = false;
+  // Tema por defecto ligth;
+  bool _temaOscuro = false;
 
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;
@@ -124,10 +127,16 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: (_temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            );
+          }),
           actions: [
             IconButton(
                 onPressed: () => {},
@@ -136,7 +145,11 @@ class _MyAppState extends State<MyApp> {
                   color: Colors.white,
                 )),
             IconButton(
-              onPressed: () => {},
+              onPressed: () => {
+                setState(() {
+                  _temaOscuro = !_temaOscuro;
+                })
+              },
               icon: Icon(Icons.light_mode, color: Colors.white),
             )
           ],
