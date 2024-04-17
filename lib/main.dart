@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;
   bool? _visibleLabel = false;
-  List<Color> _gradienteRosaRojoAzul = [
+  final List<Color> _gradienteRosaRojoAzul = [
     Colors.pink,
     Colors.red.shade500,
     Colors.pink.shade400,
@@ -123,10 +123,23 @@ class _MyAppState extends State<MyApp> {
     _deviceHeight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () => {},
+                icon: Icon(
+                  Icons.help,
+                  color: Colors.white,
+                )),
+            IconButton(
+              onPressed: () => {},
+              icon: Icon(Icons.light_mode, color: Colors.white),
+            )
+          ],
           title: Text(
             '${_titulosSuperior[_selectedIndex]}',
             style: TextStyle(color: Colors.white),
