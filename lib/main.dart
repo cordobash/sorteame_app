@@ -54,6 +54,7 @@ class _MyAppState extends State<MyApp> {
   bool _mostrarErrorText = false;
 
   bool _activarErrorTextAnadirParticipante = false;
+
   // Tema por defecto ligth;
   bool _temaOscuro = false;
 
@@ -65,7 +66,6 @@ class _MyAppState extends State<MyApp> {
     Colors.red.shade500,
     Colors.pink.shade400,
     Colors.pink.shade600,
-    Colors.blue.shade900,
   ];
 
   final List<String> _titulosSuperior = [
@@ -157,10 +157,11 @@ class _MyAppState extends State<MyApp> {
                   ],
                   title: Text(
                     '${_titulosSuperior[_selectedIndex]}',
-                    style: TextStyle(color: Colors.white),
                   ),
-                  backgroundColor: Colors.pink,
-                  centerTitle: true,
+                  backgroundColor: (_temaOscuro == false)
+                      ? Colors.pink.shade900
+                      : Colors.grey.shade900,
+                  centerTitle: false,
                 ),
                 body: (_selectedIndex == 0)
                     ? _menuPrincipal()
