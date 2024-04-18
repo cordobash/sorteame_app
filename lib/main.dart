@@ -168,7 +168,8 @@ class _MyAppState extends State<MyApp> {
                     : _listaWidgets[_selectedIndex],
                 drawer: Drawer(
                   shape: ShapeBorder.lerp(null, null, 15.0),
-                  backgroundColor: Colors.white,
+                  backgroundColor:
+                      (_temaOscuro == false) ? Colors.white : Colors.black,
                   shadowColor: Colors.white,
                   semanticLabel: 'Drawer',
                   surfaceTintColor: Colors.yellow,
@@ -184,7 +185,9 @@ class _MyAppState extends State<MyApp> {
                               fontWeight: FontWeight.w700),
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.pink,
+                          color: (_temaOscuro == false)
+                              ? Colors.pink
+                              : Colors.grey.shade900,
                         ),
                       ),
                       Builder(builder: (context) {
@@ -192,8 +195,12 @@ class _MyAppState extends State<MyApp> {
                           leading: Icon(
                             Icons.menu,
                             color: (_selectedIndex == 0)
-                                ? Colors.pink
-                                : Colors.pink.shade900,
+                                ? (_temaOscuro == false)
+                                    ? Colors.pink
+                                    : Colors.pink
+                                : (_temaOscuro == false)
+                                    ? Colors.pink.shade900
+                                    : Colors.white,
                           ),
                           selected: (_selectedIndex == 0) ? true : false,
                           onTap: () {
@@ -208,10 +215,16 @@ class _MyAppState extends State<MyApp> {
                       }),
                       Builder(builder: (context) {
                         return ListTile(
-                          leading: Icon(Icons.history,
-                              color: (_selectedIndex == 1)
-                                  ? Colors.pink
-                                  : Colors.pink.shade900),
+                          leading: Icon(
+                            Icons.history,
+                            color: (_selectedIndex == 1)
+                                ? (_temaOscuro == false)
+                                    ? Colors.pink
+                                    : Colors.pink
+                                : (_temaOscuro == false)
+                                    ? Colors.pink.shade900
+                                    : Colors.white,
+                          ),
                           onTap: () {
                             setState(() {
                               cambiarPagina(1);
@@ -219,16 +232,22 @@ class _MyAppState extends State<MyApp> {
                             });
                           },
                           selected: (_selectedIndex == 1) ? true : false,
-                          selectedColor: Colors.pinkAccent,
+                          selectedColor: Colors.pink,
                           title: const Text('Resultados anteriores'),
                         );
                       }),
                       Builder(builder: (context) {
                         return ListTile(
-                          leading: Icon(Icons.settings,
-                              color: (_selectedIndex == 2)
-                                  ? Colors.grey.shade900
-                                  : Colors.pink.shade900),
+                          leading: Icon(
+                            Icons.settings,
+                            color: (_selectedIndex == 2)
+                                ? (_temaOscuro == false)
+                                    ? Colors.pink
+                                    : Colors.pink
+                                : (_temaOscuro == false)
+                                    ? Colors.pink.shade900
+                                    : Colors.white,
+                          ),
                           onTap: () {
                             setState(() {
                               cambiarPagina(2);
@@ -236,16 +255,22 @@ class _MyAppState extends State<MyApp> {
                             });
                           },
                           selected: (_selectedIndex == 2) ? true : false,
-                          selectedColor: Colors.grey.shade900,
+                          selectedColor: Colors.pink,
                           title: const Text('Ajustes'),
                         );
                       }),
                       Builder(builder: (context) {
                         return ListTile(
-                          leading: Icon(Icons.message,
-                              color: (_selectedIndex == 3)
-                                  ? Colors.blue
-                                  : Colors.pink.shade900),
+                          leading: Icon(
+                            Icons.message,
+                            color: (_selectedIndex == 3)
+                                ? (_temaOscuro == false)
+                                    ? Colors.pink
+                                    : Colors.pink
+                                : (_temaOscuro == false)
+                                    ? Colors.pink.shade900
+                                    : Colors.white,
+                          ),
                           selected: (_selectedIndex == 3) ? true : false,
                           onTap: () {
                             setState(() {
@@ -253,7 +278,7 @@ class _MyAppState extends State<MyApp> {
                               Navigator.pop(context);
                             });
                           },
-                          selectedColor: Colors.blue,
+                          selectedColor: Colors.pink,
                           title: const Text('Acerca de'),
                         );
                       }),
