@@ -19,10 +19,13 @@ class _EditarPageState extends State<EditarPage> {
           title: const Text('Editar participante'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text('Editar participante'),
             _acciones(),
             _filtrosParticipantes(),
+            _tablaParicipantes()
           ],
         ));
   }
@@ -44,6 +47,10 @@ class _EditarPageState extends State<EditarPage> {
           width: 200,
           height: 30,
           child: TextField(
+            decoration: InputDecoration(
+                icon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
             onChanged: (_nuevoValor) {},
           ),
         )
@@ -62,15 +69,39 @@ class _EditarPageState extends State<EditarPage> {
         ButtonSegment<Acciones>(
             value: Acciones.modificar,
             label: Text('Modificar'),
-            icon: Icon(Icons.update))
+            icon: Icon(Icons.edit))
       ],
       selected: <Acciones>{accionInicial},
       onSelectionChanged: (Set<Acciones> nuevoElemento) {
         setState(() {
           // De esta forma solo un valor estara seleccionado.
           accionInicial = nuevoElemento.first;
+          print('El elemento que esta seleccionado es: $accionInicial');
         });
       },
+    );
+  }
+
+  Widget _tablaParicipantes() {
+    return SizedBox(
+      // NoParticipante - Nombre - [Accion]
+      child: Column(
+        children: [
+          // Cabecera de la tabla
+          Container(
+            height: 50,
+            decoration: BoxDecoration(border: Border.all()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('No.Participantes'),
+                Text('Nombre'),
+                Text('Accion')
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
