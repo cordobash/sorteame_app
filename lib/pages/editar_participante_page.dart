@@ -38,19 +38,22 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _filtrosParticipantes() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         // Text('Buscar: '),
-        SizedBox(
-          width: _deviceWidth! * 0.50,
-          height: 50,
-          child: TextField(
-            decoration: InputDecoration(
-                alignLabelWithHint: true,
-                hintText: 'Buscar por nombre',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            onChanged: (_nuevoValor) {},
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: SizedBox(
+            width: _deviceWidth! * 0.45,
+            height: 50,
+            child: TextField(
+              decoration: InputDecoration(
+                  alignLabelWithHint: true,
+                  hintText: 'Buscar por nombre',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              onChanged: (_nuevoValor) {},
+            ),
           ),
         ),
         IconButton(onPressed: () => {}, icon: Icon(Icons.list)),
@@ -64,6 +67,10 @@ class _EditarPageState extends State<EditarPage> {
         IconButton(
           onPressed: () => {},
           icon: Icon(Icons.numbers),
+        ),
+        IconButton(
+          onPressed: () => {},
+          icon: Icon(Icons.text_rotate_vertical_sharp),
         ),
       ],
     );
