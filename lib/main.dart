@@ -14,6 +14,7 @@ import 'package:app_sorteos/pages/settings_page.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 import 'package:app_sorteos/pages/about_page.dart';
 import 'package:app_sorteos/pages/anteriores_page.dart';
+import 'package:app_sorteos/pages/editar_participante_page.dart';
 
 // Modelos.
 import 'package:app_sorteos/models/boxes.dart';
@@ -31,7 +32,8 @@ void main(List<String> args) async {
   runApp(MaterialApp(
       initialRoute: '/',
       routes: {'/crpage': (context) => PostPage()},
-      home: MyApp()));
+      // home: MyApp()));
+      home: EditarPage()));
 }
 
 class MyApp extends StatefulWidget {
@@ -472,7 +474,6 @@ class _MyAppState extends State<MyApp> {
           _colorContenedorBorder = Colors.red;
           _visibleLabel = true;
         }
-        // print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
       });
     }
   }
