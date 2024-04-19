@@ -11,9 +11,14 @@ class EditarPage extends StatefulWidget {
 enum Acciones { eliminar, modificar }
 
 class _EditarPageState extends State<EditarPage> {
+  double? _deviceHeight, _deviceWidth;
+  late double _anchoTabla;
   Acciones accionInicial = Acciones.eliminar;
   @override
   Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    _anchoTabla = _deviceWidth! * 0.95;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Editar participante'),
@@ -22,10 +27,9 @@ class _EditarPageState extends State<EditarPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text('Editar participante'),
-            _acciones(),
             _filtrosParticipantes(),
-            _tablaParicipantes()
+            _tablaParicipantes(),
+            _btnRegresarInicio()
           ],
         ));
   }
@@ -40,21 +44,32 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _filtrosParticipantes() {
-    return Row(
-      children: [
-        Text('Filtra por: '),
-        SizedBox(
-          width: 200,
-          height: 30,
-          child: TextField(
-            decoration: InputDecoration(
-                icon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            onChanged: (_nuevoValor) {},
+    return Container(
+      width: _deviceWidth!,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Buscar: '),
+          SizedBox(
+            width: _deviceWidth! * 0.50,
+            height: 30,
+            child: TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              onChanged: (_nuevoValor) {},
+            ),
           ),
-        )
-      ],
+          IconButton(
+            onPressed: () => {},
+            icon: Icon(
+              Icons.sort_by_alpha,
+            ),
+          ),
+          IconButton(onPressed: () => {}, icon: Icon(Icons.numbers))
+        ],
+      ),
     );
   }
 
@@ -84,24 +99,62 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _tablaParicipantes() {
     return SizedBox(
+      height: _deviceHeight! * 0.60,
       // NoParticipante - Nombre - [Accion]
-      child: Column(
-        children: [
-          // Cabecera de la tabla
-          Container(
-            height: 50,
-            decoration: BoxDecoration(border: Border.all()),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text('No.Participantes'),
-                Text('Nombre'),
-                Text('Accion')
-              ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+        child: Column(
+          children: [
+            Container(
+              width: _anchoTabla,
+              height: 50,
+              decoration: BoxDecoration(border: Border.all()),
+              // Cabecera de la tabla
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [Text('Id'), Text('Nombre'), Text('Accion')],
+              ),
             ),
-          )
-        ],
+            _contenedorParticipante(),
+            _contenedorParticipante(),
+            _contenedorParticipante(),
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _contenedorParticipante() {
+    return Container(
+        width: _anchoTabla,
+        height: 50,
+        decoration: BoxDecoration(
+            border: Border(
+          bottom: BorderSide(),
+          left: BorderSide(),
+          right: BorderSide(),
+        )),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(width: _deviceWidth! * 0.07, child: Text('1')),
+            Text(
+              'Juan Manuel Carmona',
+              textAlign: TextAlign.end,
+            ),
+            Icon(Icons.delete),
+          ],
+        ));
+  }
+
+  Widget _btnRegresarInicio() {
+    return TextButton(
+        style: ElevatedButton.styleFrom(
+            elevation: 4, backgroundColor: Colors.black),
+        onPressed: () => {},
+        child: Text(
+          'Regresar a inicio',
+          style: TextStyle(color: Colors.white),
+        ));
   }
 }
