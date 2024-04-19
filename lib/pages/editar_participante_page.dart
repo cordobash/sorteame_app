@@ -42,8 +42,8 @@ class _EditarPageState extends State<EditarPage> {
       children: [
         // Text('Buscar: '),
         SizedBox(
-          width: _deviceWidth! * 0.60,
-          height: 40,
+          width: _deviceWidth! * 0.50,
+          height: 50,
           child: TextField(
             decoration: InputDecoration(
                 alignLabelWithHint: true,
@@ -113,7 +113,7 @@ class _EditarPageState extends State<EditarPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(width: _deviceWidth! * 0.07, child: Text('1')),
+            Text('1'),
             Text(
               'Isaias Cordova',
               textAlign: TextAlign.end,
