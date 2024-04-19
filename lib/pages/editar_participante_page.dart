@@ -66,33 +66,40 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _tablaParicipantes() {
-    return SizedBox(
-      height: _deviceHeight! * 0.60,
+    return Container(
+      height: _deviceHeight! * 0.55,
       // NoParticipante - Nombre - [Accion]
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-        child: Column(
-          children: [
-            Container(
-              width: _anchoTabla,
-              height: 50,
-              decoration: BoxDecoration(border: Border.all()),
-              // Cabecera de la tabla
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text('Id'),
-                  Text('Nombre'),
-                  Text('Modificar'),
-                  Text('Eliminar')
-                ],
-              ),
+      child: Column(
+        children: [
+          Container(
+            width: _anchoTabla,
+            height: 50,
+            decoration: BoxDecoration(border: Border.all()),
+            // Cabecera de la tabla
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Id'),
+                Text('Nombre'),
+                Text('Modificar'),
+                Text('Eliminar')
+              ],
             ),
-            _contenedorParticipante(),
-            _contenedorParticipante(),
-            _contenedorParticipante(),
-          ],
-        ),
+          ),
+          // _contenedorParticipante(),
+          // _contenedorParticipante(),
+          // _contenedorParticipante(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, indice) {
+                return ListTile(
+                  title: _contenedorParticipante(),
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }
@@ -101,12 +108,7 @@ class _EditarPageState extends State<EditarPage> {
     return Container(
         width: _anchoTabla,
         height: 50,
-        decoration: BoxDecoration(
-            border: Border(
-          bottom: BorderSide(),
-          left: BorderSide(),
-          right: BorderSide(),
-        )),
+        decoration: BoxDecoration(border: Border.all()),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
