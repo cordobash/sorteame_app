@@ -20,6 +20,7 @@ class _EditarPageState extends State<EditarPage> {
     _deviceWidth = MediaQuery.of(context).size.width;
     _anchoTabla = _deviceWidth! * 0.95;
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Editar participante'),
         ),
@@ -36,38 +37,41 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _filtrosParticipantes() {
-    return Container(
-      width: _deviceWidth!,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Buscar: '),
-          SizedBox(
-            width: _deviceWidth! * 0.50,
-            height: 30,
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-              onChanged: (_nuevoValor) {},
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Text('Buscar: '),
+        SizedBox(
+          width: _deviceWidth! * 0.60,
+          height: 40,
+          child: TextField(
+            decoration: InputDecoration(
+                alignLabelWithHint: true,
+                hintText: 'Buscar por nombre',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            onChanged: (_nuevoValor) {},
           ),
-          IconButton(
-            onPressed: () => {},
-            icon: Icon(
-              Icons.sort_by_alpha,
-            ),
+        ),
+        IconButton(onPressed: () => {}, icon: Icon(Icons.list)),
+        Text("|"),
+        IconButton(
+          onPressed: () => {},
+          icon: Icon(
+            Icons.sort_by_alpha,
           ),
-          IconButton(onPressed: () => {}, icon: Icon(Icons.numbers))
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed: () => {},
+          icon: Icon(Icons.numbers),
+        ),
+      ],
     );
   }
 
   Widget _tablaParicipantes() {
     return Container(
-      height: _deviceHeight! * 0.55,
+      height: _deviceHeight! * 0.65,
       // NoParticipante - Nombre - [Accion]
       child: Column(
         children: [
@@ -76,7 +80,7 @@ class _EditarPageState extends State<EditarPage> {
             height: 50,
             decoration: BoxDecoration(border: Border.all()),
             // Cabecera de la tabla
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text('Id'),
@@ -86,12 +90,9 @@ class _EditarPageState extends State<EditarPage> {
               ],
             ),
           ),
-          // _contenedorParticipante(),
-          // _contenedorParticipante(),
-          // _contenedorParticipante(),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: 100,
               itemBuilder: (context, indice) {
                 return ListTile(
                   title: _contenedorParticipante(),
@@ -118,7 +119,7 @@ class _EditarPageState extends State<EditarPage> {
               textAlign: TextAlign.end,
             ),
             IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
-            IconButton(onPressed: () => {}, icon: Icon(Icons.delete))
+            IconButton(onPressed: () => {}, icon: Icon(Icons.delete)),
           ],
         ));
   }
@@ -126,7 +127,10 @@ class _EditarPageState extends State<EditarPage> {
   Widget _btnRegresarInicio() {
     return TextButton(
         style: ElevatedButton.styleFrom(
-            elevation: 4, backgroundColor: Colors.black),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            elevation: 4,
+            backgroundColor: Colors.black),
         onPressed: () => {},
         child: Text(
           'Regresar a inicio',
