@@ -30,17 +30,9 @@ class _EditarPageState extends State<EditarPage> {
             _filtrosParticipantes(),
             _tablaParicipantes(),
             _btnRegresarInicio()
+            // CircularProgressIndicator(),
           ],
         ));
-  }
-
-  Widget _acciones() {
-    return Row(
-      children: [
-        Text('Accion a realizar: '),
-        _segmentedButtons(),
-      ],
-    );
   }
 
   Widget _filtrosParticipantes() {
@@ -73,30 +65,6 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _segmentedButtons() {
-    return SegmentedButton<Acciones>(
-      segments: const <ButtonSegment<Acciones>>[
-        ButtonSegment<Acciones>(
-          value: Acciones.eliminar,
-          label: Text('Eliminar'),
-          icon: Icon(Icons.delete),
-        ),
-        ButtonSegment<Acciones>(
-            value: Acciones.modificar,
-            label: Text('Modificar'),
-            icon: Icon(Icons.edit))
-      ],
-      selected: <Acciones>{accionInicial},
-      onSelectionChanged: (Set<Acciones> nuevoElemento) {
-        setState(() {
-          // De esta forma solo un valor estara seleccionado.
-          accionInicial = nuevoElemento.first;
-          print('El elemento que esta seleccionado es: $accionInicial');
-        });
-      },
-    );
-  }
-
   Widget _tablaParicipantes() {
     return SizedBox(
       height: _deviceHeight! * 0.60,
@@ -112,7 +80,12 @@ class _EditarPageState extends State<EditarPage> {
               // Cabecera de la tabla
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text('Id'), Text('Nombre'), Text('Accion')],
+                children: [
+                  Text('Id'),
+                  Text('Nombre'),
+                  Text('Modificar'),
+                  Text('Eliminar')
+                ],
               ),
             ),
             _contenedorParticipante(),
@@ -139,10 +112,11 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             SizedBox(width: _deviceWidth! * 0.07, child: Text('1')),
             Text(
-              'Juan Manuel Carmona',
+              'Isaias Cordova',
               textAlign: TextAlign.end,
             ),
-            Icon(Icons.delete),
+            IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
+            IconButton(onPressed: () => {}, icon: Icon(Icons.delete))
           ],
         ));
   }
