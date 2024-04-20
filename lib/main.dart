@@ -29,7 +29,10 @@ void main(List<String> args) async {
 
   runApp(MaterialApp(
       initialRoute: '/',
-      routes: {'/crpage': (context) => PostPage()},
+      routes: {
+        '/crpage': (context) => PostPage(),
+        '/editar_participante': (context) => EditarPage(),
+      },
       // home: MyApp()));
       home: EditarPage()));
 }
@@ -437,14 +440,28 @@ class _MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('${listaParticipantes.length}'),
-                IconButton(
-                    onPressed: () => {
-                          setState(() {
-                            // Vaciamos la lista general
-                            listaParticipantes = [];
-                          })
-                        },
-                    icon: Icon(Icons.delete)),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () => {
+                              setState(() {
+                                // Se redirije al usuario a la pagina de editar_participante.
+                                Navigator.pushNamed(
+                                    context, '/editar_participante');
+                              })
+                            },
+                        icon: Icon(Icons.edit)),
+                    IconButton(
+                        enableFeedback: true,
+                        onPressed: () => {
+                              setState(() {
+                                // Vaciamos la lista general
+                                listaParticipantes = [];
+                              })
+                            },
+                        icon: Icon(Icons.delete)),
+                  ],
+                ),
               ],
             )
           ],

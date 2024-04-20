@@ -1,3 +1,4 @@
+import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -8,12 +9,21 @@ class EditarPage extends StatefulWidget {
   State<StatefulWidget> createState() => _EditarPageState();
 }
 
-enum Acciones { eliminar, modificar }
-
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
+  final List<String> _listaPrueba = [
+    "Isaias",
+    "Juana",
+    "Maria",
+    "Olga",
+    "Noelia",
+    "Pedro",
+    "Oscar",
+    "Rafael",
+    "Roberto",
+    "Fatima"
+  ];
   late double _anchoTabla;
-  Acciones accionInicial = Acciones.eliminar;
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -104,10 +114,11 @@ class _EditarPageState extends State<EditarPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 100,
+              itemCount: _listaPrueba.length,
               itemBuilder: (context, indice) {
                 return ListTile(
-                  title: _contenedorParticipante(),
+                  title:
+                      _contenedorParticipante(_listaPrueba[indice], indice + 1),
                 );
               },
             ),
@@ -117,7 +128,7 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _contenedorParticipante() {
+  Widget _contenedorParticipante(String nombreParticipante, int indice) {
     return Container(
         width: _anchoTabla,
         height: 50,
@@ -125,9 +136,9 @@ class _EditarPageState extends State<EditarPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('1'),
+            Text('${indice.toString()}'),
             Text(
-              'Isaias Cordova',
+              '${nombreParticipante}',
               textAlign: TextAlign.end,
             ),
             IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
