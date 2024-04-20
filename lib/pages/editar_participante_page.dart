@@ -46,6 +46,16 @@ class _EditarPageState extends State<EditarPage> {
         ));
   }
 
+  void _eliminarParticipante(int indice, List<String> lista) {
+    setState(() {
+      try {
+        lista.removeAt(indice);
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
   Widget _filtrosParticipantes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -142,7 +152,11 @@ class _EditarPageState extends State<EditarPage> {
               textAlign: TextAlign.end,
             ),
             IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
-            IconButton(onPressed: () => {}, icon: Icon(Icons.delete)),
+            IconButton(
+                onPressed: () => {
+                      _eliminarParticipante(indice - 1, _listaPrueba),
+                    },
+                icon: Icon(Icons.delete)),
           ],
         ));
   }
