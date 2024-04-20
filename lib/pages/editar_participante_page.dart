@@ -11,7 +11,7 @@ class EditarPage extends StatefulWidget {
 
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
-  final List<String> _listaPrueba = [
+  List<String> _listaPrueba = [
     "Isaias",
     "Juana",
     "Maria",
@@ -23,6 +23,12 @@ class _EditarPageState extends State<EditarPage> {
     "Roberto",
     "Fatima"
   ];
+  List<String> _listaRespaldo = [];
+
+  _EditarPageState({Key? key}) {
+    _listaRespaldo = [..._listaPrueba];
+  }
+
   late double _anchoTabla;
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,10 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             _filtrosParticipantes(),
             _tablaParicipantes(),
-            _btnRegresarInicio()
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [_btnRegresarInicio(), _btnDescartarCambios()],
+            )
             // CircularProgressIndicator(),
           ],
         ));
@@ -192,6 +201,23 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
+  Widget _btnDescartarCambios() {
+    return SizedBox(
+      child: TextButton(
+        child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
+        onPressed: () => {
+          showDialog(
+              context: context, builder: (context) => _dialogDescartarCambios())
+        },
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(7),
+            )),
+      ),
+    );
+  }
+
   Widget _dialogEditarPersonaje(int indice) {
     String? _nuevoNombre;
     return AlertDialog(
@@ -235,6 +261,28 @@ class _EditarPageState extends State<EditarPage> {
           onPressed: () => Navigator.pop(context),
           child: Text('Cancelar'),
         )
+      ],
+    );
+  }
+
+  Widget _dialogDescartarCambios() {
+    return AlertDialog(
+      content: Text(
+          'Esto descartara cualquier cambio hecho a la lista de participantes y volvera a su estado previo,¿Desea continuar?'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            setState(() {
+              // _listaPrueba = _listaRespaldo;
+              _listaPrueba = [];
+              _listaPrueba = [..._listaRespaldo];
+              Navigator.pop(context);
+            });
+          },
+          child: Text('Ok'),
+        ),
+        TextButton(
+            onPressed: () => Navigator.pop(context), child: Text('Cancelar'))
       ],
     );
   }
