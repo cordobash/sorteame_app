@@ -45,12 +45,14 @@ class _EditarPageState extends State<EditarPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _filtrosParticipantes(),
-            _tablaParicipantes(),
+            (_listaPrueba.isNotEmpty)
+                ? _tablaParicipantes()
+                : _mensajeDefecto(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [_btnRegresarInicio(), _btnDescartarCambios()],
             )
-            // CircularProgressIndicator(),
+            // CircularProgressIndicator(value: ,),
           ],
         ));
   }
@@ -70,6 +72,17 @@ class _EditarPageState extends State<EditarPage> {
     try {
       lista[indice] = nuevoNombre;
     } catch (e) {}
+  }
+
+  Widget _mensajeDefecto() {
+    return SizedBox(
+      height: _deviceHeight! * 0.60,
+      width: _deviceWidth!,
+      child: Center(
+        child: Text('Aun no has agregado participantes',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+      ),
+    );
   }
 
   Widget _filtrosParticipantes() {
