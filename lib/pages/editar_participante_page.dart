@@ -56,7 +56,11 @@ class _EditarPageState extends State<EditarPage> {
             ),
           ),
         ),
-        IconButton(onPressed: () => {}, icon: Icon(Icons.list)),
+        Container(
+            color: Colors.black,
+            child: IconButton(
+                onPressed: () => {},
+                icon: Icon(Icons.list, color: Colors.white))),
         IconButton(
           onPressed: () => {},
           icon: Icon(Icons.window),
@@ -69,8 +73,9 @@ class _EditarPageState extends State<EditarPage> {
           ),
         ),
         IconButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
           onPressed: () => {},
-          icon: Icon(Icons.numbers),
+          icon: Icon(Icons.numbers, color: Colors.white),
         ),
       ],
     );
