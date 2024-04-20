@@ -186,25 +186,24 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _btnRegresarInicio() {
     return SizedBox(
-      width: 200,
-      child: TextButton(
+        height: 60,
+        child: TextButton(
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7)),
               elevation: 4,
               backgroundColor: Colors.black),
           onPressed: () => {},
-          child: Text(
-            'Regresar a inicio',
-            style: TextStyle(color: Colors.white),
-          )),
-    );
+          child: Icon(Icons.home, color: Colors.white),
+        ));
   }
 
   Widget _btnDescartarCambios() {
     return SizedBox(
+      height: 60,
       child: TextButton(
-        child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
+        // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
+        child: Icon(Icons.restore, color: Colors.white),
         onPressed: () => {
           showDialog(
               context: context, builder: (context) => _dialogDescartarCambios())
