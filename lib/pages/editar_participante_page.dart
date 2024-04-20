@@ -56,6 +56,13 @@ class _EditarPageState extends State<EditarPage> {
     });
   }
 
+  void _actualizarParticipante(
+      int indice, List<String> lista, String nuevoNombre) {
+    try {
+      lista[indice] = nuevoNombre;
+    } catch (e) {}
+  }
+
   Widget _filtrosParticipantes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -151,7 +158,14 @@ class _EditarPageState extends State<EditarPage> {
               '${nombreParticipante}',
               textAlign: TextAlign.end,
             ),
-            IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
+            IconButton(
+                onPressed: () => {
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              _dialogEditarPersonaje(indice - 1))
+                    },
+                icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () => {
                       _eliminarParticipante(indice - 1, _listaPrueba),
@@ -175,6 +189,53 @@ class _EditarPageState extends State<EditarPage> {
             'Regresar a inicio',
             style: TextStyle(color: Colors.white),
           )),
+    );
+  }
+
+  Widget _dialogEditarPersonaje(int indice) {
+    String? _nuevoNombre;
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Nombre actual'),
+          TextField(
+            enabled: false,
+            decoration: InputDecoration(
+              alignLabelWithHint: true,
+              hintText: _listaPrueba[indice],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ),
+          Text('Nuevo nombre'),
+          TextField(
+            enabled: true,
+            onChanged: (_) => _nuevoNombre = _,
+            decoration: InputDecoration(
+              alignLabelWithHint: true,
+              hintText: 'Nuevo nombre',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            _actualizarParticipante(indice, _listaPrueba, _nuevoNombre!);
+            Navigator.pop(context);
+          },
+          child: Text('Ok'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('Cancelar'),
+        )
+      ],
     );
   }
 }
