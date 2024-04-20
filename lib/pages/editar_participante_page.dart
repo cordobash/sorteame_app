@@ -44,7 +44,7 @@ class _EditarPageState extends State<EditarPage> {
         Padding(
           padding: EdgeInsets.only(left: 10),
           child: SizedBox(
-            width: _deviceWidth! * 0.45,
+            width: _deviceWidth! * 0.40,
             height: 50,
             child: TextField(
               decoration: InputDecoration(
@@ -57,6 +57,10 @@ class _EditarPageState extends State<EditarPage> {
           ),
         ),
         IconButton(onPressed: () => {}, icon: Icon(Icons.list)),
+        IconButton(
+          onPressed: () => {},
+          icon: Icon(Icons.window),
+        ),
         Text("|"),
         IconButton(
           onPressed: () => {},
@@ -67,10 +71,6 @@ class _EditarPageState extends State<EditarPage> {
         IconButton(
           onPressed: () => {},
           icon: Icon(Icons.numbers),
-        ),
-        IconButton(
-          onPressed: () => {},
-          icon: Icon(Icons.text_rotate_vertical_sharp),
         ),
       ],
     );
@@ -132,16 +132,19 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _btnRegresarInicio() {
-    return TextButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-            elevation: 4,
-            backgroundColor: Colors.black),
-        onPressed: () => {},
-        child: Text(
-          'Regresar a inicio',
-          style: TextStyle(color: Colors.white),
-        ));
+    return SizedBox(
+      width: 200,
+      child: TextButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7)),
+              elevation: 4,
+              backgroundColor: Colors.black),
+          onPressed: () => {},
+          child: Text(
+            'Regresar a inicio',
+            style: TextStyle(color: Colors.white),
+          )),
+    );
   }
 }
