@@ -96,6 +96,7 @@ class _EditarPageState extends State<EditarPage> {
             width: _deviceWidth! * 0.40,
             height: 50,
             child: TextField(
+              enabled: (_listaPrueba.isNotEmpty) ? true : false,
               decoration: InputDecoration(
                   alignLabelWithHint: true,
                   hintText: 'Buscar por nombre',
@@ -212,20 +213,26 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _btnDescartarCambios() {
-    return SizedBox(
-      height: 60,
-      child: TextButton(
-        // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
-        child: Icon(Icons.restore, color: Colors.white),
-        onPressed: () => {
-          showDialog(
-              context: context, builder: (context) => _dialogDescartarCambios())
-        },
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7),
-            )),
+    return Opacity(
+      opacity: (_listaPrueba.isNotEmpty) ? 1.0 : 0.5,
+      child: SizedBox(
+        height: 60,
+        child: TextButton(
+          // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
+          child: Icon(Icons.restore, color: Colors.white),
+          onPressed: () => {
+            (_listaPrueba.isNotEmpty)
+                ? showDialog(
+                    context: context,
+                    builder: (context) => _dialogDescartarCambios())
+                : null
+          },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7),
+              )),
+        ),
       ),
     );
   }
