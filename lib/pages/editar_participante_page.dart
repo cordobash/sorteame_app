@@ -16,6 +16,7 @@ class _EditarPageState extends State<EditarPage> {
   bool _statusModoTabla = true;
   String? _nombreBuscar = "";
   int _noCoincidencias = 0;
+  int _indiceEnum = 0;
 
   bool _cargando = false;
   List<String> _listaPrueba = [
@@ -31,14 +32,6 @@ class _EditarPageState extends State<EditarPage> {
     "Fatima"
   ];
   List<String> _listaRespaldo = [];
-  Map<String, int> _mapaNombres = {};
-
-  Map<String, int> _listaAmapa(List<dynamic> lista, Map<String, int> mapa) {
-    for (int i = 0; i < lista.length; i++) {
-      mapa[lista[i]] = i;
-    }
-    return mapa;
-  }
 
   dynamic _accionInicial = Acciones.values.first;
 
@@ -46,7 +39,6 @@ class _EditarPageState extends State<EditarPage> {
     // _inicialmenteVacia = (_listaPrueba.isEmpty) ? true : false;
     _inicialmenteVacia = false;
     _listaRespaldo = [..._listaPrueba];
-    _listaAmapa(_listaPrueba, _mapaNombres);
   }
 
   late double _anchoTabla;
@@ -77,7 +69,6 @@ class _EditarPageState extends State<EditarPage> {
                     ? (_statusModoTabla)
                         ? _tablaParicipantes()
                         : _modoMosaico()
-                    // ? _modoMosaico()
                     : _mensajeDefecto(),
             SizedBox(
               height: _deviceHeight! * 0.08,
@@ -86,11 +77,9 @@ class _EditarPageState extends State<EditarPage> {
                 children: [
                   _btnRegresarInicio(),
                   _btnDescartarCambios(),
-                  _btnPruebas()
                 ],
               ),
             )
-            // _modoMosaico()
           ],
         ));
   }
@@ -128,10 +117,10 @@ class _EditarPageState extends State<EditarPage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 10, right: 10),
           child: SizedBox(
-            width: _deviceWidth! * 0.40,
-            height: 50,
+            width: _deviceWidth! * 0.60,
+            height: 55,
             child: TextField(
               enabled: (_listaPrueba.isNotEmpty) ? true : false,
               decoration: InputDecoration(
@@ -173,30 +162,18 @@ class _EditarPageState extends State<EditarPage> {
           },
           icon: Icon(Icons.window),
         ),
-        Text("|"),
-        IconButton(
-          onPressed: () => {},
-          icon: Icon(
-            Icons.sort_by_alpha,
-          ),
-        ),
-        IconButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-          onPressed: () => {},
-          icon: Icon(Icons.numbers, color: Colors.white),
-        ),
       ],
     );
   }
 
   Future<void> _tiempoCarga() {
-    return Future.delayed(Duration(seconds: 2));
+    return Future.delayed(Duration(seconds: 1));
   }
 
   Widget _tablaParicipantes() {
     return Container(
       height: _deviceHeight! * 0.65,
-      // NoParticipante - Nombre - [Accion]
+      // NoParticipante - Nombre - [Acciones]
       child: Column(
         children: [
           Container(
@@ -242,9 +219,13 @@ class _EditarPageState extends State<EditarPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text('${indice.toString()}'),
-            Text(
-              '${nombreParticipante}',
-              textAlign: TextAlign.end,
+            LimitedBox(
+              maxHeight: 20,
+              maxWidth: 60,
+              child: Text(
+                '${nombreParticipante}',
+                textAlign: TextAlign.end,
+              ),
             ),
             IconButton(
                 onPressed: () => {
@@ -319,7 +300,8 @@ class _EditarPageState extends State<EditarPage> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3),
                     itemBuilder: (context, index) =>
-                        _mosaicoContenedorParticipantes(_listaPrueba[index]),
+                        _mosaicoContenedorParticipantes(
+                            _listaPrueba[index], index),
                   ))
                 ],
               ),
@@ -330,14 +312,29 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _mosaicoContenedorParticipantes(String _participante) {
+  Widget _mosaicoContenedorParticipantes(String _participante, indice) {
     return SizedBox(
       height: 30,
       width: 10,
       child: Padding(
         padding: EdgeInsets.all(8),
         child: TextButton(
-          onPressed: () => {},
+          onPressed: () => {
+            print(Acciones.values),
+            print((Acciones.values == 'eliminar') ? "Si" : "No"),
+            if (_indiceEnum == 0)
+              {
+                setState(() {
+                  _eliminarParticipante(indice, _listaPrueba);
+                })
+              }
+            else if (_indiceEnum == 1)
+              {
+                showDialog(
+                    context: context,
+                    builder: (context) => _dialogEditarPersonaje(indice))
+              }
+          },
           child: Text(
             '${_participante}',
             style: TextStyle(color: Colors.white),
@@ -371,7 +368,7 @@ class _EditarPageState extends State<EditarPage> {
         setState(() {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
-          print('El elemento que esta seleccionado es: $_accionInicial');
+          _indiceEnum = (_indiceEnum == 0) ? 1 : 0;
         });
       },
     );
