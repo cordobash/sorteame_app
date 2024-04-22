@@ -61,19 +61,19 @@ class _EditarPageState extends State<EditarPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _filtrosParticipantes(),
-            (_listaPrueba.isNotEmpty)
-                ? _tablaParicipantes()
-                : _mensajeDefecto(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _btnRegresarInicio(),
-                _btnDescartarCambios(),
-                _btnPruebas()
-              ],
-            )
-            // CircularProgressIndicator(value: ,),
+            // _filtrosParticipantes(),
+            // (_listaPrueba.isNotEmpty)
+            //     ? _tablaParicipantes()
+            //     : _mensajeDefecto(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     _btnRegresarInicio(),
+            //     _btnDescartarCambios(),
+            //     _btnPruebas()
+            //   ],
+            // )
+            _modoMosaico()
           ],
         ));
   }
@@ -154,6 +154,10 @@ class _EditarPageState extends State<EditarPage> {
         ),
       ],
     );
+  }
+
+  Future<void> _tiempoCarga() {
+    return Future.delayed(Duration(seconds: 2));
   }
 
   Widget _tablaParicipantes() {
@@ -254,8 +258,59 @@ class _EditarPageState extends State<EditarPage> {
         ));
   }
 
-  Widget _accionesMosaico() {
-    return Container();
+  Widget _modoMosaico() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _segmentedButtons(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 360,
+              height: 300,
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                      child: GridView.builder(
+                    itemCount: 6,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) =>
+                        _mosaicoContenedorParticipantes(),
+                  ))
+                ],
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _mosaicoContenedorParticipantes() {
+    return SizedBox(
+      height: 30,
+      width: 10,
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: TextButton(
+          onPressed: () => {},
+          child: Text(
+            'Participante',
+            style: TextStyle(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(7),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _segmentedButtons() {
