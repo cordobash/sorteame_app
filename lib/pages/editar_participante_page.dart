@@ -1,6 +1,5 @@
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class EditarPage extends StatefulWidget {
   EditarPage({Key? key});
@@ -9,8 +8,13 @@ class EditarPage extends StatefulWidget {
   State<StatefulWidget> createState() => _EditarPageState();
 }
 
+enum Acciones { eliminar, modificar }
+
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
+  bool _inicialmenteVacia = false;
+  String? _nombreBuscar = "";
+  int _noCoincidencias = 0;
   List<String> _listaPrueba = [
     "Isaias",
     "Juana",
@@ -24,9 +28,22 @@ class _EditarPageState extends State<EditarPage> {
     "Fatima"
   ];
   List<String> _listaRespaldo = [];
+  Map<String, int> _mapaNombres = {};
+
+  Map<String, int> _listaAmapa(List<dynamic> lista, Map<String, int> mapa) {
+    for (int i = 0; i < lista.length; i++) {
+      mapa[lista[i]] = i;
+    }
+    return mapa;
+  }
+
+  dynamic _accionInicial = Acciones.values.first;
 
   _EditarPageState({Key? key}) {
+    // _inicialmenteVacia = (_listaPrueba.isEmpty) ? true : false;
+    _inicialmenteVacia = false;
     _listaRespaldo = [..._listaPrueba];
+    _listaAmapa(_listaPrueba, _mapaNombres);
   }
 
   late double _anchoTabla;
@@ -50,7 +67,11 @@ class _EditarPageState extends State<EditarPage> {
                 : _mensajeDefecto(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [_btnRegresarInicio(), _btnDescartarCambios()],
+              children: [
+                _btnRegresarInicio(),
+                _btnDescartarCambios(),
+                _btnPruebas()
+              ],
             )
             // CircularProgressIndicator(value: ,),
           ],
@@ -89,7 +110,6 @@ class _EditarPageState extends State<EditarPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        // Text('Buscar: '),
         Padding(
           padding: EdgeInsets.only(left: 10),
           child: SizedBox(
@@ -102,7 +122,12 @@ class _EditarPageState extends State<EditarPage> {
                   hintText: 'Buscar por nombre',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
-              onChanged: (_nuevoValor) {},
+              onChanged: (_) {
+                setState(() {
+                  _nombreBuscar = _;
+                  print('El nombre a buscar es: ${_nombreBuscar}');
+                });
+              },
             ),
           ),
         ),
@@ -154,7 +179,10 @@ class _EditarPageState extends State<EditarPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: _listaPrueba.length,
+              // itemCount: _listaPrueba.length,
+              itemCount: (_nombreBuscar!.isNotEmpty)
+                  ? _noCoincidencias
+                  : _listaPrueba.length,
               itemBuilder: (context, indice) {
                 return ListTile(
                   title:
@@ -212,16 +240,59 @@ class _EditarPageState extends State<EditarPage> {
         ));
   }
 
+  Widget _btnPruebas() {
+    return SizedBox(
+        height: 60,
+        child: TextButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7)),
+              elevation: 4,
+              backgroundColor: Colors.black),
+          onPressed: () => {print('Nombre a buscar: ${_nombreBuscar}')},
+          child: Icon(Icons.home, color: Colors.white),
+        ));
+  }
+
+  Widget _accionesMosaico() {
+    return Container();
+  }
+
+  Widget _segmentedButtons() {
+    return SegmentedButton<Acciones>(
+      segments: const <ButtonSegment<Acciones>>[
+        ButtonSegment<Acciones>(
+          value: Acciones.eliminar,
+          label: Text('Eliminar'),
+          icon: Icon(Icons.delete),
+        ),
+        ButtonSegment<Acciones>(
+            value: Acciones.modificar,
+            label: Text('Modificar'),
+            icon: Icon(Icons.edit))
+      ],
+      selected: <Acciones>{_accionInicial},
+      onSelectionChanged: (Set<Acciones> nuevoElemento) {
+        setState(() {
+          // De esta forma solo un valor estara seleccionado.
+          _accionInicial = nuevoElemento.first;
+          print('El elemento que esta seleccionado es: $_accionInicial');
+        });
+      },
+    );
+  }
+
   Widget _btnDescartarCambios() {
     return Opacity(
-      opacity: (_listaPrueba.isNotEmpty) ? 1.0 : 0.5,
+      opacity:
+          (_listaPrueba.isNotEmpty && _inicialmenteVacia == false) ? 1.0 : 0.5,
       child: SizedBox(
         height: 60,
         child: TextButton(
           // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
           child: Icon(Icons.restore, color: Colors.white),
           onPressed: () => {
-            (_listaPrueba.isNotEmpty)
+            (_listaPrueba.isNotEmpty && _inicialmenteVacia == false)
                 ? showDialog(
                     context: context,
                     builder: (context) => _dialogDescartarCambios())
