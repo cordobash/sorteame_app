@@ -258,28 +258,35 @@ class _EditarPageState extends State<EditarPage> {
         ));
   }
 
+  Widget _accionesRealizar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [Text('Accion a realizar: '), _segmentedButtons()],
+    );
+  }
+
   Widget _modoMosaico() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _segmentedButtons(),
+        _accionesRealizar(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 360,
-              height: 300,
+              height: 500,
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
                   Expanded(
                       child: GridView.builder(
-                    itemCount: 6,
+                    itemCount: _listaPrueba.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3),
                     itemBuilder: (context, index) =>
-                        _mosaicoContenedorParticipantes(),
+                        _mosaicoContenedorParticipantes(_listaPrueba[index]),
                   ))
                 ],
               ),
@@ -290,7 +297,7 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _mosaicoContenedorParticipantes() {
+  Widget _mosaicoContenedorParticipantes(String _participante) {
     return SizedBox(
       height: 30,
       width: 10,
@@ -299,7 +306,7 @@ class _EditarPageState extends State<EditarPage> {
         child: TextButton(
           onPressed: () => {},
           child: Text(
-            'Participante',
+            '${_participante}',
             style: TextStyle(color: Colors.white),
           ),
           style: ElevatedButton.styleFrom(
