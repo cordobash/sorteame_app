@@ -13,6 +13,7 @@ enum Acciones { eliminar, modificar }
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
   bool _inicialmenteVacia = false;
+  bool _statusModoTabla = true;
   String? _nombreBuscar = "";
   int _noCoincidencias = 0;
   List<String> _listaPrueba = [
@@ -61,19 +62,22 @@ class _EditarPageState extends State<EditarPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // _filtrosParticipantes(),
-            // (_listaPrueba.isNotEmpty)
-            //     ? _tablaParicipantes()
-            //     : _mensajeDefecto(),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     _btnRegresarInicio(),
-            //     _btnDescartarCambios(),
-            //     _btnPruebas()
-            //   ],
-            // )
-            _modoMosaico()
+            _filtrosParticipantes(),
+            (_listaPrueba.isNotEmpty)
+                ? (_statusModoTabla)
+                    ? _tablaParicipantes()
+                    : _modoMosaico()
+                // ? _modoMosaico()
+                : _mensajeDefecto(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _btnRegresarInicio(),
+                _btnDescartarCambios(),
+                _btnPruebas()
+              ],
+            )
+            // _modoMosaico()
           ],
         ));
   }
@@ -134,10 +138,18 @@ class _EditarPageState extends State<EditarPage> {
         Container(
             color: Colors.black,
             child: IconButton(
-                onPressed: () => {},
+                onPressed: () => {
+                      setState(() {
+                        _statusModoTabla = true;
+                      })
+                    },
                 icon: Icon(Icons.list, color: Colors.white))),
         IconButton(
-          onPressed: () => {},
+          onPressed: () => {
+            setState(() {
+              _statusModoTabla = false;
+            })
+          },
           icon: Icon(Icons.window),
         ),
         Text("|"),
