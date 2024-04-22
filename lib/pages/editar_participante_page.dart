@@ -16,6 +16,8 @@ class _EditarPageState extends State<EditarPage> {
   bool _statusModoTabla = true;
   String? _nombreBuscar = "";
   int _noCoincidencias = 0;
+
+  bool _cargando = false;
   List<String> _listaPrueba = [
     "Isaias",
     "Juana",
@@ -63,19 +65,30 @@ class _EditarPageState extends State<EditarPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _filtrosParticipantes(),
-            (_listaPrueba.isNotEmpty)
-                ? (_statusModoTabla)
-                    ? _tablaParicipantes()
-                    : _modoMosaico()
-                // ? _modoMosaico()
-                : _mensajeDefecto(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _btnRegresarInicio(),
-                _btnDescartarCambios(),
-                _btnPruebas()
-              ],
+            (_cargando)
+                ? SizedBox(
+                    width: _deviceWidth! * 0.50,
+                    height: _deviceHeight! * 0.65,
+                    child: Center(
+                        child: SizedBox(
+                            height: _deviceHeight! * 0.06,
+                            child: CircularProgressIndicator())))
+                : (_listaPrueba.isNotEmpty)
+                    ? (_statusModoTabla)
+                        ? _tablaParicipantes()
+                        : _modoMosaico()
+                    // ? _modoMosaico()
+                    : _mensajeDefecto(),
+            SizedBox(
+              height: _deviceHeight! * 0.08,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _btnRegresarInicio(),
+                  _btnDescartarCambios(),
+                  _btnPruebas()
+                ],
+              ),
             )
             // _modoMosaico()
           ],
@@ -140,6 +153,10 @@ class _EditarPageState extends State<EditarPage> {
             child: IconButton(
                 onPressed: () => {
                       setState(() {
+                        _cargando = true;
+                        _tiempoCarga().whenComplete(() => setState(() {
+                              _cargando = false;
+                            }));
                         _statusModoTabla = true;
                       })
                     },
@@ -147,6 +164,10 @@ class _EditarPageState extends State<EditarPage> {
         IconButton(
           onPressed: () => {
             setState(() {
+              _cargando = true;
+              _tiempoCarga().whenComplete(() => setState(() {
+                    _cargando = false;
+                  }));
               _statusModoTabla = false;
             })
           },
@@ -272,7 +293,7 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _accionesRealizar() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [Text('Accion a realizar: '), _segmentedButtons()],
     );
   }
@@ -288,7 +309,7 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             SizedBox(
               width: 360,
-              height: 500,
+              height: _deviceHeight! * 0.55,
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
