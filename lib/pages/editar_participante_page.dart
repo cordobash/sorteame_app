@@ -31,6 +31,9 @@ class _EditarPageState extends State<EditarPage> {
     "Roberto",
     "Fatima",
     "Isaias",
+    "adasdasdasadadasdas",
+    "Isaias Gerardo Cordova Palomares",
+    "Juan Caguamas"
   ];
   List<String> _listaRespaldo = [];
 
@@ -200,8 +203,7 @@ class _EditarPageState extends State<EditarPage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('Id'),
-                Text('Nombre'),
+                Text('Nombre participante'),
                 Text('Modificar'),
                 Text('Eliminar')
               ],
@@ -237,10 +239,8 @@ class _EditarPageState extends State<EditarPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${indice.toString()}'),
-            LimitedBox(
-              maxHeight: 20,
-              maxWidth: 60,
+            SizedBox(
+              width: 100,
               child: Text(
                 '${nombreParticipante}',
                 textAlign: TextAlign.end,
