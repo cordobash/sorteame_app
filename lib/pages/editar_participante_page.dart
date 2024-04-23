@@ -14,8 +14,8 @@ class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
   bool _inicialmenteVacia = false;
   bool _statusModoTabla = true;
-  String? _nombreBuscar = "";
-  int _noCoincidencias = 0;
+  String _nombreBuscar = "";
+  List<String> _listaCoincidencias = [];
   int _indiceEnum = 0;
 
   bool _cargando = false;
@@ -29,7 +29,8 @@ class _EditarPageState extends State<EditarPage> {
     "Oscar",
     "Rafael",
     "Roberto",
-    "Fatima"
+    "Fatima",
+    "Isaias",
   ];
   List<String> _listaRespaldo = [];
 
@@ -112,6 +113,16 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
+  void _buscarEnLista(String cadena, List<String> lista) {
+    // Vaciamos la lista de coincidencias pasadas
+    _listaCoincidencias = [];
+    for (int i = 0; i < lista.length; i++) {
+      if (lista[i].contains(cadena)) {
+        _listaCoincidencias.add(cadena);
+      }
+    }
+  }
+
   Widget _filtrosParticipantes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -132,6 +143,11 @@ class _EditarPageState extends State<EditarPage> {
                 setState(() {
                   _nombreBuscar = _;
                   print('El nombre a buscar es: ${_nombreBuscar}');
+                });
+              },
+              onSubmitted: (_) {
+                setState(() {
+                  _buscarEnLista(_, _listaPrueba);
                 });
               },
             ),
@@ -193,15 +209,18 @@ class _EditarPageState extends State<EditarPage> {
           ),
           Expanded(
             child: ListView.builder(
-              // itemCount: _listaPrueba.length,
-              itemCount: (_nombreBuscar!.isNotEmpty)
-                  ? _noCoincidencias
-                  : _listaPrueba.length,
+              itemCount: (_nombreBuscar.isEmpty)
+                  ? _listaPrueba.length
+                  : _listaCoincidencias.length,
               itemBuilder: (context, indice) {
                 return ListTile(
-                  title:
-                      _contenedorParticipante(_listaPrueba[indice], indice + 1),
-                );
+                    title:
+                        // _contenedorParticipante(_listaPrueba[indice], indice + 1),
+                        (_nombreBuscar.isEmpty)
+                            ? _contenedorParticipante(
+                                _listaPrueba[indice], indice)
+                            : _contenedorParticipante(
+                                _listaCoincidencias[indice], indice));
               },
             ),
           )
@@ -420,7 +439,9 @@ class _EditarPageState extends State<EditarPage> {
           Text('Nuevo nombre'),
           TextField(
             enabled: true,
-            onChanged: (_) => _nuevoNombre = _,
+            onChanged: (_) {
+              _nuevoNombre = _;
+            },
             decoration: InputDecoration(
               alignLabelWithHint: true,
               hintText: 'Nuevo nombre',
