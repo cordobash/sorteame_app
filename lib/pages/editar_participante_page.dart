@@ -17,8 +17,8 @@ class _EditarPageState extends State<EditarPage> {
   String _nombreBuscar = "";
   List<String> _listaCoincidencias = [];
   int _indiceEnum = 0;
-
   bool _cargando = false;
+  bool _mostrarDialogoConfirmarEliminacion = false;
   List<String> _listaPrueba = [
     "Isaias",
     "Juana",
@@ -31,8 +31,6 @@ class _EditarPageState extends State<EditarPage> {
     "Roberto",
     "Fatima",
     "Isaias",
-    "adasdasdasadadasdas",
-    "Isaias Gerardo Cordova Palomares",
     "Juan Caguamas"
   ];
   List<String> _listaRespaldo = [];
@@ -146,6 +144,8 @@ class _EditarPageState extends State<EditarPage> {
                 setState(() {
                   _nombreBuscar = _;
                   print('El nombre a buscar es: ${_nombreBuscar}');
+                  print(
+                      'El numero de coincidencias para el nombre ${_nombreBuscar} fueron de ${_actualizarTablaFiltro(_nombreBuscar, _listaPrueba).length} en la posicion: ${_actualizarTablaFiltro(_nombreBuscar, _listaPrueba)}');
                 });
               },
               onSubmitted: (_) {
@@ -190,6 +190,9 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _tablaParicipantes() {
+    List<int> _indices = [
+      ..._actualizarTablaFiltro(_nombreBuscar, _listaPrueba)
+    ];
     return Container(
       height: _deviceHeight! * 0.65,
       // NoParticipante - Nombre - [Acciones]
@@ -213,16 +216,14 @@ class _EditarPageState extends State<EditarPage> {
             child: ListView.builder(
               itemCount: (_nombreBuscar.isEmpty)
                   ? _listaPrueba.length
-                  : _listaCoincidencias.length,
+                  : _actualizarTablaFiltro(_nombreBuscar, _listaPrueba).length,
               itemBuilder: (context, indice) {
                 return ListTile(
-                    title:
-                        // _contenedorParticipante(_listaPrueba[indice], indice + 1),
-                        (_nombreBuscar.isEmpty)
-                            ? _contenedorParticipante(
-                                _listaPrueba[indice], indice)
-                            : _contenedorParticipante(
-                                _listaCoincidencias[indice], indice));
+                  title: (_nombreBuscar.isEmpty)
+                      ? _contenedorParticipante(_listaPrueba[indice], indice)
+                      : _contenedorParticipante(
+                          _listaPrueba[_indices[indice]], _indices[indice]),
+                );
               },
             ),
           )
@@ -250,13 +251,12 @@ class _EditarPageState extends State<EditarPage> {
                 onPressed: () => {
                       showDialog(
                           context: context,
-                          builder: (context) =>
-                              _dialogEditarPersonaje(indice - 1))
+                          builder: (context) => _dialogEditarPersonaje(indice))
                     },
                 icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () => {
-                      _eliminarParticipante(indice - 1, _listaPrueba),
+                      _eliminarParticipante(indice, _listaPrueba),
                     },
                 icon: Icon(Icons.delete)),
           ],
@@ -275,6 +275,17 @@ class _EditarPageState extends State<EditarPage> {
           onPressed: () => {},
           child: Icon(Icons.home, color: Colors.white),
         ));
+  }
+
+  List<int> _actualizarTablaFiltro(
+      String cadena, List<String> listaParticipantes) {
+    List<int> _listaIndices = [];
+    for (int i = 0; i < listaParticipantes.length; i++) {
+      if (listaParticipantes[i].contains(cadena)) {
+        _listaIndices.add(i);
+      }
+    }
+    return _listaIndices;
   }
 
   Widget _btnPruebas() {
@@ -416,6 +427,18 @@ class _EditarPageState extends State<EditarPage> {
               )),
         ),
       ),
+    );
+  }
+
+  Widget _dialogEliminarParticipante(participante) {
+    return AlertDialog(
+      content: Text(
+          "El participante ${participante} sera eliminado, ¿Deseas continuar?"),
+      actions: [
+        TextButton(onPressed: () => {}, child: Text("Ok")),
+        TextButton(
+            onPressed: () => Navigator.pop(context), child: Text('Cancelar'))
+      ],
     );
   }
 
