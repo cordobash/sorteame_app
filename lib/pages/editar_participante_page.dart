@@ -43,7 +43,7 @@ class _EditarPageState extends State<EditarPage> {
             _filtrosParticipantes(),
             (_cargando)
                 ? SizedBox(
-                    width: _deviceWidth! * 0.50,
+                    width: _deviceWidth! * 0.60,
                     height: _deviceHeight! * 0.65,
                     child: Center(
                         child: SizedBox(
@@ -54,16 +54,6 @@ class _EditarPageState extends State<EditarPage> {
                         ? _tablaParicipantes()
                         : _modoMosaico()
                     : _mensajeDefecto(),
-            SizedBox(
-              height: _deviceHeight! * 0.08,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _btnRegresarInicio(),
-                  _btnDescartarCambios(),
-                ],
-              ),
-            )
           ],
         ));
   }
@@ -89,7 +79,7 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _mensajeDefecto() {
     return SizedBox(
-      height: _deviceHeight! * 0.60,
+      height: _deviceHeight! * 0.70,
       width: _deviceWidth!,
       child: Center(
         child: Text('Aun no has agregado participantes',
