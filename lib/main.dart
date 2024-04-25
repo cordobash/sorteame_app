@@ -33,8 +33,7 @@ void main(List<String> args) async {
         '/crpage': (context) => PostPage(),
         '/editar_participante': (context) => EditarPage(),
       },
-      // home: MyApp()));
-      home: EditarPage()));
+      home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {

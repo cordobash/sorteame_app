@@ -19,28 +19,10 @@ class _EditarPageState extends State<EditarPage> {
   int _indiceEnum = 0;
   bool _cargando = false;
   bool _mostrarDialogoConfirmarEliminacion = false;
-  List<String> _listaPrueba = [
-    "Isaias",
-    "Juana",
-    "Maria",
-    "Olga",
-    "Noelia",
-    "Pedro",
-    "Oscar",
-    "Rafael",
-    "Roberto",
-    "Fatima",
-    "Isaias",
-    "Juan Caguamas"
-  ];
-  List<String> _listaRespaldo = [];
-
   dynamic _accionInicial = Acciones.values.first;
 
   _EditarPageState({Key? key}) {
-    // _inicialmenteVacia = (_listaPrueba.isEmpty) ? true : false;
     _inicialmenteVacia = false;
-    _listaRespaldo = [..._listaPrueba];
   }
 
   late double _anchoTabla;
@@ -67,7 +49,7 @@ class _EditarPageState extends State<EditarPage> {
                         child: SizedBox(
                             height: _deviceHeight! * 0.06,
                             child: CircularProgressIndicator())))
-                : (_listaPrueba.isNotEmpty)
+                : (listaParticipantes.isNotEmpty)
                     ? (_statusModoTabla)
                         ? _tablaParicipantes()
                         : _modoMosaico()
@@ -99,7 +81,9 @@ class _EditarPageState extends State<EditarPage> {
   void _actualizarParticipante(
       int indice, List<String> lista, String nuevoNombre) {
     try {
-      lista[indice] = nuevoNombre;
+      setState(() {
+        lista[indice] = nuevoNombre;
+      });
     } catch (e) {}
   }
 
@@ -134,7 +118,7 @@ class _EditarPageState extends State<EditarPage> {
             width: _deviceWidth! * 0.60,
             height: 55,
             child: TextField(
-              enabled: (_listaPrueba.isNotEmpty) ? true : false,
+              enabled: (listaParticipantes.isNotEmpty) ? true : false,
               decoration: InputDecoration(
                   alignLabelWithHint: true,
                   hintText: 'Buscar por nombre',
@@ -145,12 +129,12 @@ class _EditarPageState extends State<EditarPage> {
                   _nombreBuscar = _;
                   print('El nombre a buscar es: ${_nombreBuscar}');
                   print(
-                      'El numero de coincidencias para el nombre ${_nombreBuscar} fueron de ${_actualizarTablaFiltro(_nombreBuscar, _listaPrueba).length} en la posicion: ${_actualizarTablaFiltro(_nombreBuscar, _listaPrueba)}');
+                      'El numero de coincidencias para el nombre ${_nombreBuscar} fueron de ${_actualizarTablaFiltro(_nombreBuscar, listaParticipantes).length} en la posicion: ${_actualizarTablaFiltro(_nombreBuscar, listaParticipantes)}');
                 });
               },
               onSubmitted: (_) {
                 setState(() {
-                  _buscarEnLista(_, _listaPrueba);
+                  _buscarEnLista(_, listaParticipantes);
                 });
               },
             ),
@@ -191,7 +175,7 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _tablaParicipantes() {
     List<int> _indices = [
-      ..._actualizarTablaFiltro(_nombreBuscar, _listaPrueba)
+      ..._actualizarTablaFiltro(_nombreBuscar, listaParticipantes)
     ];
     return Container(
       height: _deviceHeight! * 0.65,
@@ -215,14 +199,17 @@ class _EditarPageState extends State<EditarPage> {
           Expanded(
             child: ListView.builder(
               itemCount: (_nombreBuscar.isEmpty)
-                  ? _listaPrueba.length
-                  : _actualizarTablaFiltro(_nombreBuscar, _listaPrueba).length,
+                  ? listaParticipantes.length
+                  : _actualizarTablaFiltro(_nombreBuscar, listaParticipantes)
+                      .length,
               itemBuilder: (context, indice) {
                 return ListTile(
                   title: (_nombreBuscar.isEmpty)
-                      ? _contenedorParticipante(_listaPrueba[indice], indice)
+                      ? _contenedorParticipante(
+                          listaParticipantes[indice], indice)
                       : _contenedorParticipante(
-                          _listaPrueba[_indices[indice]], _indices[indice]),
+                          listaParticipantes[_indices[indice]],
+                          _indices[indice]),
                 );
               },
             ),
@@ -256,7 +243,7 @@ class _EditarPageState extends State<EditarPage> {
                 icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () => {
-                      _eliminarParticipante(indice, _listaPrueba),
+                      _eliminarParticipante(indice, listaParticipantes),
                     },
                 icon: Icon(Icons.delete)),
           ],
@@ -326,12 +313,12 @@ class _EditarPageState extends State<EditarPage> {
                 children: [
                   Expanded(
                       child: GridView.builder(
-                    itemCount: _listaPrueba.length,
+                    itemCount: listaParticipantes.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3),
                     itemBuilder: (context, index) =>
                         _mosaicoContenedorParticipantes(
-                            _listaPrueba[index], index),
+                            listaParticipantes[index], index),
                   ))
                 ],
               ),
@@ -355,7 +342,7 @@ class _EditarPageState extends State<EditarPage> {
             if (_indiceEnum == 0)
               {
                 setState(() {
-                  _eliminarParticipante(indice, _listaPrueba);
+                  _eliminarParticipante(indice, listaParticipantes);
                 })
               }
             else if (_indiceEnum == 1)
@@ -406,15 +393,16 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _btnDescartarCambios() {
     return Opacity(
-      opacity:
-          (_listaPrueba.isNotEmpty && _inicialmenteVacia == false) ? 1.0 : 0.5,
+      opacity: (listaParticipantes.isNotEmpty && _inicialmenteVacia == false)
+          ? 1.0
+          : 0.5,
       child: SizedBox(
         height: 60,
         child: TextButton(
           // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
           child: Icon(Icons.restore, color: Colors.white),
           onPressed: () => {
-            (_listaPrueba.isNotEmpty && _inicialmenteVacia == false)
+            (listaParticipantes.isNotEmpty && _inicialmenteVacia == false)
                 ? showDialog(
                     context: context,
                     builder: (context) => _dialogDescartarCambios())
@@ -453,7 +441,7 @@ class _EditarPageState extends State<EditarPage> {
             enabled: false,
             decoration: InputDecoration(
               alignLabelWithHint: true,
-              hintText: _listaPrueba[indice],
+              hintText: listaParticipantes[indice],
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -478,7 +466,7 @@ class _EditarPageState extends State<EditarPage> {
       actions: [
         TextButton(
           onPressed: () {
-            _actualizarParticipante(indice, _listaPrueba, _nuevoNombre!);
+            _actualizarParticipante(indice, listaParticipantes, _nuevoNombre!);
             Navigator.pop(context);
           },
           child: Text('Ok'),
@@ -499,9 +487,9 @@ class _EditarPageState extends State<EditarPage> {
         TextButton(
           onPressed: () {
             setState(() {
-              // _listaPrueba = _listaRespaldo;
-              _listaPrueba = [];
-              _listaPrueba = [..._listaRespaldo];
+              // listaParticipantes = listaParticipantes;
+              listaParticipantes = [];
+              listaParticipantes = [...listaParticipantes];
               Navigator.pop(context);
             });
           },
