@@ -57,9 +57,6 @@ class _MyAppState extends State<MyApp> {
 
   bool _activarErrorTextAnadirParticipante = false;
 
-  // Tema por defecto ligth;
-  bool _temaOscuro = false;
-
   // Manejo de campos vacios
   Color _colorContenedorBorder = Colors.grey;
   bool? _visibleLabel = false;
@@ -110,6 +107,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
+    listaParticipantes = [
+      "Pedro",
+      "Juan",
+      "Isaias",
+      "Paulina",
+    ];
     super.initState();
   }
 
@@ -128,8 +131,7 @@ class _MyAppState extends State<MyApp> {
     _deviceHeight = MediaQuery.of(context).size.height;
 
     return ThemeProvider(
-        initTheme:
-            (_temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
+        initTheme: (temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
         builder: (_, theme) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -148,9 +150,9 @@ class _MyAppState extends State<MyApp> {
                         builder: (context) => IconButton(
                             onPressed: () {
                               setState(() {
-                                _temaOscuro = !_temaOscuro;
+                                temaOscuro = !temaOscuro;
                                 ThemeSwitcher.of(context).changeTheme(
-                                    theme: (_temaOscuro == false)
+                                    theme: (temaOscuro == false)
                                         ? ThemeData.light()
                                         : ThemeData.dark());
                               });
@@ -160,7 +162,7 @@ class _MyAppState extends State<MyApp> {
                   title: Text(
                     '${_titulosSuperior[_selectedIndex]}',
                   ),
-                  backgroundColor: (_temaOscuro == false)
+                  backgroundColor: (temaOscuro == false)
                       ? Colors.pink.shade900
                       : Colors.grey.shade900,
                   centerTitle: false,
@@ -171,7 +173,7 @@ class _MyAppState extends State<MyApp> {
                 drawer: Drawer(
                   shape: ShapeBorder.lerp(null, null, 15.0),
                   backgroundColor:
-                      (_temaOscuro == false) ? Colors.white : Colors.black,
+                      (temaOscuro == false) ? Colors.white : Colors.black,
                   shadowColor: Colors.white,
                   semanticLabel: 'Drawer',
                   surfaceTintColor: Colors.yellow,
@@ -187,7 +189,7 @@ class _MyAppState extends State<MyApp> {
                               fontWeight: FontWeight.w700),
                         ),
                         decoration: BoxDecoration(
-                          color: (_temaOscuro == false)
+                          color: (temaOscuro == false)
                               ? Colors.pink
                               : Colors.grey.shade900,
                         ),
@@ -197,10 +199,10 @@ class _MyAppState extends State<MyApp> {
                           leading: Icon(
                             Icons.menu,
                             color: (_selectedIndex == 0)
-                                ? (_temaOscuro == false)
+                                ? (temaOscuro == false)
                                     ? Colors.pink
                                     : Colors.pink
-                                : (_temaOscuro == false)
+                                : (temaOscuro == false)
                                     ? Colors.pink.shade900
                                     : Colors.white,
                           ),
@@ -220,10 +222,10 @@ class _MyAppState extends State<MyApp> {
                           leading: Icon(
                             Icons.history,
                             color: (_selectedIndex == 1)
-                                ? (_temaOscuro == false)
+                                ? (temaOscuro == false)
                                     ? Colors.pink
                                     : Colors.pink
-                                : (_temaOscuro == false)
+                                : (temaOscuro == false)
                                     ? Colors.pink.shade900
                                     : Colors.white,
                           ),
@@ -243,10 +245,10 @@ class _MyAppState extends State<MyApp> {
                           leading: Icon(
                             Icons.settings,
                             color: (_selectedIndex == 2)
-                                ? (_temaOscuro == false)
+                                ? (temaOscuro == false)
                                     ? Colors.pink
                                     : Colors.pink
-                                : (_temaOscuro == false)
+                                : (temaOscuro == false)
                                     ? Colors.pink.shade900
                                     : Colors.white,
                           ),
@@ -266,10 +268,10 @@ class _MyAppState extends State<MyApp> {
                           leading: Icon(
                             Icons.message,
                             color: (_selectedIndex == 3)
-                                ? (_temaOscuro == false)
+                                ? (temaOscuro == false)
                                     ? Colors.pink
                                     : Colors.pink
-                                : (_temaOscuro == false)
+                                : (temaOscuro == false)
                                     ? Colors.pink.shade900
                                     : Colors.white,
                           ),

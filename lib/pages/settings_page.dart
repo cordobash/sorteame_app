@@ -14,7 +14,7 @@ class SettingsPageState extends State<SettingsPage> {
   SettingsPageState({Key? key});
 
   // Flags
-  static TextStyle _estiloPersonalizado = TextStyle(fontSize: 18);
+  static TextStyle _estiloPersonalizado = TextStyle(fontSize: 16);
   void checkActivarAnimacion() {
     setState(() {
       if (activarAnimacion) {
@@ -38,130 +38,127 @@ class SettingsPageState extends State<SettingsPage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 25, top: 20),
-              child: const Text(
-                'Pagina de Ajustes',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-              ),
-            ),
             SizedBox(
-              height: _deviceHeight! * 0.60,
+              height: _deviceHeight! * 0.80,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
                     Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Opacity(
-                            opacity: 0.5,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [],
-                            ),
-                          ),
-                          Opacity(
-                            opacity: opacidadCuentaRegresiva!,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Cuenta regresiva',
-                                  style: _estiloPersonalizado,
-                                ),
-                                _dropDownConteo()
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.grey,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Eliminar participantes post sorteo',
-                                style: _estiloPersonalizado,
+                      child: ListView(children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SizedBox(
+                              width: _deviceWidth!,
+                              child: Text(
+                                'General',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              _switchWidget(
-                                  () => {
-                                        setState(() {
-                                          eliminarTodos = !eliminarTodos;
-                                        })
-                                      },
-                                  disparador: eliminarTodos,
-                                  activarDisparador: true)
-                            ],
-                          ),
-                          Divider(
-                            color: Colors.grey,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Activar animacion',
-                                style: _estiloPersonalizado,
+                            ),
+                            Opacity(
+                              opacity: opacidadCuentaRegresiva!,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Cuenta regresiva',
+                                    style: _estiloPersonalizado,
+                                  ),
+                                  _dropDownConteo()
+                                ],
                               ),
-                              _switchWidget(
-                                  () => {
-                                        activarAnimacion = !activarAnimacion,
-                                        checkActivarAnimacion(),
-                                      },
-                                  disparador: activarAnimacion,
-                                  activarDisparador: true)
-                            ],
-                          ),
-                          Divider(
-                            color: Colors.grey,
-                          ),
-                          Opacity(
-                            opacity: 0.5,
-                            child: Row(
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Permitir nombres duplicados',
+                                  'Eliminar participantes post sorteo',
                                   style: _estiloPersonalizado,
                                 ),
-                                _switchWidget(() => {},
-                                    disparador: nombresDuplicados,
-                                    activarDisparador: false)
+                                _switchWidget(
+                                    () => {
+                                          setState(() {
+                                            eliminarTodos = !eliminarTodos;
+                                          })
+                                        },
+                                    disparador: eliminarTodos,
+                                    activarDisparador: true)
                               ],
                             ),
-                          ),
-                          Divider(
-                            color: const Color.fromARGB(255, 132, 132, 132),
-                          ),
-                          Opacity(
-                            opacity: 0.45,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                            Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Activar modo oscuro',
+                                  'Activar animacion',
                                   style: _estiloPersonalizado,
                                 ),
-                                IconButton(
-                                  icon: Icon(Icons.check_box_outline_blank),
-                                  onPressed: () => {null},
-                                )
+                                _switchWidget(
+                                    () => {
+                                          activarAnimacion = !activarAnimacion,
+                                          checkActivarAnimacion(),
+                                        },
+                                    disparador: activarAnimacion,
+                                    activarDisparador: true)
                               ],
                             ),
-                          ),
-                          Divider(color: Colors.grey)
-                        ],
-                      ),
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                            Opacity(
+                              opacity: 0.5,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Permitir nombres duplicados',
+                                    style: _estiloPersonalizado,
+                                  ),
+                                  _switchWidget(() => {},
+                                      disparador: nombresDuplicados,
+                                      activarDisparador: false)
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: const Color.fromARGB(255, 132, 132, 132),
+                            ),
+                            Opacity(
+                              opacity: 0.45,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Activar modo oscuro',
+                                    style: _estiloPersonalizado,
+                                  ),
+                                  _switchWidget(() => {},
+                                      disparador: temaOscuro,
+                                      activarDisparador: false)
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.grey)
+                          ],
+                        ),
+                      ]),
                     ),
                   ],
                 ),
