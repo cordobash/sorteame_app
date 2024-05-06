@@ -31,7 +31,7 @@ void main(List<String> args) async {
       initialRoute: '/',
       routes: {
         '/crpage': (context) => PostPage(),
-        '/editar_participante': (context) => EditarPage(),
+        '/editar': (context) => EditarPage(),
       },
       home: MyApp()));
 }
@@ -107,13 +107,16 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
+
+    super.initState();
     listaParticipantes = [
       "Pedro",
       "Juan",
       "Isaias",
       "Paulina",
+      "Isaias Gerardo"
     ];
-    super.initState();
+    visibleFloating = false;
   }
 
   @override
@@ -130,229 +133,262 @@ class _MyAppState extends State<MyApp> {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
-    return ThemeProvider(
-        initTheme: (temaOscuro == false) ? ThemeData.light() : ThemeData.dark(),
-        builder: (_, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: ThemeSwitchingArea(
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                appBar: AppBar(
-                  leading: Builder(builder: (context) {
-                    return IconButton(
-                      icon: Icon(Icons.menu, color: Colors.white),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    );
-                  }),
-                  actions: [
-                    ThemeSwitcher(
-                        builder: (context) => IconButton(
-                            onPressed: () {
-                              setState(() {
-                                temaOscuro = !temaOscuro;
-                                ThemeSwitcher.of(context).changeTheme(
-                                    theme: (temaOscuro == false)
-                                        ? ThemeData.light()
-                                        : ThemeData.dark());
-                              });
-                            },
-                            icon: Icon(Icons.dark_mode)))
-                  ],
-                  title: Text(
-                    '${_titulosSuperior[_selectedIndex]}',
-                  ),
-                  backgroundColor: (temaOscuro == false)
-                      ? Colors.pink.shade900
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            );
+          }),
+          title: Text(
+            '${_titulosSuperior[_selectedIndex]}',
+          ),
+          backgroundColor: (temaOscuro == false)
+              ? Colors.pink.shade900
+              : Colors.grey.shade900,
+          centerTitle: false,
+        ),
+        body: (_selectedIndex == 0)
+            ? _menuPrincipal()
+            : _listaWidgets[_selectedIndex],
+        drawer: Drawer(
+          shape: ShapeBorder.lerp(null, null, 15.0),
+          backgroundColor: (temaOscuro == false) ? Colors.white : Colors.black,
+          shadowColor: Colors.white,
+          semanticLabel: 'Drawer',
+          surfaceTintColor: Colors.yellow,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                child: const Text(
+                  'Menu de opciones',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700),
+                ),
+                decoration: BoxDecoration(
+                  color: (temaOscuro == false)
+                      ? Colors.pink
                       : Colors.grey.shade900,
-                  centerTitle: false,
                 ),
-                body: (_selectedIndex == 0)
-                    ? _menuPrincipal()
-                    : _listaWidgets[_selectedIndex],
-                drawer: Drawer(
-                  shape: ShapeBorder.lerp(null, null, 15.0),
-                  backgroundColor:
-                      (temaOscuro == false) ? Colors.white : Colors.black,
-                  shadowColor: Colors.white,
-                  semanticLabel: 'Drawer',
-                  surfaceTintColor: Colors.yellow,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      DrawerHeader(
-                        child: const Text(
-                          'Menu de opciones',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        decoration: BoxDecoration(
-                          color: (temaOscuro == false)
-                              ? Colors.pink
-                              : Colors.grey.shade900,
-                        ),
-                      ),
-                      Builder(builder: (context) {
-                        return ListTile(
-                          leading: Icon(
-                            Icons.menu,
-                            color: (_selectedIndex == 0)
-                                ? (temaOscuro == false)
-                                    ? Colors.pink
-                                    : Colors.pink
-                                : (temaOscuro == false)
-                                    ? Colors.pink.shade900
-                                    : Colors.white,
-                          ),
-                          selected: (_selectedIndex == 0) ? true : false,
-                          onTap: () {
-                            setState(() {
-                              cambiarPagina(0);
-                              Navigator.pop(context);
-                            });
-                          },
-                          selectedColor: Colors.pinkAccent,
-                          title: const Text('Principal'),
-                        );
-                      }),
-                      Builder(builder: (context) {
-                        return ListTile(
-                          leading: Icon(
-                            Icons.history,
-                            color: (_selectedIndex == 1)
-                                ? (temaOscuro == false)
-                                    ? Colors.pink
-                                    : Colors.pink
-                                : (temaOscuro == false)
-                                    ? Colors.pink.shade900
-                                    : Colors.white,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              cambiarPagina(1);
-                              Navigator.pop(context);
-                            });
-                          },
-                          selected: (_selectedIndex == 1) ? true : false,
-                          selectedColor: Colors.pink,
-                          title: const Text('Resultados anteriores'),
-                        );
-                      }),
-                      Builder(builder: (context) {
-                        return ListTile(
-                          leading: Icon(
-                            Icons.settings,
-                            color: (_selectedIndex == 2)
-                                ? (temaOscuro == false)
-                                    ? Colors.pink
-                                    : Colors.pink
-                                : (temaOscuro == false)
-                                    ? Colors.pink.shade900
-                                    : Colors.white,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              cambiarPagina(2);
-                              Navigator.pop(context);
-                            });
-                          },
-                          selected: (_selectedIndex == 2) ? true : false,
-                          selectedColor: Colors.pink,
-                          title: const Text('Ajustes'),
-                        );
-                      }),
-                      Builder(builder: (context) {
-                        return ListTile(
-                          leading: Icon(
-                            Icons.message,
-                            color: (_selectedIndex == 3)
-                                ? (temaOscuro == false)
-                                    ? Colors.pink
-                                    : Colors.pink
-                                : (temaOscuro == false)
-                                    ? Colors.pink.shade900
-                                    : Colors.white,
-                          ),
-                          selected: (_selectedIndex == 3) ? true : false,
-                          onTap: () {
-                            setState(() {
-                              cambiarPagina(3);
-                              Navigator.pop(context);
-                            });
-                          },
-                          selectedColor: Colors.pink,
-                          title: const Text('Acerca de'),
-                        );
-                      }),
-                    ],
-                  ),
-                ),
-                floatingActionButton: (visibleFloating)
-                    ? ExpandableFab(
-                        distance: 112,
-                        children: [
-                          ActionButton(
-                            onPressed: () => {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return StatefulBuilder(
-                                        builder: (context, setState) =>
-                                            _alertAnadirArchivo(
-                                                archivo, setState));
-                                  })
-                            },
-                            color: Colors.pink.shade900,
-                            icon: const Icon(Icons.insert_drive_file),
-                          ),
-                          ActionButton(
-                            onPressed: () => {
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return StatefulBuilder(
-                                        builder: (context, setState) =>
-                                            _alertAnadirUnParticipante(
-                                                setState));
-                                  })
-                            },
-                            color: Colors.pink.shade900,
-                            icon: const Icon(Icons.plus_one_sharp),
-                          ),
-                        ],
-                      )
-                    : null,
               ),
-            ),
-          );
-        });
+              Builder(builder: (context) {
+                return ListTile(
+                  leading: Icon(
+                    Icons.menu,
+                    color: (_selectedIndex == 0)
+                        ? (temaOscuro == false)
+                            ? Colors.pink
+                            : Colors.pink
+                        : (temaOscuro == false)
+                            ? Colors.pink.shade900
+                            : Colors.white,
+                  ),
+                  selected: (_selectedIndex == 0) ? true : false,
+                  onTap: () {
+                    setState(() {
+                      cambiarPagina(0);
+                      Navigator.pop(context);
+                    });
+                  },
+                  selectedColor: Colors.pinkAccent,
+                  title: const Text('Principal'),
+                );
+              }),
+              Builder(builder: (context) {
+                return ListTile(
+                  leading: Icon(
+                    Icons.history,
+                    color: (_selectedIndex == 1)
+                        ? (temaOscuro == false)
+                            ? Colors.pink
+                            : Colors.pink
+                        : (temaOscuro == false)
+                            ? Colors.pink.shade900
+                            : Colors.white,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      cambiarPagina(1);
+                      Navigator.pop(context);
+                    });
+                  },
+                  selected: (_selectedIndex == 1) ? true : false,
+                  selectedColor: Colors.pink,
+                  title: const Text('Resultados anteriores'),
+                );
+              }),
+              Builder(builder: (context) {
+                return ListTile(
+                  leading: Icon(
+                    Icons.settings,
+                    color: (_selectedIndex == 2)
+                        ? (temaOscuro == false)
+                            ? Colors.pink
+                            : Colors.pink
+                        : (temaOscuro == false)
+                            ? Colors.pink.shade900
+                            : Colors.white,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      cambiarPagina(2);
+                      Navigator.pop(context);
+                    });
+                  },
+                  selected: (_selectedIndex == 2) ? true : false,
+                  selectedColor: Colors.pink,
+                  title: const Text('Ajustes'),
+                );
+              }),
+              Builder(builder: (context) {
+                return ListTile(
+                  leading: Icon(
+                    Icons.message,
+                    color: (_selectedIndex == 3)
+                        ? (temaOscuro == false)
+                            ? Colors.pink
+                            : Colors.pink
+                        : (temaOscuro == false)
+                            ? Colors.pink.shade900
+                            : Colors.white,
+                  ),
+                  selected: (_selectedIndex == 3) ? true : false,
+                  onTap: () {
+                    setState(() {
+                      cambiarPagina(3);
+                      Navigator.pop(context);
+                    });
+                  },
+                  selectedColor: Colors.pink,
+                  title: const Text('Acerca de'),
+                );
+              }),
+            ],
+          ),
+        ),
+        floatingActionButton: (visibleFloating)
+            ? ExpandableFab(
+                distance: 112,
+                children: [
+                  ActionButton(
+                    onPressed: () => {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) =>
+                                    _alertAnadirArchivo(archivo, setState));
+                          })
+                    },
+                    color: Colors.pink.shade900,
+                    icon: const Icon(Icons.insert_drive_file),
+                  ),
+                  ActionButton(
+                    onPressed: () => {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) =>
+                                    _alertAnadirUnParticipante(setState));
+                          })
+                    },
+                    color: Colors.pink.shade900,
+                    icon: const Icon(Icons.plus_one_sharp),
+                  ),
+                ],
+              )
+            : null,
+      ),
+    );
   }
 
   Widget _menuPrincipal() {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const Text('Realiza tus sorteos en nuestra app!',
-              style: TextStyle(fontWeight: FontWeight.w700)),
-          _tituloSorteo(),
-          const Text('Lista de participantes'),
-          _visibleLabel!
-              ? Text(
-                  'Añade al menos 1 participante',
-                  style: TextStyle(color: Colors.red, fontSize: 15),
-                )
-              : SizedBox(),
-          _contenedorListaParticipantes(),
-          _btnRealizarSorteo(context)
+          SizedBox(
+            height: _deviceHeight! * 0.70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _tituloSorteo(),
+                SizedBox(
+                    width: _deviceWidth! * 0.75,
+                    child: const Text('Lista de participantes')),
+                _visibleLabel!
+                    ? Text(
+                        'Añade al menos 1 participante',
+                        style: TextStyle(color: Colors.red, fontSize: 15),
+                      )
+                    : SizedBox(),
+                _contenedorListaParticipantes(),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _btnRealizarSorteo(context),
+              _btnAgregarParticipantes(),
+            ],
+          )
         ],
       ),
     );
+  }
+
+  // btnAgregarParticipantes
+  Widget _btnAgregarParticipantes() {
+    return ElevatedButton(
+        onPressed: () => {
+              showModalBottomSheet(
+                  showDragHandle: true,
+                  enableDrag: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      width: _deviceWidth! * 0.95,
+                      height: 200,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text('Anadir participante',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () => _alertAnadirUnParticipante,
+                                  child: Text('Anadir participante'),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () => _alertAnadirArchivo,
+                                    child: Text('Subir un archivo')),
+                              ],
+                            )
+                          ]),
+                    );
+                  }),
+            },
+        child: Text('Agtegar participante(s)'));
   }
 
 //  Esta validacion se hace para el titulo y para los participantes(Solo modo manual, ya que el modo archivo esta validado de otra forma).
@@ -447,8 +483,7 @@ class _MyAppState extends State<MyApp> {
                         onPressed: () => {
                               setState(() {
                                 // Se redirije al usuario a la pagina de editar_participante.
-                                Navigator.pushNamed(
-                                    context, '/editar_participante');
+                                Navigator.pushNamed(context, '/editar');
                               })
                             },
                         icon: Icon(Icons.edit)),

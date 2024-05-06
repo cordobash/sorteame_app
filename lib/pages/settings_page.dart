@@ -56,7 +56,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: Text(
                                 'General',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
+                                    fontWeight: FontWeight.bold, fontSize: 16),
                               ),
                             ),
                             Opacity(
@@ -138,6 +138,59 @@ class SettingsPageState extends State<SettingsPage> {
                             Divider(
                               color: const Color.fromARGB(255, 132, 132, 132),
                             ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 5),
+                              child: SizedBox(
+                                width: _deviceWidth!,
+                                child: Text(
+                                  'Personalizacion',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Color principal',
+                                  style: _estiloPersonalizado,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('Blanco'),
+                                    Text('Rosa'),
+                                    Text('Rojo'),
+                                    Text('Azul'),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Divider(color: Colors.grey),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Seleccionar idioma',
+                                  style: _estiloPersonalizado,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Espanol'),
+                                    Text('Ingles'),
+                                    Text('Portuges')
+                                  ],
+                                )
+                              ],
+                            ),
+                            Divider(color: Colors.grey),
                             Opacity(
                               opacity: 0.45,
                               child: Row(
