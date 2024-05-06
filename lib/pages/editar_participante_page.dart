@@ -287,6 +287,9 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _modoMosaico() {
+    List<int> _indices = [
+      ..._actualizarTablaFiltro(_nombreBuscar, listaParticipantes)
+    ];
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -296,20 +299,33 @@ class _EditarPageState extends State<EditarPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 360,
+              width: _deviceWidth! * 1.0,
               height: _deviceHeight! * 0.55,
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
                   Expanded(
                       child: GridView.builder(
-                    itemCount: listaParticipantes.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    itemBuilder: (context, index) =>
-                        _mosaicoContenedorParticipantes(
-                            listaParticipantes[index], index),
-                  ))
+                          itemCount: (_nombreBuscar.isEmpty)
+                              ? listaParticipantes.length
+                              : _actualizarTablaFiltro(
+                                      _nombreBuscar, listaParticipantes)
+                                  .length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                title: (_nombreBuscar.isEmpty)
+                                    ? _mosaicoContenedorParticipantes(
+                                        listaParticipantes[index], index)
+                                    : _mosaicoContenedorParticipantes(
+                                        listaParticipantes[_indices[index]],
+                                        index));
+                          }
+                          // _mosaicoContenedorParticipantes(
+                          //     listaParticipantes[index], index),
+                          ))
                 ],
               ),
             )
@@ -321,8 +337,7 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _mosaicoContenedorParticipantes(String _participante, indice) {
     return SizedBox(
-      height: 30,
-      width: 10,
+      height: 150,
       child: Padding(
         padding: EdgeInsets.all(8),
         child: TextButton(
