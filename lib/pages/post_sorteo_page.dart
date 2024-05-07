@@ -97,7 +97,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
       ),
       body: Center(
           child: SizedBox(
-        height: _deviceHeight! * 0.45,
+        height: _deviceHeight! * 0.75,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -116,7 +116,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 image: AssetImage('lib/src/images/trophy.png')),
             const Text('Felicidades al ganador!'),
             Container(
-              width: _deviceWidth! * 0.50,
+              width: _deviceWidth! * 0.80,
               height: _deviceHeight! * 0.07,
               decoration: BoxDecoration(
                 color: Colors.pink.shade700,
@@ -138,7 +138,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
             ),
             Text('Por haber sido el ganador(a) en el sorteo de: '),
             Container(
-              width: _deviceWidth! * 0.50,
+              width: _deviceWidth! * 0.70,
               height: _deviceHeight! * 0.07,
               child: Container(
                   child: Row(
@@ -154,6 +154,17 @@ class _ResultadosPageState extends State<ResultadosPage> {
               decoration: BoxDecoration(
                 color: Colors.pink,
                 borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.pushNamed(context, '/');
+                  });
+                },
+                child: Text('Regresar a inicio'),
               ),
             )
           ],
