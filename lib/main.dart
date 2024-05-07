@@ -5,7 +5,6 @@ import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 // Vistas.
 import 'package:app_sorteos/pages/settings_page.dart';
@@ -587,7 +586,7 @@ class _MyAppState extends State<MyApp> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Icon(
-                        (vTituloSorteo!.isNotEmpty &&
+                        (vTituloSorteo.isNotEmpty &&
                                 listaParticipantes.isNotEmpty)
                             ? Icons.play_circle
                             : Icons.play_disabled,

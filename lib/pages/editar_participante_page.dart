@@ -12,18 +12,15 @@ enum Acciones { eliminar, modificar }
 
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
-  bool _inicialmenteVacia = false;
   bool _statusModoTabla = true;
   String _nombreBuscar = "";
   List<String> _listaCoincidencias = [];
   int _indiceEnum = 0;
   bool _cargando = false;
-  bool _mostrarDialogoConfirmarEliminacion = false;
   dynamic _accionInicial = Acciones.values.first;
+  bool _checkBoxConfirmacionPresionado = false;
 
-  _EditarPageState({Key? key}) {
-    _inicialmenteVacia = false;
-  }
+  _EditarPageState({Key? key}) {}
 
   late double _anchoTabla;
   @override
@@ -131,7 +128,7 @@ class _EditarPageState extends State<EditarPage> {
           ),
         ),
         Container(
-            color: Colors.black,
+            color: (_statusModoTabla) ? Colors.black : Colors.white,
             child: IconButton(
                 onPressed: () => {
                       setState(() {
@@ -142,18 +139,23 @@ class _EditarPageState extends State<EditarPage> {
                         _statusModoTabla = true;
                       })
                     },
-                icon: Icon(Icons.list, color: Colors.white))),
-        IconButton(
-          onPressed: () => {
-            setState(() {
-              _cargando = true;
-              _tiempoCarga().whenComplete(() => setState(() {
-                    _cargando = false;
-                  }));
-              _statusModoTabla = false;
-            })
-          },
-          icon: Icon(Icons.window),
+                icon: Icon(Icons.list,
+                    color: (_statusModoTabla) ? Colors.white : Colors.black))),
+        Container(
+          color: (!_statusModoTabla) ? Colors.black : Colors.white,
+          child: IconButton(
+            onPressed: () => {
+              setState(() {
+                _cargando = true;
+                _tiempoCarga().whenComplete(() => setState(() {
+                      _cargando = false;
+                    }));
+                _statusModoTabla = false;
+              })
+            },
+            icon: Icon(Icons.window,
+                color: (!_statusModoTabla) ? Colors.white : Colors.black),
+          ),
         ),
       ],
     );
@@ -233,7 +235,14 @@ class _EditarPageState extends State<EditarPage> {
                 icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () => {
-                      _eliminarParticipante(indice, listaParticipantes),
+                      !mostrarDialogoConfirmacion
+                          ? _eliminarParticipante(indice, listaParticipantes)
+                          : showDialog(
+                              context: context,
+                              builder: (context) => StatefulBuilder(
+                                  builder: (context, setState) =>
+                                      _dialogEliminarParticipante(
+                                          indice, setState)))
                     },
                 icon: Icon(Icons.delete)),
           ],
@@ -322,10 +331,7 @@ class _EditarPageState extends State<EditarPage> {
                                     : _mosaicoContenedorParticipantes(
                                         listaParticipantes[_indices[index]],
                                         index));
-                          }
-                          // _mosaicoContenedorParticipantes(
-                          //     listaParticipantes[index], index),
-                          ))
+                          }))
                 ],
               ),
             )
@@ -342,12 +348,17 @@ class _EditarPageState extends State<EditarPage> {
         padding: EdgeInsets.all(8),
         child: TextButton(
           onPressed: () => {
-            print(Acciones.values),
-            print((Acciones.values == 'eliminar') ? "Si" : "No"),
             if (_indiceEnum == 0)
               {
                 setState(() {
-                  _eliminarParticipante(indice, listaParticipantes);
+                  !mostrarDialogoConfirmacion
+                      ? _eliminarParticipante(indice, listaParticipantes)
+                      : showDialog(
+                          context: context,
+                          builder: (context) => StatefulBuilder(
+                              builder: (context, setState) =>
+                                  _dialogEliminarParticipante(
+                                      indice, setState)));
                 })
               }
             else if (_indiceEnum == 1)
@@ -396,39 +407,44 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _btnDescartarCambios() {
-    return Opacity(
-      opacity: (listaParticipantes.isNotEmpty && _inicialmenteVacia == false)
-          ? 1.0
-          : 0.5,
-      child: SizedBox(
-        height: 60,
-        child: TextButton(
-          // child: Text('Descartar cambios', style: TextStyle(color: Colors.white)),
-          child: Icon(Icons.restore, color: Colors.white),
-          onPressed: () => {
-            (listaParticipantes.isNotEmpty && _inicialmenteVacia == false)
-                ? showDialog(
-                    context: context,
-                    builder: (context) => _dialogDescartarCambios())
-                : null
-          },
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7),
-              )),
-        ),
-      ),
-    );
-  }
-
-  Widget _dialogEliminarParticipante(participante) {
+  Widget _dialogEliminarParticipante(int indice, state) {
     return AlertDialog(
-      content: Text(
-          "El participante ${participante} sera eliminado, ¿Deseas continuar?"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+              "El participante ${listaParticipantes[indice]} sera eliminado, ¿Deseas continuar?"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: (!_checkBoxConfirmacionPresionado)
+                    ? Icon(Icons.check_box_outline_blank)
+                    : Icon(Icons.check_box),
+                onPressed: () => {
+                  state(() {
+                    _checkBoxConfirmacionPresionado =
+                        !_checkBoxConfirmacionPresionado;
+                  })
+                },
+              ),
+              Text('No volver a mostrar este dialogo')
+            ],
+          )
+        ],
+      ),
       actions: [
-        TextButton(onPressed: () => {}, child: Text("Ok")),
+        TextButton(
+            onPressed: () => {
+                  setState(() {
+                    if (_checkBoxConfirmacionPresionado) {
+                      mostrarDialogoConfirmacion = false;
+                    }
+                    _eliminarParticipante(indice, listaParticipantes);
+                    Navigator.pop(context);
+                  })
+                },
+            child: Text("Ok")),
         TextButton(
             onPressed: () => Navigator.pop(context), child: Text('Cancelar'))
       ],
