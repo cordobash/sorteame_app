@@ -43,9 +43,7 @@ class _EditarPageState extends State<EditarPage> {
                     width: _deviceWidth! * 0.60,
                     height: _deviceHeight! * 0.65,
                     child: Center(
-                        child: SizedBox(
-                            height: _deviceHeight! * 0.06,
-                            child: CircularProgressIndicator())))
+                        child: SizedBox(child: CircularProgressIndicator())))
                 : (listaParticipantes.isNotEmpty)
                     ? (_statusModoTabla)
                         ? _tablaParicipantes()
@@ -309,7 +307,7 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             SizedBox(
               width: _deviceWidth! * 1.0,
-              height: _deviceHeight! * 0.55,
+              height: _deviceHeight! * 0.60,
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
@@ -343,7 +341,7 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _mosaicoContenedorParticipantes(String _participante, indice) {
     return SizedBox(
-      height: 150,
+      height: 200,
       child: Padding(
         padding: EdgeInsets.all(8),
         child: TextButton(
