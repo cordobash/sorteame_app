@@ -19,34 +19,39 @@ class _PostPageState extends State<PostPage> {
     // TODO: implement build
     return tiempoFuera
         ? ResultadosPage()
-        : Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.pinkAccent,
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  const Text(
-                    'Tiempo restante para conocer al ganador!',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Countdown(
-                    seconds: cuentaRegresiva,
-                    build: (BuildContext context, double tiempo) => Text(
-                      tiempo.toInt().toString(),
+        : PopScope(
+            canPop: false,
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.pinkAccent,
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Text(
+                      'Tiempo restante para conocer al ganador!',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    onFinished: () => {
-                      setState(() {
-                        tiempoFuera = true;
-                      })
-                    },
-                  ),
-                ],
+                    Countdown(
+                      seconds: cuentaRegresiva,
+                      build: (BuildContext context, double tiempo) => Text(
+                        tiempo.toInt().toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 50),
+                      ),
+                      onFinished: () => {
+                        setState(() {
+                          tiempoFuera = true;
+                        })
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -88,6 +93,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pinkAccent,
+        leading: null,
       ),
       body: Center(
           child: SizedBox(
