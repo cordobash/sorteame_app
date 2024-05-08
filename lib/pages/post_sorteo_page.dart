@@ -1,5 +1,4 @@
 import 'package:app_sorteos/models/boxes.dart';
-import 'package:app_sorteos/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';

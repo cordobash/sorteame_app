@@ -343,7 +343,8 @@ class _EditarPageState extends State<EditarPage> {
     return SizedBox(
       height: 200,
       child: Padding(
-        padding: EdgeInsets.all(8),
+        // padding: const EdgeInsets.only(bottom: 8.0),
+        padding: EdgeInsets.only(bottom: 10),
         child: TextButton(
           onPressed: () => {
             if (_indiceEnum == 0)
@@ -366,15 +367,17 @@ class _EditarPageState extends State<EditarPage> {
                     builder: (context) => _dialogEditarPersonaje(indice))
               }
           },
-          child: Text(
-            '${_participante}',
-            style: TextStyle(color: Colors.white),
-          ),
           style: ElevatedButton.styleFrom(
+            minimumSize: Size(400, 350),
+            elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(5),
             ),
             backgroundColor: Colors.black,
+          ),
+          child: Text(
+            _participante,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),

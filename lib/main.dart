@@ -114,8 +114,10 @@ class _MyAppState extends State<MyApp> {
       "Pedro",
       "Juan",
       "Isaias",
+      "Isaias Gerardo Cordova Palomares",
       "Paulina",
-      "Isaias Gerardo"
+      "Isaias Gerardo",
+      "This is a very very very long name, can my code handle it?"
     ];
     visibleFloating = false;
   }
@@ -558,13 +560,13 @@ class _MyAppState extends State<MyApp> {
                       'Texto almacenado en el controlador del TextField: ${textEditingController.text}'),
                   calcularGanador(),
                   if (listaParticipantes.isNotEmpty &&
-                      vTituloSorteo.isNotEmpty &&
+                      textEditingController.text.isNotEmpty &&
                       _validarCaracteres(vTituloSorteo) == false)
                     {
                       boxSorteo.put(
-                          'key_${vTituloSorteo}_${ganadorSorteo}',
+                          'key_${textEditingController.text}_${ganadorSorteo}',
                           Sorteo.conDatos(
-                              tituloSorteo: vTituloSorteo,
+                              tituloSorteo: textEditingController.text,
                               cantParticipantes: listaParticipantes.length,
                               ganadorSorteo: ganadorSorteo)),
                       activarAnimacion
