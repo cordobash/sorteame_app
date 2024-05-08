@@ -35,6 +35,8 @@ void main(List<String> args) async {
       home: MyApp()));
 }
 
+TextEditingController textEditingController = TextEditingController();
+
 class MyApp extends StatefulWidget {
   MyApp({Key? key});
 
@@ -122,13 +124,11 @@ class _MyAppState extends State<MyApp> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    textEditingController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_selectedIndex != 0) {
-      vTituloSorteo = '';
-    }
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
@@ -434,6 +434,7 @@ class _MyAppState extends State<MyApp> {
     return SizedBox(
         width: _deviceWidth! * 0.80,
         child: TextField(
+            controller: textEditingController,
             onChanged: (_) {
               setState(() {
                 vTituloSorteo = _;
@@ -552,6 +553,9 @@ class _MyAppState extends State<MyApp> {
                       borderRadius: BorderRadius.circular(10),
                     )),
                 onPressed: () => {
+                  print('VtituloSorteo: ${vTituloSorteo}'),
+                  print(
+                      'Texto almacenado en el controlador del TextField: ${textEditingController.text}'),
                   calcularGanador(),
                   if (listaParticipantes.isNotEmpty &&
                       vTituloSorteo.isNotEmpty &&
@@ -575,8 +579,11 @@ class _MyAppState extends State<MyApp> {
                   else
                     {
                       setState(() {
-                        vTituloSorteo.isEmpty ||
-                                vTituloSorteo.toString().codeUnitAt(0) == 32
+                        textEditingController.text.isEmpty ||
+                                textEditingController.text
+                                        .toString()
+                                        .codeUnitAt(0) ==
+                                    32
                             ? _mostrarErrorText = true
                             : _mostrarErrorText = false;
                       })
@@ -586,7 +593,7 @@ class _MyAppState extends State<MyApp> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Icon(
-                        (vTituloSorteo.isNotEmpty &&
+                        (textEditingController.text.isNotEmpty &&
                                 listaParticipantes.isNotEmpty)
                             ? Icons.play_circle
                             : Icons.play_disabled,
@@ -762,9 +769,9 @@ class _MyAppState extends State<MyApp> {
             onPressed: () => {
                   setState(() {
                     boxSorteo.put(
-                        'key_${vTituloSorteo}_${ganadorSorteo}',
+                        'key_${textEditingController.text}_${ganadorSorteo}',
                         Sorteo.conDatos(
-                            tituloSorteo: vTituloSorteo,
+                            tituloSorteo: textEditingController.text,
                             cantParticipantes: listaParticipantes.length,
                             ganadorSorteo: ganadorSorteo));
                     validarEliminarTodos();
