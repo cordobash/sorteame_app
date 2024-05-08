@@ -274,41 +274,6 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        floatingActionButton: (visibleFloating)
-            ? ExpandableFab(
-                distance: 112,
-                children: [
-                  ActionButton(
-                    onPressed: () => {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(
-                                builder: (context, setState) =>
-                                    _alertAnadirArchivo(archivo, setState));
-                          })
-                    },
-                    color: Colors.pink.shade900,
-                    icon: const Icon(Icons.insert_drive_file),
-                  ),
-                  ActionButton(
-                    onPressed: () => {
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(
-                                builder: (context, setState) =>
-                                    _alertAnadirUnParticipante(setState));
-                          })
-                    },
-                    color: Colors.pink.shade900,
-                    icon: const Icon(Icons.plus_one_sharp),
-                  ),
-                ],
-              )
-            : null,
       ),
     );
   }
@@ -377,11 +342,31 @@ class _MyAppState extends State<MyApp> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () => _alertAnadirUnParticipante,
+                                  onPressed: () {
+                                    showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return StatefulBuilder(
+                                            builder: (context, setState) =>
+                                                _alertAnadirUnParticipante(
+                                                    setState),
+                                          );
+                                        });
+                                  },
                                   child: Text('Anadir participante'),
                                 ),
                                 ElevatedButton(
-                                    onPressed: () => _alertAnadirArchivo,
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return StatefulBuilder(
+                                                builder: (context, setState) =>
+                                                    _alertAnadirArchivo(
+                                                        archivo, setState));
+                                          });
+                                    },
                                     child: Text('Subir un archivo')),
                               ],
                             )
@@ -389,7 +374,7 @@ class _MyAppState extends State<MyApp> {
                     );
                   }),
             },
-        child: Text('Agtegar participante(s)'));
+        child: Text('Agregar participante(s)'));
   }
 
 //  Esta validacion se hace para el titulo y para los participantes(Solo modo manual, ya que el modo archivo esta validado de otra forma).
