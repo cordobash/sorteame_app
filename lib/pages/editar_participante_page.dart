@@ -1,5 +1,6 @@
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class EditarPage extends StatefulWidget {
   EditarPage({Key? key});
@@ -414,7 +415,15 @@ class _EditarPageState extends State<EditarPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-              "El participante ${listaParticipantes[indice]} sera eliminado, ¿Deseas continuar?"),
+            '${listaParticipantes[indice]}',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: SizedBox(
+                width: _deviceWidth!,
+                child: Text('Sera eliminado,¿Deseas continuar?')),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -429,7 +438,10 @@ class _EditarPageState extends State<EditarPage> {
                   })
                 },
               ),
-              Text('No volver a mostrar este dialogo')
+              LimitedBox(
+                  maxHeight: 200,
+                  maxWidth: 170,
+                  child: Text('No volver a mostrar este dialogo'))
             ],
           )
         ],
