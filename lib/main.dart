@@ -72,8 +72,8 @@ class _MyAppState extends State<MyApp> {
     "Acerca de mi"
   ];
 
-  List<Widget> _listaWidgets = [
-    Text(
+  final List<Widget> _listaWidgets = [
+    const Text(
       'No implementation for this page',
       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
     ),
@@ -117,8 +117,6 @@ class _MyAppState extends State<MyApp> {
       "This is a very very very long name, can my code handle it?"
     ];
     visibleFloating = false;
-    print('El ancho del dispositivo es: $_deviceWidth');
-    print('La altura del dispositivo es: $_deviceHeight');
   }
 
   @override
@@ -146,6 +144,7 @@ class _MyAppState extends State<MyApp> {
           }),
           title: Text(
             '${_titulosSuperior[_selectedIndex]}',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           backgroundColor: (temaOscuro == false)
               ? Colors.pink.shade900
@@ -302,13 +301,27 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _btnRealizarSorteo(context),
-              _btnAgregarParticipantes(),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: (_deviceWidth! > 400)
+                ? Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _btnRealizarSorteo(context),
+                      Padding(padding: const EdgeInsets.only(bottom: 10)),
+                      _btnAgregarParticipantes(),
+                    ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _btnRealizarSorteo(context),
+                      Padding(padding: const EdgeInsets.only(bottom: 10)),
+                      _btnAgregarParticipantes(),
+                    ],
+                  ),
           )
         ],
       ),
@@ -319,6 +332,7 @@ class _MyAppState extends State<MyApp> {
   Widget _btnAgregarParticipantes() {
     return SizedBox(
       height: _deviceHeight! * 0.06,
+      width: 205,
       child: ElevatedButton(
           onPressed: () => {
                 showModalBottomSheet(
@@ -328,7 +342,7 @@ class _MyAppState extends State<MyApp> {
                     context: context,
                     builder: (context) {
                       return Container(
-                        width: _deviceWidth! * 0.90,
+                        width: _deviceWidth! * 0.95,
                         height: 200,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -363,7 +377,7 @@ class _MyAppState extends State<MyApp> {
                                             borderRadius:
                                                 BorderRadius.circular(10))),
                                     child: Text(
-                                      'Anadir participante',
+                                      'Manualmente',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
