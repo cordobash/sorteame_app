@@ -8,8 +8,13 @@ class SettingsPage extends StatefulWidget {
   State<StatefulWidget> createState() => SettingsPageState();
 }
 
+enum Idiomas { Espanol, Ingles, Portugues }
+
 class SettingsPageState extends State<SettingsPage> {
   double? _deviceWidth, _deviceHeight;
+
+  dynamic _accionInicial = Idiomas.values.first;
+  int _indiceEnum = 0;
 
   SettingsPageState({Key? key});
 
@@ -162,10 +167,10 @@ class SettingsPageState extends State<SettingsPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text('Blanco'),
-                                    Text('Rosa'),
-                                    Text('Rojo'),
-                                    Text('Azul'),
+                                    _contenedorColor(Colors.red),
+                                    _contenedorColor(Colors.pink),
+                                    _contenedorColor(Colors.blue),
+                                    _contenedorColor(Colors.white),
                                   ],
                                 )
                               ],
@@ -183,9 +188,11 @@ class SettingsPageState extends State<SettingsPage> {
                                       MainAxisAlignment.spaceAround,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text('Espanol'),
-                                    Text('Ingles'),
-                                    Text('Portuges')
+                                    LimitedBox(
+                                        maxWidth:
+                                            (_deviceWidth! < 400) ? 165 : 200,
+                                        maxHeight: 40,
+                                        child: _segmentedButtons()),
                                   ],
                                 )
                               ],
@@ -221,6 +228,21 @@ class SettingsPageState extends State<SettingsPage> {
         ),
       ),
     ));
+  }
+
+  Widget _contenedorColor(color) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5.0),
+      child: Container(
+        height: 33,
+        width: 30,
+        decoration: BoxDecoration(
+          color: color,
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(50),
+        ),
+      ),
+    );
   }
 
   Widget _dropDownConteo() {
@@ -261,6 +283,43 @@ class SettingsPageState extends State<SettingsPage> {
             funcion(),
           },
         setState(() {})
+      },
+    );
+  }
+
+  Widget _segmentedButtons() {
+    return SegmentedButton<Idiomas>(
+      showSelectedIcon: false,
+      segments: const <ButtonSegment<Idiomas>>[
+        ButtonSegment<Idiomas>(
+          value: Idiomas.Espanol,
+          label: Text(
+            '🇲🇽',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        ButtonSegment<Idiomas>(
+          value: Idiomas.Ingles,
+          label: Text(
+            '🇺🇸',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        ButtonSegment(
+          value: Idiomas.Portugues,
+          label: Text(
+            '🇵🇹',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      ],
+      selected: <Idiomas>{_accionInicial},
+      onSelectionChanged: (Set<Idiomas> nuevoElemento) {
+        setState(() {
+          // De esta forma solo un valor estara seleccionado.
+          _accionInicial = nuevoElemento.first;
+          _indiceEnum = (_indiceEnum == 0) ? 1 : 0;
+        });
       },
     );
   }
