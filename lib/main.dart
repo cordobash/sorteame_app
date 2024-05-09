@@ -17,9 +17,6 @@ import 'package:app_sorteos/models/boxes.dart';
 import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
-// Floating
-import './widgets/expandable_floating.dart';
-
 void main(List<String> args) async {
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
@@ -120,6 +117,8 @@ class _MyAppState extends State<MyApp> {
       "This is a very very very long name, can my code handle it?"
     ];
     visibleFloating = false;
+    print('El ancho del dispositivo es: $_deviceWidth');
+    print('La altura del dispositivo es: $_deviceHeight');
   }
 
   @override
@@ -305,7 +304,7 @@ class _MyAppState extends State<MyApp> {
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _btnRealizarSorteo(context),
               _btnAgregarParticipantes(),
@@ -318,45 +317,57 @@ class _MyAppState extends State<MyApp> {
 
   // btnAgregarParticipantes
   Widget _btnAgregarParticipantes() {
-    return ElevatedButton(
-        onPressed: () => {
-              showModalBottomSheet(
-                  showDragHandle: true,
-                  enableDrag: true,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) {
-                    return Container(
-                      width: _deviceWidth! * 0.95,
-                      height: 200,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text('Anadir participante',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return StatefulBuilder(
-                                            builder: (context, setState) =>
-                                                _alertAnadirUnParticipante(
-                                                    setState),
-                                          );
-                                        });
-                                  },
-                                  child: Text('Anadir participante'),
-                                ),
-                                ElevatedButton(
+    return SizedBox(
+      height: _deviceHeight! * 0.06,
+      child: ElevatedButton(
+          onPressed: () => {
+                showModalBottomSheet(
+                    showDragHandle: true,
+                    enableDrag: true,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        width: _deviceWidth! * 0.90,
+                        height: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Anadir participante',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return StatefulBuilder(
+                                              builder: (context, setState) =>
+                                                  _alertAnadirUnParticipante(
+                                                      setState),
+                                            );
+                                          });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                    child: Text(
+                                      'Anadir participante',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  ElevatedButton(
                                     onPressed: () {
                                       showDialog(
                                           context: context,
@@ -367,14 +378,37 @@ class _MyAppState extends State<MyApp> {
                                                         archivo, setState));
                                           });
                                     },
-                                    child: Text('Subir un archivo')),
-                              ],
-                            )
-                          ]),
-                    );
-                  }),
-            },
-        child: Text('Agregar participante(s)'));
+                                    child: Text(
+                                      'Subir un archivo',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ]),
+                      );
+                    }),
+              },
+          child: Row(
+            children: [
+              Icon(Icons.add, color: Colors.white),
+              Text('Agregar participante',
+                  style: TextStyle(color: Colors.white)),
+            ],
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.pink,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          )),
+    );
   }
 
 //  Esta validacion se hace para el titulo y para los participantes(Solo modo manual, ya que el modo archivo esta validado de otra forma).
@@ -504,7 +538,6 @@ class _MyAppState extends State<MyApp> {
         visibleFloatingAnteriores = true;
         _colorContenedorBorder = Colors.grey;
         _visibleLabel = false;
-        print('titulo sorteo: ${vTituloSorteo.toString().codeUnitAt(0)}');
       });
     } catch (e) {
       setState(() {
@@ -523,7 +556,7 @@ class _MyAppState extends State<MyApp> {
         SizedBox(
           height: _deviceHeight! * 0.06,
           child: Opacity(
-            opacity: (vTituloSorteo.isNotEmpty &&
+            opacity: (textEditingController.text.isNotEmpty &&
                     listaParticipantes.isNotEmpty &&
                     _validarCaracteres(vTituloSorteo) == false)
                 ? 1.0
@@ -540,9 +573,6 @@ class _MyAppState extends State<MyApp> {
                       borderRadius: BorderRadius.circular(10),
                     )),
                 onPressed: () => {
-                  print('VtituloSorteo: ${vTituloSorteo}'),
-                  print(
-                      'Texto almacenado en el controlador del TextField: ${textEditingController.text}'),
                   calcularGanador(),
                   if (listaParticipantes.isNotEmpty &&
                       textEditingController.text.isNotEmpty &&

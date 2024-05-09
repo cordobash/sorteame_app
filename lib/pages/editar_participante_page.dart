@@ -369,8 +369,6 @@ class _EditarPageState extends State<EditarPage> {
               }
           },
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(400, 350),
-            elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
