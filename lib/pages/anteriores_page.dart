@@ -38,7 +38,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                       int indiceMes = sort.getFechaSorteo()!.month;
                       String _formatoMinuto =
                           sort.validarMinutos(sort.getFechaSorteo()!.minute);
-                      visibleFloating = (boxSorteo.isNotEmpty) ? true : false;
+                      visibleFloatingAnteriores =
+                          (boxSorteo.isNotEmpty) ? true : false;
                       return ListTile(
                         title: _contenedorResultados(
                             tituloSorteo: sort.getTitulo(),
@@ -58,7 +59,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
             ),
       floatingActionButton: (visibleFloatingAnteriores)
           ? FloatingActionButton(
-              backgroundColor: Colors.pink.shade900,
+              backgroundColor: colorGlobal.shade900,
               onPressed: () => {},
               child: IconButton(
                 onPressed: () => showDialog(
@@ -148,7 +149,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                             fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                       IconButton(
-                        color: Colors.red,
+                        color: Colors.red.shade900,
                         hoverColor: Colors.grey.shade500,
                         iconSize: 30,
                         onPressed: () => {
@@ -158,7 +159,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                               visibleFloatingAnteriores = false;
                               _cajaVacia = true;
                             } else {
-                              visibleFloating = true;
+                              visibleFloatingAnteriores = true;
                             }
                           })
                         },

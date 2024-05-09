@@ -165,7 +165,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     _contenedorColor(Colors.red),
                                     _contenedorColor(Colors.pink),
@@ -210,7 +210,7 @@ class SettingsPageState extends State<SettingsPage> {
                                     style: _estiloPersonalizado,
                                   ),
                                   _switchWidget(() => {},
-                                      disparador: temaOscuro,
+                                      disparador: false,
                                       activarDisparador: false)
                                 ],
                               ),
@@ -273,7 +273,7 @@ class SettingsPageState extends State<SettingsPage> {
     return Switch(
       value: disparador,
       activeColor: Colors.white,
-      activeTrackColor: Colors.pink.shade900,
+      activeTrackColor: colorGlobal.shade900,
       onChanged: (_) => {
         if (activarDisparador)
           {

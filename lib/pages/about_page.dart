@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
+import 'package:app_sorteos/models/boxes.dart';
 
 class AboutPage extends StatelessWidget {
   AboutPage({Key? key});
@@ -29,7 +30,7 @@ class AboutPage extends StatelessWidget {
             padding: EdgeInsets.only(top: 20),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.pink,
+                color: colorGlobal,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Container(

@@ -18,6 +18,8 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
+  // Colors inicial
+  colorGlobal = Colors.orange;
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
@@ -56,13 +58,15 @@ class _MyAppState extends State<MyApp> {
   bool _activarErrorTextAnadirParticipante = false;
 
   // Manejo de campos vacios
-  Color _colorContenedorBorder = Colors.grey;
+  Color _colorContenedorBorder = colorGlobal;
   bool? _visibleLabel = false;
+
   final List<Color> _gradienteRosaRojoAzul = [
-    Colors.pink,
-    Colors.red.shade500,
-    Colors.pink.shade400,
-    Colors.pink.shade600,
+    colorGlobal,
+    colorGlobal.shade400,
+    colorGlobal.shade500,
+    colorGlobal.shade600,
+    colorGlobal.shade900,
   ];
 
   final List<String> _titulosSuperior = [
@@ -85,7 +89,6 @@ class _MyAppState extends State<MyApp> {
   void cambiarPagina(int indice) {
     setState(() {
       _selectedIndex = indice;
-      visibleFloating = (indice == 0) ? true : false;
     });
   }
 
@@ -116,7 +119,6 @@ class _MyAppState extends State<MyApp> {
       "Isaias Gerardo",
       "This is a very very very long name, can my code handle it?"
     ];
-    visibleFloating = false;
   }
 
   @override
@@ -146,9 +148,7 @@ class _MyAppState extends State<MyApp> {
             '${_titulosSuperior[_selectedIndex]}',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          backgroundColor: (temaOscuro == false)
-              ? Colors.pink.shade900
-              : Colors.grey.shade900,
+          backgroundColor: colorGlobal.shade900,
           centerTitle: false,
         ),
         body: (_selectedIndex == 0)
@@ -156,7 +156,7 @@ class _MyAppState extends State<MyApp> {
             : _listaWidgets[_selectedIndex],
         drawer: Drawer(
           shape: ShapeBorder.lerp(null, null, 15.0),
-          backgroundColor: (temaOscuro == false) ? Colors.white : Colors.black,
+          backgroundColor: Colors.white,
           shadowColor: Colors.white,
           semanticLabel: 'Drawer',
           surfaceTintColor: Colors.yellow,
@@ -171,23 +171,15 @@ class _MyAppState extends State<MyApp> {
                       fontSize: 20,
                       fontWeight: FontWeight.w700),
                 ),
-                decoration: BoxDecoration(
-                  color: (temaOscuro == false)
-                      ? Colors.pink
-                      : Colors.grey.shade900,
-                ),
+                decoration: BoxDecoration(color: colorGlobal),
               ),
               Builder(builder: (context) {
                 return ListTile(
                   leading: Icon(
                     Icons.menu,
                     color: (_selectedIndex == 0)
-                        ? (temaOscuro == false)
-                            ? Colors.pink
-                            : Colors.pink
-                        : (temaOscuro == false)
-                            ? Colors.pink.shade900
-                            : Colors.white,
+                        ? colorGlobal
+                        : colorGlobal.shade900,
                   ),
                   selected: (_selectedIndex == 0) ? true : false,
                   onTap: () {
@@ -196,7 +188,7 @@ class _MyAppState extends State<MyApp> {
                       Navigator.pop(context);
                     });
                   },
-                  selectedColor: Colors.pinkAccent,
+                  selectedColor: colorGlobal,
                   title: const Text('Principal'),
                 );
               }),
@@ -205,12 +197,8 @@ class _MyAppState extends State<MyApp> {
                   leading: Icon(
                     Icons.history,
                     color: (_selectedIndex == 1)
-                        ? (temaOscuro == false)
-                            ? Colors.pink
-                            : Colors.pink
-                        : (temaOscuro == false)
-                            ? Colors.pink.shade900
-                            : Colors.white,
+                        ? colorGlobal
+                        : colorGlobal.shade900,
                   ),
                   onTap: () {
                     setState(() {
@@ -219,7 +207,7 @@ class _MyAppState extends State<MyApp> {
                     });
                   },
                   selected: (_selectedIndex == 1) ? true : false,
-                  selectedColor: Colors.pink,
+                  selectedColor: colorGlobal,
                   title: const Text('Resultados anteriores'),
                 );
               }),
@@ -228,12 +216,8 @@ class _MyAppState extends State<MyApp> {
                   leading: Icon(
                     Icons.settings,
                     color: (_selectedIndex == 2)
-                        ? (temaOscuro == false)
-                            ? Colors.pink
-                            : Colors.pink
-                        : (temaOscuro == false)
-                            ? Colors.pink.shade900
-                            : Colors.white,
+                        ? colorGlobal
+                        : colorGlobal.shade900,
                   ),
                   onTap: () {
                     setState(() {
@@ -242,7 +226,7 @@ class _MyAppState extends State<MyApp> {
                     });
                   },
                   selected: (_selectedIndex == 2) ? true : false,
-                  selectedColor: Colors.pink,
+                  selectedColor: colorGlobal,
                   title: const Text('Ajustes'),
                 );
               }),
@@ -251,12 +235,8 @@ class _MyAppState extends State<MyApp> {
                   leading: Icon(
                     Icons.message,
                     color: (_selectedIndex == 3)
-                        ? (temaOscuro == false)
-                            ? Colors.pink
-                            : Colors.pink
-                        : (temaOscuro == false)
-                            ? Colors.pink.shade900
-                            : Colors.white,
+                        ? colorGlobal
+                        : colorGlobal.shade900,
                   ),
                   selected: (_selectedIndex == 3) ? true : false,
                   onTap: () {
@@ -265,7 +245,7 @@ class _MyAppState extends State<MyApp> {
                       Navigator.pop(context);
                     });
                   },
-                  selectedColor: Colors.pink,
+                  selectedColor: colorGlobal,
                   title: const Text('Acerca de'),
                 );
               }),
@@ -417,7 +397,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pink,
+            backgroundColor: colorGlobal,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
