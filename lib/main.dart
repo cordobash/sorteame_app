@@ -19,7 +19,7 @@ import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
   // Colors inicial
-  colorGlobal = Colors.orange;
+  colorGlobal = Colors.red;
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
@@ -58,7 +58,8 @@ class _MyAppState extends State<MyApp> {
   bool _activarErrorTextAnadirParticipante = false;
 
   // Manejo de campos vacios
-  Color _colorContenedorBorder = colorGlobal;
+  Color _colorContenedorBorder =
+      (colorGlobal != Colors.white) ? colorGlobal.shade900 : Colors.black;
   bool? _visibleLabel = false;
 
   final List<Color> _gradienteRosaRojoAzul = [
@@ -117,7 +118,8 @@ class _MyAppState extends State<MyApp> {
       "Isaias Gerardo Cordova Palomares",
       "Paulina",
       "Isaias Gerardo",
-      "This is a very very very long name, can my code handle it?"
+      "This is a very very very long name, can my code handle it?",
+      "Alexander Constantine Theodore Bartholomew III",
     ];
   }
 
@@ -397,7 +399,8 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: colorGlobal,
+            backgroundColor:
+                (colorGlobal != Colors.white) ? colorGlobal : Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -464,6 +467,12 @@ class _MyAppState extends State<MyApp> {
             onSubmitted: (_nuevoValor) => {vTituloSorteo = _nuevoValor},
             obscureText: false,
             decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: colorGlobal.shade900),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: colorGlobal),
+                ),
                 errorText:
                     (_mostrarErrorText || _validarCaracteres(vTituloSorteo))
                         ? 'El titulo esta vacio/tiene caracteres invalidos'
