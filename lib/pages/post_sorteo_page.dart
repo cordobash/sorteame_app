@@ -91,7 +91,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: colorGlobal,
         leading: null,
       ),
       body: Center(

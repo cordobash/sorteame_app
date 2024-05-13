@@ -199,9 +199,20 @@ class _AnterioresPageState extends State<AnterioresPage> {
   Widget _mensajeDefecto() {
     return Container(
         child: Center(
-      child: const Text(
-        'Realiza tu primer sorteo!',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Realiza tu primer sorteo!',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+          ),
+          Image(
+            width: 300,
+            height: _deviceHeight! * 0.55,
+            image: AssetImage('lib/src/images/grow_trophy.png'),
+          )
+        ],
       ),
     ));
   }

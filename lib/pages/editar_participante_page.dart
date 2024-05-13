@@ -78,8 +78,48 @@ class _EditarPageState extends State<EditarPage> {
       height: _deviceHeight! * 0.70,
       width: _deviceWidth!,
       child: Center(
-        child: Text('Aun no has agregado participantes',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: _deviceWidth!,
+              child: Text(
+                'Aun no has agregado participantes',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Image(
+              width: 275,
+              height: 300,
+              image: AssetImage('lib/src/images/not_found.png'),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _participanteNoEncontrado() {
+    return SizedBox(
+      height: _deviceHeight! * 0.70,
+      width: _deviceWidth!,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: _deviceWidth!,
+              child: Text(
+                'No se encontro a algun participante con ese nombre',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -195,13 +235,12 @@ class _EditarPageState extends State<EditarPage> {
                       .length,
               itemBuilder: (context, indice) {
                 return ListTile(
-                  title: (_nombreBuscar.isEmpty)
-                      ? _contenedorParticipante(
-                          listaParticipantes[indice], indice)
-                      : _contenedorParticipante(
-                          listaParticipantes[_indices[indice]],
-                          _indices[indice]),
-                );
+                    title: (_nombreBuscar.isEmpty)
+                        ? _contenedorParticipante(
+                            listaParticipantes[indice], indice)
+                        : _contenedorParticipante(
+                            listaParticipantes[_indices[indice]],
+                            _indices[indice]));
               },
             ),
           )
@@ -248,20 +287,6 @@ class _EditarPageState extends State<EditarPage> {
         ));
   }
 
-  Widget _btnRegresarInicio() {
-    return SizedBox(
-        height: 60,
-        child: TextButton(
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7)),
-              elevation: 4,
-              backgroundColor: Colors.black),
-          onPressed: () => {},
-          child: Icon(Icons.home, color: Colors.white),
-        ));
-  }
-
   List<int> _actualizarTablaFiltro(
       String cadena, List<String> listaParticipantes) {
     List<int> _listaIndices = [];
@@ -271,20 +296,6 @@ class _EditarPageState extends State<EditarPage> {
       }
     }
     return _listaIndices;
-  }
-
-  Widget _btnPruebas() {
-    return SizedBox(
-        height: 60,
-        child: TextButton(
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7)),
-              elevation: 4,
-              backgroundColor: Colors.black),
-          onPressed: () => {print('Nombre a buscar: ${_nombreBuscar}')},
-          child: Icon(Icons.home, color: Colors.white),
-        ));
   }
 
   Widget _accionesRealizar() {
