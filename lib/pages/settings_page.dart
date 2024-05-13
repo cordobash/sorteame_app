@@ -1,5 +1,6 @@
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key? key});
@@ -167,10 +168,11 @@ class SettingsPageState extends State<SettingsPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    _contenedorColor(Colors.red),
+                                    _contenedorColor(Colors.orange),
                                     _contenedorColor(Colors.pink),
                                     _contenedorColor(Colors.blue),
-                                    _contenedorColor(Colors.white),
+                                    _contenedorColor(Colors.red),
+                                    // _contenedorColor(Colors.white),
                                   ],
                                 )
                               ],
@@ -231,15 +233,22 @@ class SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _contenedorColor(color) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5.0),
-      child: Container(
-        height: 33,
-        width: 30,
-        decoration: BoxDecoration(
-          color: color,
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(50),
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          colorGlobal = color;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 5.0),
+        child: Container(
+          height: 33,
+          width: 30,
+          decoration: BoxDecoration(
+            color: color,
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(50),
+          ),
         ),
       ),
     );
