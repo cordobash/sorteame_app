@@ -1,8 +1,10 @@
 // main.dart: Archivo principal de ejecucion.
 // Paquetes de la libreria o externos.
+import 'dart:io';
 import 'dart:math';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -135,123 +137,133 @@ class _MyAppState extends State<MyApp> {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.menu, color: Colors.white),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            );
-          }),
-          title: Text(
-            '${_titulosSuperior[_selectedIndex]}',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        setState(() {
+          showDialog(
+              context: context, builder: (context) => _alertSalirAplicacion());
+        });
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            leading: Builder(builder: (context) {
+              return IconButton(
+                icon: Icon(Icons.menu, color: Colors.white),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              );
+            }),
+            title: Text(
+              '${_titulosSuperior[_selectedIndex]}',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: colorGlobal.shade900,
+            centerTitle: false,
           ),
-          backgroundColor: colorGlobal.shade900,
-          centerTitle: false,
-        ),
-        body: (_selectedIndex == 0)
-            ? _menuPrincipal()
-            : _listaWidgets[_selectedIndex],
-        drawer: Drawer(
-          shape: ShapeBorder.lerp(null, null, 15.0),
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          semanticLabel: 'Drawer',
-          surfaceTintColor: Colors.yellow,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                child: const Text(
-                  'Menu de opciones',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
+          body: (_selectedIndex == 0)
+              ? _menuPrincipal()
+              : _listaWidgets[_selectedIndex],
+          drawer: Drawer(
+            shape: ShapeBorder.lerp(null, null, 15.0),
+            backgroundColor: Colors.white,
+            shadowColor: Colors.white,
+            semanticLabel: 'Drawer',
+            surfaceTintColor: Colors.yellow,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  child: const Text(
+                    'Menu de opciones',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  decoration: BoxDecoration(color: colorGlobal),
                 ),
-                decoration: BoxDecoration(color: colorGlobal),
-              ),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.menu,
-                    color: (_selectedIndex == 0)
-                        ? colorGlobal
-                        : colorGlobal.shade900,
-                  ),
-                  selected: (_selectedIndex == 0) ? true : false,
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(0);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selectedColor: colorGlobal,
-                  title: const Text('Principal'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.history,
-                    color: (_selectedIndex == 1)
-                        ? colorGlobal
-                        : colorGlobal.shade900,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(1);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selected: (_selectedIndex == 1) ? true : false,
-                  selectedColor: colorGlobal,
-                  title: const Text('Resultados anteriores'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.settings,
-                    color: (_selectedIndex == 2)
-                        ? colorGlobal
-                        : colorGlobal.shade900,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(2);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selected: (_selectedIndex == 2) ? true : false,
-                  selectedColor: colorGlobal,
-                  title: const Text('Ajustes'),
-                );
-              }),
-              Builder(builder: (context) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.message,
-                    color: (_selectedIndex == 3)
-                        ? colorGlobal
-                        : colorGlobal.shade900,
-                  ),
-                  selected: (_selectedIndex == 3) ? true : false,
-                  onTap: () {
-                    setState(() {
-                      cambiarPagina(3);
-                      Navigator.pop(context);
-                    });
-                  },
-                  selectedColor: colorGlobal,
-                  title: const Text('Acerca de'),
-                );
-              }),
-            ],
+                Builder(builder: (context) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.menu,
+                      color: (_selectedIndex == 0)
+                          ? colorGlobal
+                          : colorGlobal.shade900,
+                    ),
+                    selected: (_selectedIndex == 0) ? true : false,
+                    onTap: () {
+                      setState(() {
+                        cambiarPagina(0);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selectedColor: colorGlobal,
+                    title: const Text('Principal'),
+                  );
+                }),
+                Builder(builder: (context) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.history,
+                      color: (_selectedIndex == 1)
+                          ? colorGlobal
+                          : colorGlobal.shade900,
+                    ),
+                    onTap: () {
+                      setState(() {
+                        cambiarPagina(1);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selected: (_selectedIndex == 1) ? true : false,
+                    selectedColor: colorGlobal,
+                    title: const Text('Resultados anteriores'),
+                  );
+                }),
+                Builder(builder: (context) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.settings,
+                      color: (_selectedIndex == 2)
+                          ? colorGlobal
+                          : colorGlobal.shade900,
+                    ),
+                    onTap: () {
+                      setState(() {
+                        cambiarPagina(2);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selected: (_selectedIndex == 2) ? true : false,
+                    selectedColor: colorGlobal,
+                    title: const Text('Ajustes'),
+                  );
+                }),
+                Builder(builder: (context) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.message,
+                      color: (_selectedIndex == 3)
+                          ? colorGlobal
+                          : colorGlobal.shade900,
+                    ),
+                    selected: (_selectedIndex == 3) ? true : false,
+                    onTap: () {
+                      setState(() {
+                        cambiarPagina(3);
+                        Navigator.pop(context);
+                      });
+                    },
+                    selectedColor: colorGlobal,
+                    title: const Text('Acerca de'),
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),
@@ -676,6 +688,23 @@ class _MyAppState extends State<MyApp> {
             })
           },
           child: const Text('Salir'),
+        )
+      ],
+    );
+  }
+
+  Widget _alertSalirAplicacion() {
+    return AlertDialog(
+      content: Text('Estas seguro de salir de la aplicacion?'),
+      actions: [
+        TextButton(
+          onPressed: () =>
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+          child: Text('Salir'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('Cancelar'),
         )
       ],
     );

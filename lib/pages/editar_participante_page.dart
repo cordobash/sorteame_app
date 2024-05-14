@@ -101,29 +101,6 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _participanteNoEncontrado() {
-    return SizedBox(
-      height: _deviceHeight! * 0.70,
-      width: _deviceWidth!,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: _deviceWidth!,
-              child: Text(
-                'No se encontro a algun participante con ese nombre',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _buscarEnLista(String cadena, List<String> lista) {
     // Vaciamos la lista de coincidencias pasadas
     _listaCoincidencias = [];
