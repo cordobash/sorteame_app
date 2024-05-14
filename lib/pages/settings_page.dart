@@ -164,17 +164,29 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Color principal',
                                   style: _estiloPersonalizado,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    _contenedorColor(Colors.orange),
-                                    _contenedorColor(Colors.pink),
-                                    _contenedorColor(Colors.blue),
-                                    _contenedorColor(Colors.red),
-                                    // _contenedorColor(Colors.white),
-                                  ],
-                                )
+                                (_deviceWidth! > 400)
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          _contenedorColor(Colors.orange),
+                                          _contenedorColor(Colors.pink),
+                                          _contenedorColor(Colors.blue),
+                                          _contenedorColor(Colors.red),
+                                          // _contenedorColor(Colors.white),
+                                        ],
+                                      )
+                                    : ElevatedButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              showDragHandle: true,
+                                              enableDrag: true,
+                                              isScrollControlled: true,
+                                              context: context,
+                                              builder: (context) =>
+                                                  _modalSeleccionarColor());
+                                        },
+                                        child: Text('Seleccionar color'))
                               ],
                             ),
                             Divider(color: Colors.grey),
@@ -233,19 +245,22 @@ class SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _contenedorColor(color) {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          colorGlobal = color;
-        });
-      },
-      child: Container(
-        height: 33,
-        width: 30,
-        decoration: BoxDecoration(
-          color: color,
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(50),
+    return Container(
+      height: 70,
+      child: TextButton(
+        onPressed: () {
+          setState(() {
+            colorGlobal = color;
+          });
+        },
+        child: Container(
+          height: 33,
+          width: 30,
+          decoration: BoxDecoration(
+            color: color,
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(50),
+          ),
         ),
       ),
     );
@@ -328,5 +343,35 @@ class SettingsPageState extends State<SettingsPage> {
         });
       },
     );
+  }
+
+  Widget _modalSeleccionarColor() {
+    return Container(
+        height: 200,
+        width: _deviceWidth! * 0.90,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                'Selecciona uno de los siguientes colores: ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _contenedorColor(Colors.orange),
+                  _contenedorColor(Colors.pink),
+                  _contenedorColor(Colors.blue),
+                  _contenedorColor(Colors.red),
+                ],
+              ),
+              ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Aceptar')),
+            ],
+          ),
+        ));
   }
 }

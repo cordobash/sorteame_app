@@ -142,8 +142,11 @@ class _MyAppState extends State<MyApp> {
       canPop: false,
       onPopInvoked: (didPop) {
         setState(() {
-          showDialog(
-              context: context, builder: (context) => _alertSalirAplicacion());
+          (kIsWeb == false)
+              ? showDialog(
+                  context: context,
+                  builder: (context) => _alertSalirAplicacion())
+              : null;
         });
       },
       child: MaterialApp(
