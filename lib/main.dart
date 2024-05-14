@@ -154,12 +154,14 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            leading: Builder(builder: (context) {
-              return IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              );
-            }),
+            automaticallyImplyLeading: false,
+            leading: Builder(
+                builder: (context) => (_deviceHeight! >= 350)
+                    ? IconButton(
+                        icon: Icon(Icons.menu, color: Colors.white),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      )
+                    : const SizedBox()),
             title: Text(
               '${_titulosSuperior[_selectedIndex]}',
               style:
@@ -169,8 +171,12 @@ class _MyAppState extends State<MyApp> {
             centerTitle: false,
           ),
           body: (_selectedIndex == 0)
-              ? _menuPrincipal()
-              : _listaWidgets[_selectedIndex],
+              ? (_deviceHeight! >= 350)
+                  ? _menuPrincipal()
+                  : _mensajeAlturaInsuficiente()
+              : (_deviceHeight! >= 350)
+                  ? _listaWidgets[_selectedIndex]
+                  : _mensajeAlturaInsuficiente(),
           drawer: Drawer(
             shape: ShapeBorder.lerp(null, null, 15.0),
             backgroundColor: Colors.white,
@@ -568,6 +574,14 @@ class _MyAppState extends State<MyApp> {
         }
       });
     }
+  }
+
+  Widget _mensajeAlturaInsuficiente() {
+    return Center(
+        child: Text(
+      'El dispositivo no cumple con la altura minima para que la aplicacion pueda operar',
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+    ));
   }
 
   Widget _btnRealizarSorteo(dynamic context) {

@@ -98,11 +98,13 @@ class _EditarPageState extends State<EditarPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Image(
-              width: 275,
-              height: 300,
-              image: AssetImage('lib/src/images/not_found.png'),
-            )
+            (_deviceHeight! >= 475)
+                ? Image(
+                    width: 275,
+                    height: 300,
+                    image: AssetImage('lib/src/images/not_found.png'),
+                  )
+                : SizedBox()
           ],
         ),
       ),
