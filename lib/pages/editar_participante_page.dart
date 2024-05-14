@@ -11,6 +11,8 @@ class EditarPage extends StatefulWidget {
 
 enum Acciones { eliminar, modificar }
 
+TextEditingController textEditingController = TextEditingController();
+
 class _EditarPageState extends State<EditarPage> {
   double? _deviceHeight, _deviceWidth;
   bool _statusModoTabla = true;
@@ -20,6 +22,8 @@ class _EditarPageState extends State<EditarPage> {
   bool _cargando = false;
   dynamic _accionInicial = Acciones.values.first;
   bool _checkBoxConfirmacionPresionado = false;
+
+  bool _mostrarErrorText = false;
 
   _EditarPageState({Key? key}) {}
 
@@ -255,7 +259,11 @@ class _EditarPageState extends State<EditarPage> {
                 onPressed: () => {
                       showDialog(
                           context: context,
-                          builder: (context) => _dialogEditarPersonaje(indice))
+                          builder: (context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) =>
+                                    _dialogEditarPersonaje(indice, setState));
+                          })
                     },
                 icon: Icon(Icons.edit)),
             IconButton(
@@ -290,6 +298,45 @@ class _EditarPageState extends State<EditarPage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [Text('Accion a realizar: '), _segmentedButtons()],
     );
+  }
+
+  void _generadorElementos(List<dynamic> lista, int inicio, int fin) {
+    for (int i = inicio; i <= fin; i++) {
+      lista.add(i);
+    }
+  }
+
+  bool _validarCaracteres(String cadenaValidar) {
+    List<int> _caracteresNoValidos = [];
+    _generadorElementos(_caracteresNoValidos, 33, 47);
+    _generadorElementos(_caracteresNoValidos, 58, 64);
+    _generadorElementos(_caracteresNoValidos, 91, 95);
+    _generadorElementos(_caracteresNoValidos, 165, 255);
+
+    for (int i = 0; i < cadenaValidar.length; i++) {
+      if (_buscarElemento(
+          _caracteresNoValidos, cadenaValidar[i].codeUnitAt(0))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _buscarElemento(lista, elemento) {
+    int inicio = 0;
+    int fin = lista.length - 1;
+    while (inicio <= fin) {
+      int medio = ((inicio + fin) / 2).floor();
+      if (lista[medio] == elemento) {
+        return true;
+      }
+      if (lista[medio] < elemento) {
+        inicio = medio + 1;
+      } else {
+        fin = medio - 1;
+      }
+    }
+    return false;
   }
 
   Widget _modoMosaico() {
@@ -363,7 +410,11 @@ class _EditarPageState extends State<EditarPage> {
               {
                 showDialog(
                     context: context,
-                    builder: (context) => _dialogEditarPersonaje(indice))
+                    builder: (context) {
+                      return StatefulBuilder(
+                          builder: (context, setState) =>
+                              _dialogEditarPersonaje(indice, setState));
+                    })
               }
           },
           style: ElevatedButton.styleFrom(
@@ -460,7 +511,7 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget _dialogEditarPersonaje(int indice) {
+  Widget _dialogEditarPersonaje(int indice, state) {
     String? _nuevoNombre;
     return AlertDialog(
       content: Column(
@@ -479,13 +530,23 @@ class _EditarPageState extends State<EditarPage> {
           ),
           Text('Nuevo nombre'),
           TextField(
+            controller: textEditingController,
             enabled: true,
             onChanged: (_) {
-              _nuevoNombre = _;
+              _nuevoNombre = textEditingController.text;
+              state(() {
+                (textEditingController.text.isEmpty ||
+                        _validarCaracteres(textEditingController.text) ||
+                        textEditingController.text.codeUnitAt(0) == 32)
+                    ? _mostrarErrorText = true
+                    : _mostrarErrorText = false;
+              });
             },
             decoration: InputDecoration(
               alignLabelWithHint: true,
               hintText: 'Nuevo nombre',
+              errorText:
+                  (_mostrarErrorText) ? 'El nuevo nombre no es valido' : null,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -496,8 +557,17 @@ class _EditarPageState extends State<EditarPage> {
       actions: [
         TextButton(
           onPressed: () {
-            _actualizarParticipante(indice, listaParticipantes, _nuevoNombre!);
-            Navigator.pop(context);
+            _nuevoNombre = textEditingController.text;
+            if (_nuevoNombre!.isNotEmpty &&
+                _validarCaracteres(_nuevoNombre!) == false &&
+                _nuevoNombre!.codeUnitAt(0) != 32) {
+              _actualizarParticipante(
+                  indice, listaParticipantes, _nuevoNombre!);
+              Navigator.pop(context);
+              textEditingController.text = "";
+            } else {
+              null;
+            }
           },
           child: Text('Ok'),
         ),
