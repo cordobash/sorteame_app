@@ -239,16 +239,13 @@ class SettingsPageState extends State<SettingsPage> {
           colorGlobal = color;
         });
       },
-      child: Padding(
-        padding: const EdgeInsets.only(right: 5.0),
-        child: Container(
-          height: 33,
-          width: 30,
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(50),
-          ),
+      child: Container(
+        height: 33,
+        width: 30,
+        decoration: BoxDecoration(
+          color: color,
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );

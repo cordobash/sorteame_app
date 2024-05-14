@@ -29,29 +29,37 @@ class _EditarPageState extends State<EditarPage> {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     _anchoTabla = _deviceWidth! * 0.95;
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text('Editar participante'),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _filtrosParticipantes(),
-            (_cargando)
-                ? SizedBox(
-                    width: _deviceWidth! * 0.60,
-                    height: _deviceHeight! * 0.65,
-                    child: Center(
-                        child: SizedBox(child: CircularProgressIndicator())))
-                : (listaParticipantes.isNotEmpty)
-                    ? (_statusModoTabla)
-                        ? _tablaParicipantes()
-                        : _modoMosaico()
-                    : _mensajeDefecto(),
-          ],
-        ));
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        setState(() {
+          listaParticipantes = listaParticipantes;
+        });
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: const Text('Editar participante'),
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _filtrosParticipantes(),
+              (_cargando)
+                  ? SizedBox(
+                      width: _deviceWidth! * 0.60,
+                      height: _deviceHeight! * 0.65,
+                      child: Center(
+                          child: SizedBox(child: CircularProgressIndicator())))
+                  : (listaParticipantes.isNotEmpty)
+                      ? (_statusModoTabla)
+                          ? _tablaParicipantes()
+                          : _modoMosaico()
+                      : _mensajeDefecto(),
+            ],
+          )),
+    );
   }
 
   void _eliminarParticipante(int indice, List<String> lista) {

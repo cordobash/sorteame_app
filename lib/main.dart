@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Vistas.
 import 'package:app_sorteos/pages/settings_page.dart';
@@ -382,8 +383,10 @@ class _MyAppState extends State<MyApp> {
                                           builder: (context) {
                                             return StatefulBuilder(
                                                 builder: (context, setState) =>
-                                                    _alertAnadirArchivo(
-                                                        archivo, setState));
+                                                    (kIsWeb)
+                                                        ? _alertNoDisponibleWeb()
+                                                        : _alertAnadirArchivo(
+                                                            archivo, setState));
                                           });
                                     },
                                     child: Text(
@@ -695,7 +698,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertSalirAplicacion() {
     return AlertDialog(
-      content: Text('Estas seguro de salir de la aplicacion?'),
+      content: Text('¿Estas seguro de salir de la aplicacion?'),
       actions: [
         TextButton(
           onPressed: () =>
@@ -791,6 +794,17 @@ class _MyAppState extends State<MyApp> {
                   })
                 },
             child: const Text('Cancelar'))
+      ],
+    );
+  }
+
+  Widget _alertNoDisponibleWeb() {
+    return AlertDialog(
+      title: Text('Info'),
+      content: Text('Funcion no disponible en version web'),
+      actions: [
+        ElevatedButton(
+            onPressed: () => Navigator.pop(context), child: Text('Ok'))
       ],
     );
   }
