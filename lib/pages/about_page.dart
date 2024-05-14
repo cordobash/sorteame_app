@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
@@ -23,9 +24,10 @@ class AboutPage extends StatelessWidget {
             style: _estiloCabecera,
           ),
           Text(
-            'Isaias Cordova - (Software Developer)',
+            'Isaias Gerardo Cordova Palomares',
             style: _estiloCabecera,
           ),
+          Text('(Desarrollador de Software)'),
           Padding(
             padding: EdgeInsets.only(top: 20),
             child: Container(
@@ -45,43 +47,55 @@ class AboutPage extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            'Vias de contacto',
-            style: TextStyle(color: Colors.grey.shade800, fontSize: 17),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Text(
+              'Vias de contacto',
+              style: TextStyle(color: Colors.grey.shade800, fontSize: 17),
+            ),
           ),
           // Redes sociales
           Padding(
             padding: const EdgeInsets.only(top: 23),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(
-                    onPressed: () =>
-                        {_launchUrl('https://github.com/IGerardoJR')},
-                    child: Icon(SimpleIcons.github)),
-                TextButton(
-                    onPressed: () => {
-                          _launchUrl(
-                              'https://www.linkedin.com/in/isaias-gerardo-cordova-palomares-1586a2244/')
-                        },
-                    child: Icon(SimpleIcons.linkedin)),
-                TextButton(
-                  onPressed: () => {_launchMailTo()},
-                  child: Icon(SimpleIcons.gmail),
-                ),
-                TextButton(
-                    onPressed: () => {
-                          _launchUrl(
-                              'https://isaias-cordova-portfolio.netlify.app/')
-                        },
-                    child: Icon(SimpleIcons.internetexplorer)),
+                _contenedorViaContacto(
+                    SimpleIcons.github,
+                    () => _launchUrl(
+                          'https://github.com/IGerardoJR',
+                        ),
+                    Colors.black),
+                _contenedorViaContacto(
+                    SimpleIcons.linkedin,
+                    () => _launchUrl(
+                        'https://www.linkedin.com/in/isaias-gerardo-cordova-palomares-1586a2244/'),
+                    Colors.blue),
+                _contenedorViaContacto(SimpleIcons.gmail, () => _launchMailTo(),
+                    Colors.orange.shade900),
+                _contenedorViaContacto(
+                    SimpleIcons.internetexplorer,
+                    () => _launchUrl(
+                        'https://isaias-cordova-portfolio.netlify.app/'),
+                    Colors.purple.shade900),
               ],
             ),
           )
         ],
       ),
     ));
+  }
+
+  Widget _contenedorViaContacto(icono, Function() funcion, color) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: IconButton(
+          color: Colors.white, onPressed: () => funcion(), icon: Icon(icono)),
+    );
   }
 
   // Lanzar una url
