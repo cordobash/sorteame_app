@@ -71,7 +71,7 @@ class AboutPage extends StatelessWidget {
                     SimpleIcons.linkedin,
                     () => _launchUrl(
                         'https://www.linkedin.com/in/isaias-gerardo-cordova-palomares-1586a2244/'),
-                    Colors.blue),
+                    Colors.blue.shade900),
                 _contenedorViaContacto(SimpleIcons.gmail, () => _launchMailTo(),
                     Colors.orange.shade900),
                 _contenedorViaContacto(

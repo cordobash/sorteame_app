@@ -38,8 +38,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                       int indiceMes = sort.getFechaSorteo()!.month;
                       String _formatoMinuto =
                           sort.validarMinutos(sort.getFechaSorteo()!.minute);
-                      visibleFloatingAnteriores =
-                          (boxSorteo.isNotEmpty) ? true : false;
+                      // visibleFloatingAnteriores =
+                      //     (boxSorteo.isNotEmpty) ? true : false;
                       return ListTile(
                         title: _contenedorResultados(
                             tituloSorteo: sort.getTitulo(),

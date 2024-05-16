@@ -61,8 +61,7 @@ class _MyAppState extends State<MyApp> {
   bool _activarErrorTextAnadirParticipante = false;
 
   // Manejo de campos vacios
-  Color _colorContenedorBorder =
-      (colorGlobal != Colors.white) ? colorGlobal.shade900 : Colors.black;
+  Color _colorContenedorBorder = Colors.grey.shade700;
   bool? _visibleLabel = false;
 
   final List<Color> _gradienteRosaRojoAzul = [
@@ -171,10 +170,10 @@ class _MyAppState extends State<MyApp> {
             centerTitle: false,
           ),
           body: (_selectedIndex == 0)
-              ? (_deviceHeight! >= 350)
+              ? (_deviceHeight! >= 350 || _deviceWidth! < 200)
                   ? _menuPrincipal()
                   : _mensajeAlturaInsuficiente()
-              : (_deviceHeight! >= 350)
+              : (_deviceHeight! >= 350 || _deviceWidth! < 200)
                   ? _listaWidgets[_selectedIndex]
                   : _mensajeAlturaInsuficiente(),
           drawer: Drawer(
@@ -579,7 +578,7 @@ class _MyAppState extends State<MyApp> {
   Widget _mensajeAlturaInsuficiente() {
     return Center(
         child: Text(
-      'El dispositivo no cumple con la altura minima para que la aplicacion pueda operar',
+      'La resolucion del dispositivo no es la optima para que la aplicacion pueda operar',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
     ));
   }

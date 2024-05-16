@@ -114,25 +114,28 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 width: 120,
                 image: AssetImage('lib/src/images/trophy.png')),
             const Text('Felicidades al ganador!'),
-            Container(
-              width: _deviceWidth! * 0.80,
-              height: _deviceHeight! * 0.07,
-              decoration: BoxDecoration(
-                color: Colors.pink.shade700,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Container(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${ganadorSorteo}",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ],
-                )),
+            LimitedBox(
+              maxWidth: _deviceWidth! * 0.90,
+              child: Container(
+                width: _deviceWidth! * 0.80,
+                height: _deviceHeight! * 0.07,
+                decoration: BoxDecoration(
+                  color: Colors.pink.shade700,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Container(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${ganadorSorteo}",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ],
+                  )),
+                ),
               ),
             ),
             Text('Por haber sido el ganador(a) en el sorteo de: '),
