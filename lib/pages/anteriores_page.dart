@@ -1,5 +1,7 @@
 // Packages
 
+import 'dart:math';
+
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 
@@ -107,6 +109,22 @@ class _AnterioresPageState extends State<AnterioresPage> {
     );
   }
 
+  dynamic elegirColor(ColorGlobal) {
+    Random ran = new Random();
+    List<Color> _listaColores = [
+      ColorGlobal,
+      ColorGlobal.shade400,
+      ColorGlobal.shade500,
+      ColorGlobal.shade600,
+      ColorGlobal.shade700,
+      ColorGlobal.shade800,
+      ColorGlobal.shade900
+    ];
+    int indice = ran.nextInt(_listaColores.length);
+    Color _colorContendor = _listaColores[indice];
+    return _colorContendor;
+  }
+
   Widget _contenedorResultados({
     required tituloSorteo,
     required ganadorSorteo,
@@ -125,9 +143,9 @@ class _AnterioresPageState extends State<AnterioresPage> {
           height: _deviceHeight! * 0.25,
           width: _deviceWidth! * 0.90,
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: elegirColor(colorGlobal),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black)),
+              border: Border.all(color: Colors.white)),
           child: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Column(
@@ -137,8 +155,10 @@ class _AnterioresPageState extends State<AnterioresPage> {
                     width: _deviceWidth,
                     child: Text(
                       tituloSorteo,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.white),
                     )),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,11 +166,13 @@ class _AnterioresPageState extends State<AnterioresPage> {
                       Text(
                         'Ganador: $ganadorSorteo',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Colors.white),
                       ),
                       IconButton(
-                        color: Colors.red.shade900,
-                        hoverColor: Colors.grey.shade500,
+                        color: Colors.white,
+                        hoverColor: Colors.white70,
                         iconSize: 30,
                         onPressed: () => {
                           setState(() {
@@ -171,12 +193,11 @@ class _AnterioresPageState extends State<AnterioresPage> {
                     Text(
                       'Numero de participantes: ',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade500),
+                          fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                     Text(
                       "$cantidadParticipantes",
-                      style: TextStyle(color: Colors.grey.shade500),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
@@ -185,6 +206,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   child: Text(
                     "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
                     textAlign: TextAlign.left,
+                    style: TextStyle(color: Colors.white),
                   ),
                 )
               ],
