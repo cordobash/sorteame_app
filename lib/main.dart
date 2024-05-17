@@ -3,8 +3,10 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -122,6 +124,26 @@ class _MyAppState extends State<MyApp> {
       "Isaias Gerardo",
       "This is a very very very long name, can my code handle it?",
       "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
+      "Alexander Constantine Theodore Bartholomew III",
     ];
   }
 
@@ -162,9 +184,16 @@ class _MyAppState extends State<MyApp> {
                       )
                     : const SizedBox()),
             title: Text(
-              '${_titulosSuperior[_selectedIndex]}',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              (_selectedIndex != 0)
+                  ? '${_titulosSuperior[_selectedIndex]}'
+                  : 'SorteaMe App',
+              style: (_selectedIndex != 0)
+                  ? TextStyle(
+                      color: Colors.white, fontFamily: 'Manrope', fontSize: 18)
+                  : TextStyle(
+                      fontFamily: 'Cerdaville',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
             ),
             backgroundColor: colorGlobal.shade900,
             centerTitle: false,
@@ -518,12 +547,18 @@ class _MyAppState extends State<MyApp> {
             left: _deviceWidth! * 0.015, top: _deviceHeight! * 0.01),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${listaParticipantes.join(', ')}'),
+            Expanded(
+                child: ListView(
+                    children: [Text('${listaParticipantes.join(', ')}')])),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${listaParticipantes.length}'),
+                Text(
+                  '${listaParticipantes.length}',
+                  overflow: TextOverflow.ellipsis,
+                ),
                 Row(
                   children: [
                     IconButton(

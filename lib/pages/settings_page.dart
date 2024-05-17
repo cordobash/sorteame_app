@@ -1,4 +1,5 @@
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -270,7 +271,7 @@ class SettingsPageState extends State<SettingsPage> {
     return DropdownButton(
         value: cuentaRegresiva,
         underline: Container(
-          color: Colors.pink,
+          color: colorGlobal,
           height: 2,
         ),
         icon: Icon(Icons.format_list_numbered_rtl_sharp),
@@ -308,8 +309,16 @@ class SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  List<int> obtenerRGB(Color c) {
+    return [c.red, c.blue, c.green];
+  }
+
   Widget _segmentedButtons() {
+    List<int> _colores = [...obtenerRGB(colorGlobal)];
     return SegmentedButton<Idiomas>(
+      style: SegmentedButton.styleFrom(
+          selectedBackgroundColor:
+              Color.fromRGBO(_colores[0], _colores[1], _colores[1], 0.45)),
       showSelectedIcon: false,
       segments: const <ButtonSegment<Idiomas>>[
         ButtonSegment<Idiomas>(

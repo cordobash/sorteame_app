@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
 import 'package:app_sorteos/models/boxes.dart';
 
+@immutable
 class AboutPage extends StatelessWidget {
   AboutPage({Key? key});
 
-  TextStyle _estiloCabecera = TextStyle(
+  final TextStyle _estiloCabecera = TextStyle(
       color: Colors.grey.shade700, fontSize: 18, fontWeight: FontWeight.w800);
 
   @override
