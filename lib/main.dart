@@ -124,26 +124,6 @@ class _MyAppState extends State<MyApp> {
       "Isaias Gerardo",
       "This is a very very very long name, can my code handle it?",
       "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
-      "Alexander Constantine Theodore Bartholomew III",
     ];
   }
 
@@ -199,10 +179,10 @@ class _MyAppState extends State<MyApp> {
             centerTitle: false,
           ),
           body: (_selectedIndex == 0)
-              ? (_deviceHeight! >= 350 || _deviceWidth! < 200)
+              ? (_deviceHeight! >= 350)
                   ? _menuPrincipal()
                   : _mensajeAlturaInsuficiente()
-              : (_deviceHeight! >= 350 || _deviceWidth! < 200)
+              : (_deviceHeight! >= 350)
                   ? _listaWidgets[_selectedIndex]
                   : _mensajeAlturaInsuficiente(),
           drawer: Drawer(
@@ -210,7 +190,7 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.white,
             shadowColor: Colors.white,
             semanticLabel: 'Drawer',
-            surfaceTintColor: Colors.yellow,
+            // surfaceTintColor: Colors.yellow,
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -220,9 +200,10 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Cerdaville'),
                   ),
-                  decoration: BoxDecoration(color: colorGlobal),
+                  decoration: BoxDecoration(color: colorGlobal.shade700),
                 ),
                 Builder(builder: (context) {
                   return ListTile(

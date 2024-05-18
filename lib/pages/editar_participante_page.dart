@@ -43,7 +43,10 @@ class _EditarPageState extends State<EditarPage> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: const Text('Editar participante'),
+            title: const Text(
+              'Editar participante',
+              style: TextStyle(fontFamily: 'Manrope'),
+            ),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -460,17 +463,13 @@ class _EditarPageState extends State<EditarPage> {
     return AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
             '${listaParticipantes[indice]}',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: SizedBox(
-                width: _deviceWidth!,
-                child: Text('Sera eliminado,¿Deseas continuar?')),
-          ),
+          Text('Sera eliminado(a) del sorteo; ¿Deseas continuar?'),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -487,8 +486,11 @@ class _EditarPageState extends State<EditarPage> {
               ),
               LimitedBox(
                   maxHeight: 200,
-                  maxWidth: 170,
-                  child: Text('No volver a mostrar este dialogo'))
+                  maxWidth: _deviceWidth! * 0.50,
+                  child: Text(
+                    'No volver a mostrar este dialogo',
+                    maxLines: 2,
+                  ))
             ],
           )
         ],

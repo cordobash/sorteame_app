@@ -166,18 +166,30 @@ class SettingsPageState extends State<SettingsPage> {
                                   style: _estiloPersonalizado,
                                 ),
                                 (_deviceWidth! > 400)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          _contenedorColor(Colors.orange),
-                                          _contenedorColor(Colors.pink),
-                                          _contenedorColor(Colors.blue),
-                                          _contenedorColor(Colors.red),
-                                          // _contenedorColor(Colors.white),
-                                        ],
+                                    ? SizedBox(
+                                        width: 235,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            _contenedorColor(Colors.orange),
+                                            _contenedorColor(Colors.pink),
+                                            _contenedorColor(Colors.blue),
+                                            _contenedorColor(Colors.red),
+                                            _contenedorColor(Colors.purple),
+                                            _contenedorColor(Colors.white),
+                                            _contenedorColor(Colors.green),
+
+                                            // _contenedorColor(Colors.white),
+                                          ],
+                                        ),
                                       )
                                     : ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.black,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(3))),
                                         onPressed: () {
                                           showModalBottomSheet(
                                               showDragHandle: true,
@@ -187,7 +199,10 @@ class SettingsPageState extends State<SettingsPage> {
                                               builder: (context) =>
                                                   _modalSeleccionarColor());
                                         },
-                                        child: Text('Seleccionar color'))
+                                        child: Text(
+                                          'Seleccionar color',
+                                          style: TextStyle(color: Colors.white),
+                                        ))
                               ],
                             ),
                             Divider(color: Colors.grey),
@@ -247,22 +262,20 @@ class SettingsPageState extends State<SettingsPage> {
 
   Widget _contenedorColor(color) {
     return Container(
-      height: 70,
+      height: 33,
+      width: 30,
+      decoration: BoxDecoration(
+        color: color,
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(50),
+      ),
       child: TextButton(
+        child: SizedBox(),
         onPressed: () {
           setState(() {
             colorGlobal = color;
           });
         },
-        child: Container(
-          height: 33,
-          width: 30,
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
       ),
     );
   }
@@ -368,17 +381,26 @@ class SettingsPageState extends State<SettingsPage> {
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _contenedorColor(Colors.orange),
                   _contenedorColor(Colors.pink),
                   _contenedorColor(Colors.blue),
                   _contenedorColor(Colors.red),
+                  _contenedorColor(Colors.purple),
+                  _contenedorColor(Colors.white),
+                  _contenedorColor(Colors.green),
                 ],
               ),
               ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: () => Navigator.pop(context),
-                  child: Text('Aceptar')),
+                  child: Text(
+                    'Aceptar',
+                    style: TextStyle(color: Colors.white),
+                  )),
             ],
           ),
         ));

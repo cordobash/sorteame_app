@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // Models
 import '../models/Sorteo.dart';
@@ -136,80 +137,102 @@ class _AnterioresPageState extends State<AnterioresPage> {
     required hora,
     required minuto,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Center(
-        child: Container(
-          height: _deviceHeight! * 0.25,
-          width: _deviceWidth! * 0.90,
-          decoration: BoxDecoration(
-              color: elegirColor(colorGlobal),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white)),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                    width: _deviceWidth,
-                    child: Text(
-                      tituloSorteo,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: Colors.white),
-                    )),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Ganador: $ganadorSorteo',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Colors.white),
-                      ),
-                      IconButton(
-                        color: Colors.white,
-                        hoverColor: Colors.white70,
-                        iconSize: 30,
-                        onPressed: () => {
-                          setState(() {
-                            boxSorteo.deleteAt(index);
-                            if (boxSorteo.isEmpty) {
-                              visibleFloatingAnteriores = false;
-                              _cajaVacia = true;
-                            } else {
-                              visibleFloatingAnteriores = true;
-                            }
-                          })
-                        },
-                        icon: Icon(Icons.delete),
-                      )
-                    ]),
-                Row(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Center(
+          child: Flexible(
+            child: Container(
+              height: _deviceHeight! * 0.30,
+              width: _deviceWidth! * 0.95,
+              decoration: BoxDecoration(
+                  color: elegirColor(colorGlobal),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.white)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      'Numero de participantes: ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                            width: _deviceWidth! * 0.70,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                tituloSorteo,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'Manrope'),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )),
+                        IconButton(
+                          color: Colors.white,
+                          hoverColor: Colors.white70,
+                          iconSize: 30,
+                          onPressed: () => {
+                            setState(() {
+                              boxSorteo.deleteAt(index);
+                              if (boxSorteo.isEmpty) {
+                                visibleFloatingAnteriores = false;
+                                _cajaVacia = true;
+                              } else {
+                                visibleFloatingAnteriores = true;
+                              }
+                            })
+                          },
+                          icon: Icon(Icons.delete),
+                        )
+                      ],
                     ),
-                    Text(
-                      "$cantidadParticipantes",
-                      style: TextStyle(color: Colors.white),
+                    SizedBox(
+                      width: _deviceWidth,
+                      child: Wrap(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Ganador: $ganadorSorteo',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ]),
                     ),
+                    Row(
+                      children: [
+                        Text(
+                          'Numero de participantes: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        Text(
+                          "$cantidadParticipantes",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: _deviceWidth,
+                      child: Text(
+                        "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
                   ],
                 ),
-                SizedBox(
-                  width: _deviceWidth,
-                  child: Text(
-                    "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         ),

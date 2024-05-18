@@ -114,27 +114,24 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 width: 120,
                 image: AssetImage('lib/src/images/trophy.png')),
             const Text('Felicidades al ganador!'),
-            LimitedBox(
-              maxWidth: _deviceWidth! * 0.90,
-              child: Container(
-                width: _deviceWidth! * 0.80,
-                height: _deviceHeight! * 0.07,
-                decoration: BoxDecoration(
-                  color: Colors.pink.shade700,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Container(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${ganadorSorteo}",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ],
-                  )),
+            Container(
+              width: _deviceWidth! * 0.80,
+              height: _deviceHeight! * 0.09,
+              decoration: BoxDecoration(
+                color: colorGlobal.shade700,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Flexible(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      "${ganadorSorteo}",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -142,20 +139,23 @@ class _ResultadosPageState extends State<ResultadosPage> {
             Container(
               width: _deviceWidth! * 0.70,
               height: _deviceHeight! * 0.07,
-              child: Container(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "$vTituloSorteo",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ],
-              )),
               decoration: BoxDecoration(
-                color: Colors.pink,
+                color: colorGlobal.shade900,
                 borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Flexible(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      "$vTituloSorteo",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
