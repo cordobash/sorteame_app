@@ -122,15 +122,13 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
-                child: Flexible(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      "${ganadorSorteo}",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    "${ganadorSorteo}",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ),
               ),
@@ -144,16 +142,14 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
-                child: Flexible(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      "$vTituloSorteo",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          overflow: TextOverflow.ellipsis),
-                    ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    "$vTituloSorteo",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ),

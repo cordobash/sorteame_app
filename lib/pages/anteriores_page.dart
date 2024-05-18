@@ -142,96 +142,94 @@ class _AnterioresPageState extends State<AnterioresPage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Center(
-          child: Flexible(
-            child: Container(
-              height: _deviceHeight! * 0.30,
-              width: _deviceWidth! * 0.95,
-              decoration: BoxDecoration(
-                  color: elegirColor(colorGlobal),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                            width: _deviceWidth! * 0.70,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                tituloSorteo,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontFamily: 'Manrope'),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )),
-                        IconButton(
-                          color: Colors.white,
-                          hoverColor: Colors.white70,
-                          iconSize: 30,
-                          onPressed: () => {
-                            setState(() {
-                              boxSorteo.deleteAt(index);
-                              if (boxSorteo.isEmpty) {
-                                visibleFloatingAnteriores = false;
-                                _cajaVacia = true;
-                              } else {
-                                visibleFloatingAnteriores = true;
-                              }
-                            })
-                          },
-                          icon: Icon(Icons.delete),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: _deviceWidth,
-                      child: Wrap(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Ganador: $ganadorSorteo',
+          child: Container(
+            height: _deviceHeight! * 0.30,
+            width: _deviceWidth! * 0.95,
+            decoration: BoxDecoration(
+                color: elegirColor(colorGlobal),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                          width: _deviceWidth! * 0.70,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              tituloSorteo,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: Colors.white),
-                              overflow: TextOverflow.ellipsis,
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontFamily: 'Manrope'),
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ]),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Numero de participantes: ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        Text(
-                          "$cantidadParticipantes",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: _deviceWidth,
-                      child: Text(
-                        "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.fade,
+                          )),
+                      IconButton(
+                        color: Colors.white,
+                        hoverColor: Colors.white70,
+                        iconSize: 30,
+                        onPressed: () => {
+                          setState(() {
+                            boxSorteo.deleteAt(index);
+                            if (boxSorteo.isEmpty) {
+                              visibleFloatingAnteriores = false;
+                              _cajaVacia = true;
+                            } else {
+                              visibleFloatingAnteriores = true;
+                            }
+                          })
+                        },
+                        icon: Icon(Icons.delete),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: _deviceWidth,
+                    child: Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Ganador: $ganadorSorteo',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ]),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Numero de participantes: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      Text(
+                        "$cantidadParticipantes",
                         style: TextStyle(color: Colors.white),
                       ),
-                    )
-                  ],
-                ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: _deviceWidth,
+                    child: Text(
+                      "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
