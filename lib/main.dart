@@ -366,7 +366,8 @@ class _MyAppState extends State<MyApp> {
                               Text('Anadir participante',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20)),
+                                      fontSize: 20,
+                                      overflow: TextOverflow.ellipsis)),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -668,6 +669,7 @@ class _MyAppState extends State<MyApp> {
                     Text(
                       'Realizar sorteo',
                       style: TextStyle(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

@@ -23,7 +23,7 @@ class _PostPageState extends State<PostPage> {
             child: Scaffold(
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                backgroundColor: Colors.pinkAccent,
+                backgroundColor: Colors.white,
               ),
               body: Center(
                 child: Column(
@@ -91,8 +91,13 @@ class _ResultadosPageState extends State<ResultadosPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorGlobal,
-        leading: null,
+        backgroundColor: colorGlobal.shade700,
+        centerTitle: true,
+        title: const Text('Resultados del sorteo',
+            style: TextStyle(color: Colors.white, fontFamily: 'Manrope')),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back, color: Colors.white)),
       ),
       body: Center(
           child: SizedBox(
@@ -155,16 +160,27 @@ class _ResultadosPageState extends State<ResultadosPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.pushNamed(context, '/');
-                  });
-                },
-                child: Text('Regresar a inicio'),
-              ),
-            )
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  width: 200,
+                  height: 50,
+                  child: TextButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )),
+                    onPressed: () {
+                      setState(() {
+                        Navigator.pushNamed(context, '/');
+                      });
+                    },
+                    child: Text(
+                      'Regresar a inicio',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ))
           ],
         ),
       )),

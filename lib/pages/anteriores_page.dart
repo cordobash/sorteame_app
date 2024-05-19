@@ -114,16 +114,13 @@ class _AnterioresPageState extends State<AnterioresPage> {
     Random ran = new Random();
     List<Color> _listaColores = [
       ColorGlobal,
-      ColorGlobal.shade400,
-      ColorGlobal.shade500,
       ColorGlobal.shade600,
       ColorGlobal.shade700,
       ColorGlobal.shade800,
       ColorGlobal.shade900
     ];
     int indice = ran.nextInt(_listaColores.length);
-    Color _colorContendor = _listaColores[indice];
-    return _colorContendor;
+    return _listaColores[indice];
   }
 
   Widget _contenedorResultados({

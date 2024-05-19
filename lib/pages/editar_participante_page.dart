@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -161,7 +163,7 @@ class _EditarPageState extends State<EditarPage> {
           ),
         ),
         Container(
-            color: (_statusModoTabla) ? Colors.black : Colors.white,
+            color: (_statusModoTabla) ? colorGlobal.shade900 : Colors.white,
             child: IconButton(
                 onPressed: () => {
                       setState(() {
@@ -175,7 +177,7 @@ class _EditarPageState extends State<EditarPage> {
                 icon: Icon(Icons.list,
                     color: (_statusModoTabla) ? Colors.white : Colors.black))),
         Container(
-          color: (!_statusModoTabla) ? Colors.black : Colors.white,
+          color: (!_statusModoTabla) ? colorGlobal.shade900 : Colors.white,
           child: IconButton(
             onPressed: () => {
               setState(() {
@@ -192,6 +194,17 @@ class _EditarPageState extends State<EditarPage> {
         ),
       ],
     );
+  }
+
+  Color seleccionarColor(color) {
+    Random ran = new Random();
+    List<Color> _listaColores = [
+      color.shade500,
+      color.shade900,
+      color.shade700
+    ];
+    int indice = ran.nextInt(_listaColores.length);
+    return _listaColores[indice];
   }
 
   Future<void> _tiempoCarga() {
@@ -369,15 +382,19 @@ class _EditarPageState extends State<EditarPage> {
                                   .length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3),
+                                  crossAxisCount:
+                                      (_deviceWidth! < 500) ? 2 : 3),
                           itemBuilder: (context, index) {
-                            return ListTile(
-                                title: (_nombreBuscar.isEmpty)
-                                    ? _mosaicoContenedorParticipantes(
-                                        listaParticipantes[index], index)
-                                    : _mosaicoContenedorParticipantes(
-                                        listaParticipantes[_indices[index]],
-                                        index));
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: ListTile(
+                                  title: (_nombreBuscar.isEmpty)
+                                      ? _mosaicoContenedorParticipantes(
+                                          listaParticipantes[index], index)
+                                      : _mosaicoContenedorParticipantes(
+                                          listaParticipantes[_indices[index]],
+                                          index)),
+                            );
                           }))
                 ],
               ),
@@ -389,47 +406,53 @@ class _EditarPageState extends State<EditarPage> {
   }
 
   Widget _mosaicoContenedorParticipantes(String _participante, indice) {
-    return SizedBox(
+    return Container(
       height: 200,
-      child: Padding(
-        // padding: const EdgeInsets.only(bottom: 8.0),
-        padding: EdgeInsets.only(bottom: 10),
-        child: TextButton(
-          onPressed: () => {
-            if (_indiceEnum == 0)
-              {
-                setState(() {
-                  !mostrarDialogoConfirmacion
-                      ? _eliminarParticipante(indice, listaParticipantes)
-                      : showDialog(
-                          context: context,
-                          builder: (context) => StatefulBuilder(
-                              builder: (context, setState) =>
-                                  _dialogEliminarParticipante(
-                                      indice, setState)));
-                })
-              }
-            else if (_indiceEnum == 1)
-              {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return StatefulBuilder(
-                          builder: (context, setState) =>
-                              _dialogEditarPersonaje(indice, setState));
-                    })
-              }
-          },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            backgroundColor: Colors.black,
+      child: TextButton(
+        onPressed: () => {
+          if (_indiceEnum == 0)
+            {
+              setState(() {
+                !mostrarDialogoConfirmacion
+                    ? _eliminarParticipante(indice, listaParticipantes)
+                    : showDialog(
+                        context: context,
+                        builder: (context) => StatefulBuilder(
+                            builder: (context, setState) =>
+                                _dialogEliminarParticipante(indice, setState)));
+              })
+            }
+          else if (_indiceEnum == 1)
+            {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(
+                        builder: (context, setState) =>
+                            _dialogEditarPersonaje(indice, setState));
+                  })
+            }
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
           ),
-          child: Text(
-            _participante,
-            style: TextStyle(color: Colors.white),
-          ),
+        ),
+        child: Text(
+          _participante,
+          style: TextStyle(color: Colors.white, overflow: TextOverflow.fade),
+        ),
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            colorGlobal.shade500,
+            colorGlobal.shade600,
+            colorGlobal.shade700,
+            colorGlobal.shade900
+          ],
         ),
       ),
     );
