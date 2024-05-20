@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -496,17 +497,65 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _dialogEliminarParticipante(int indice, state) {
     return AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shadowColor: Colors.black,
+      title: Row(
+        children: [
+          Icon(Icons.delete),
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Text('Eliminar participante',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  fontFamily: 'Manrope')),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          LimitedBox(
+            maxWidth: _deviceWidth! * 0.90,
+            child: Text(
+                'Este es un dialogo de confirmacion para eliminacion del participante seleccionado, puedes desactivar este dialogo en ajustes o marcando la cajita.'),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: SizedBox(
+                width: _deviceWidth!,
+                child: Text(
+                    'El participante que seleccionaste para eliminar es:')),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            child: Container(
+              width: 250,
+              height: 40,
+              decoration: BoxDecoration(
+                color: colorGlobal.shade700,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    '${listaParticipantes[indice]}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontFamily: 'Manrope'),
+                  ),
+                ),
+              ),
+            ),
+          ),
           Text(
-            '${listaParticipantes[indice]}',
+            '¿Deseas continuar?',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text('Sera eliminado(a) del sorteo; ¿Deseas continuar?'),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
                 icon: (!_checkBoxConfirmacionPresionado)
@@ -519,13 +568,13 @@ class _EditarPageState extends State<EditarPage> {
                   })
                 },
               ),
-              LimitedBox(
-                  maxHeight: 200,
-                  maxWidth: _deviceWidth! * 0.50,
-                  child: Text(
-                    'No volver a mostrar este dialogo',
-                    maxLines: 2,
-                  ))
+              Expanded(
+                child: Text(
+                  'No volver a mostrar este dialogo',
+                  maxLines: 2,
+                  overflow: TextOverflow.fade,
+                ),
+              )
             ],
           )
         ],
@@ -541,100 +590,143 @@ class _EditarPageState extends State<EditarPage> {
                     Navigator.pop(context);
                   })
                 },
-            child: Text("Ok")),
+            child: Container(
+                width: 100,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    "Eliminar",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ))),
         TextButton(
-            onPressed: () => Navigator.pop(context), child: Text('Cancelar'))
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancelar',
+              style: TextStyle(color: colorGlobal.shade700),
+            ))
       ],
     );
   }
 
   Widget _dialogEditarPersonaje(int indice, state) {
     String? _nuevoNombre;
-    return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Nombre actual'),
-          TextField(
-            enabled: false,
-            decoration: InputDecoration(
-              alignLabelWithHint: true,
-              hintText: listaParticipantes[indice],
-              border: OutlineInputBorder(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: AlertDialog(
+        shadowColor: Colors.black,
+        elevation: 7,
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        title: Row(
+          children: [
+            Icon(Icons.update),
+            Padding(padding: EdgeInsets.only(left: 10)),
+            Text('Editar participante',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    fontFamily: 'Manrope'))
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              width: _deviceWidth!,
+              child: Text(
+                  'En este apartado podras modificar el nombre del participante que hayas seleccionado en la lista.'),
+            ),
+            Padding(padding: EdgeInsets.only(top: 10)),
+            Text('Nombre actual: '),
+            Container(
+              width: _deviceWidth! * 0.90,
+              height: 50,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
+                color: colorGlobal.shade600,
+              ),
+              child: Center(
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        '${listaParticipantes[indice]}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Manrope',
+                            fontWeight: FontWeight.bold),
+                      ))),
+            ),
+            Text('Nuevo nombre: '),
+            TextField(
+              controller: textEditingController,
+              enabled: true,
+              onChanged: (_) {
+                _nuevoNombre = textEditingController.text;
+                state(() {
+                  (textEditingController.text.isEmpty ||
+                          _validarCaracteres(textEditingController.text) ||
+                          textEditingController.text.codeUnitAt(0) == 32)
+                      ? _mostrarErrorText = true
+                      : _mostrarErrorText = false;
+                });
+              },
+              decoration: InputDecoration(
+                alignLabelWithHint: true,
+                hintText: 'Nuevo nombre',
+                errorText:
+                    (_mostrarErrorText) ? 'El nuevo nombre no es valido' : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
               ),
             ),
-          ),
-          Text('Nuevo nombre'),
-          TextField(
-            controller: textEditingController,
-            enabled: true,
-            onChanged: (_) {
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
               _nuevoNombre = textEditingController.text;
-              state(() {
-                (textEditingController.text.isEmpty ||
-                        _validarCaracteres(textEditingController.text) ||
-                        textEditingController.text.codeUnitAt(0) == 32)
-                    ? _mostrarErrorText = true
-                    : _mostrarErrorText = false;
-              });
+              if (_nuevoNombre!.isNotEmpty &&
+                  _validarCaracteres(_nuevoNombre!) == false &&
+                  _nuevoNombre!.codeUnitAt(0) != 32) {
+                _actualizarParticipante(
+                    indice, listaParticipantes, _nuevoNombre!);
+                Navigator.pop(context);
+                textEditingController.text = "";
+              } else {
+                null;
+              }
             },
-            decoration: InputDecoration(
-              alignLabelWithHint: true,
-              hintText: 'Nuevo nombre',
-              errorText:
-                  (_mostrarErrorText) ? 'El nuevo nombre no es valido' : null,
-              border: OutlineInputBorder(
+            child: Container(
+              width: 100,
+              height: 40,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
+                color: Colors.yellow.shade900,
+              ),
+              child: Center(
+                child: Text(
+                  'Actualizar',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancelar',
+              style: TextStyle(color: colorGlobal.shade700),
+            ),
+          )
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            _nuevoNombre = textEditingController.text;
-            if (_nuevoNombre!.isNotEmpty &&
-                _validarCaracteres(_nuevoNombre!) == false &&
-                _nuevoNombre!.codeUnitAt(0) != 32) {
-              _actualizarParticipante(
-                  indice, listaParticipantes, _nuevoNombre!);
-              Navigator.pop(context);
-              textEditingController.text = "";
-            } else {
-              null;
-            }
-          },
-          child: Text('Ok'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
-        )
-      ],
-    );
-  }
-
-  Widget _dialogDescartarCambios() {
-    return AlertDialog(
-      content: Text(
-          'Esto descartara cualquier cambio hecho a la lista de participantes y volvera a su estado previo,¿Desea continuar?'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            setState(() {
-              // listaParticipantes = listaParticipantes;
-              listaParticipantes = [];
-              listaParticipantes = [...listaParticipantes];
-              Navigator.pop(context);
-            });
-          },
-          child: Text('Ok'),
-        ),
-        TextButton(
-            onPressed: () => Navigator.pop(context), child: Text('Cancelar'))
-      ],
     );
   }
 }
