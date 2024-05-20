@@ -837,15 +837,13 @@ class _MyAppState extends State<MyApp> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const Text(
             'En el siguiente campo anote el nombre del participante: ',
             style: TextStyle(fontFamily: 'Manrope'),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(bottom: 10),
             child: TextField(
               onChanged: (_) {
                 state(() {

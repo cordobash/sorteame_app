@@ -48,7 +48,7 @@ class _EditarPageState extends State<EditarPage> {
           appBar: AppBar(
             title: const Text(
               'Editar participante',
-              style: TextStyle(fontFamily: 'Manrope'),
+              style: TextStyle(fontFamily: 'Manrope', fontSize: 18),
             ),
           ),
           body: Column(

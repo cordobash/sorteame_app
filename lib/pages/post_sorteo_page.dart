@@ -94,7 +94,8 @@ class _ResultadosPageState extends State<ResultadosPage> {
         backgroundColor: colorGlobal.shade700,
         centerTitle: true,
         title: const Text('Resultados del sorteo',
-            style: TextStyle(color: Colors.white, fontFamily: 'Manrope')),
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'Manrope', fontSize: 18)),
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back, color: Colors.white)),
