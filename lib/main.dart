@@ -679,12 +679,25 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+// Añade los participantes de tu sorteo desde un archivo
   Widget _alertAnadirArchivo(Archivo archivo, state) {
     String _nombreArchivoSeleccionado =
         archivo.getNombreArchivo() ?? "Ningun archivo seleccionado";
     return AlertDialog(
-      title:
-          const Text('Añade los participantes de tu sorteo desde un archivo'),
+      shadowColor: Colors.black,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      title: Row(
+        children: [
+          Icon(Icons.file_upload),
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Text('Selecciona un archivo',
+              style: TextStyle(
+                fontFamily: 'Poetsen',
+                color: Colors.black,
+              )),
+        ],
+      ),
       content: SizedBox(
         height: _deviceHeight! * 0.30,
         child: Column(
@@ -692,10 +705,26 @@ class _MyAppState extends State<MyApp> {
           mainAxisSize: MainAxisSize.max,
           children: [
             const Text(
-                'El tipo de archivo admitido para esta operacion es solamente en formato .txt'),
-            Text("${_nombreArchivoSeleccionado}"),
+              'Añade los participantes de tu sorteo desde un archivo',
+              style: TextStyle(fontFamily: 'Manrope'),
+            ),
+
+            const Text(
+              'El tipo de archivo admitido para esta operacion es solamente en formato .txt',
+              style: TextStyle(fontFamily: 'Manrope'),
+            ),
+            Text(
+              "${_nombreArchivoSeleccionado}",
+              style:
+                  TextStyle(fontFamily: 'Manrope', fontWeight: FontWeight.bold),
+            ),
             // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: colorGlobal.shade900,
+                    shadowColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7))),
                 onPressed: () => {
                       archivo.abrirArchivo().then((nombreArchivo) {
                         _nombreArchivoSeleccionado = nombreArchivo;
@@ -707,7 +736,10 @@ class _MyAppState extends State<MyApp> {
                         state(() => {});
                       }),
                     },
-                child: Text('Selecciona un archivo'))
+                child: Text(
+                  'Selecciona un archivo',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
       ),
@@ -722,7 +754,10 @@ class _MyAppState extends State<MyApp> {
               }
             })
           },
-          child: const Text('Salir'),
+          child: Text(
+            'Salir',
+            style: TextStyle(color: colorGlobal),
+          ),
         )
       ],
     );
@@ -776,12 +811,29 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertAnadirUnParticipante(state) {
     return AlertDialog(
-      title: const Text('Añadir participante'),
+      shadowColor: Colors.black,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      title: Row(
+        children: [
+          Icon(
+            Icons.add,
+            color: Colors.blue,
+          ),
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Text(
+            'Añadir participante',
+            style: TextStyle(fontFamily: 'Poetsen', fontSize: 20),
+          ),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
-              'En el siguiente campo anote el nombre del participante: '),
+            'En el siguiente campo anote el nombre del participante: ',
+            style: TextStyle(fontFamily: 'Manrope'),
+          ),
           Padding(
             padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
             child: TextField(
@@ -798,7 +850,7 @@ class _MyAppState extends State<MyApp> {
               },
               decoration: InputDecoration(
                 errorText: (_activarErrorTextAnadirParticipante)
-                    ? 'El campo esta vacio/contiene no validos'
+                    ? 'El contenido del campo no es adecuado.'
                     : null,
                 enabled: true,
                 labelText: 'Nombre del participante',
@@ -844,7 +896,10 @@ class _MyAppState extends State<MyApp> {
               }
             })
           },
-          child: const Text('OK'),
+          child: Text(
+            'OK',
+            style: TextStyle(color: colorGlobal.shade900),
+          ),
         ),
         TextButton(
             onPressed: () => {
@@ -854,18 +909,40 @@ class _MyAppState extends State<MyApp> {
                     _activarErrorTextAnadirParticipante = false;
                   })
                 },
-            child: const Text('Cancelar'))
+            child: Text(
+              'Cancelar',
+              style: TextStyle(color: colorGlobal.shade900),
+            ))
       ],
     );
   }
 
   Widget _alertNoDisponibleWeb() {
     return AlertDialog(
-      title: Text('Info'),
-      content: Text('Funcion no disponible en version web'),
+      shadowColor: Colors.black,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          Icon(Icons.info, color: Colors.blue),
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Text('Informacion'),
+        ],
+      ),
+      content: Text('Funcion no disponible en version web.'),
       actions: [
-        ElevatedButton(
-            onPressed: () => Navigator.pop(context), child: Text('Ok'))
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            'Aceptar',
+            style: TextStyle(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: colorGlobal,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              shadowColor: Colors.black),
+        ),
       ],
     );
   }

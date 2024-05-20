@@ -29,10 +29,15 @@ class Archivo {
   // Metodo para invocar al explordor de archivos de la plataforma.
   Future<String> abrirArchivo() async {
     String _rachaCadena = "";
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['txt'],
+      allowMultiple: false,
+    );
     if (result != null) {
       _pathArchivo = result.files.single.path!;
       File archivo = File(_pathArchivo!);
+
       _nombreArchivo = result.files.first.name;
 
       // El contenido del archivo ya estara encapsulado en esta siguiente variable.Asi que trabajaremos con esa variable.
