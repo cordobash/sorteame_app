@@ -150,9 +150,6 @@ class _EditarPageState extends State<EditarPage> {
               onChanged: (_) {
                 setState(() {
                   _nombreBuscar = _;
-                  print('El nombre a buscar es: ${_nombreBuscar}');
-                  print(
-                      'El numero de coincidencias para el nombre ${_nombreBuscar} fueron de ${_actualizarTablaFiltro(_nombreBuscar, listaParticipantes).length} en la posicion: ${_actualizarTablaFiltro(_nombreBuscar, listaParticipantes)}');
                 });
               },
               onSubmitted: (_) {

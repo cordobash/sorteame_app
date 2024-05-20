@@ -882,7 +882,6 @@ class _MyAppState extends State<MyApp> {
                 listaParticipantes.add(_nuevoParticipante!);
                 _activarErrorTextAnadirParticipante = false;
                 Navigator.pop(context);
-                print(_nuevoParticipante.toString().codeUnitAt(0));
                 // Limipamos el nombre guardado en cache
                 _nuevoParticipante = '';
               } else if (_validarCaracteres(_nuevoParticipante!) ||

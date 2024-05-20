@@ -122,9 +122,7 @@ class SettingsPageState extends State<SettingsPage> {
                                     activarDisparador: true)
                               ],
                             ),
-                            Divider(
-                              color: Colors.grey,
-                            ),
+                            Divider(color: Colors.grey),
                             Opacity(
                               opacity: 0.5,
                               child: Row(
@@ -145,6 +143,56 @@ class SettingsPageState extends State<SettingsPage> {
                             Divider(
                               color: const Color.fromARGB(255, 132, 132, 132),
                             ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 5),
+                              child: SizedBox(
+                                width: _deviceWidth!,
+                                child: Text(
+                                  'Editar Participante',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Mostrar dialogo al eliminar participante',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                _switchWidget(
+                                    () => {
+                                          setState(() {
+                                            mostrarDialogoConfirmacion =
+                                                !mostrarDialogoConfirmacion;
+                                          })
+                                        },
+                                    disparador: mostrarDialogoConfirmacion,
+                                    activarDisparador: true)
+                              ],
+                            ),
+                            Divider(color: Colors.grey),
+                            Opacity(
+                              opacity: 0.45,
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 5, bottom: 5),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                          'Maximo de celdas por fila en modo mosaico'),
+                                      Text(
+                                        '${(_deviceWidth! < 500) ? 2 : 3}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            Divider(color: Colors.grey),
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 10, bottom: 5),
@@ -313,7 +361,6 @@ class SettingsPageState extends State<SettingsPage> {
         if (activarDisparador)
           {
             disparador = !_,
-            print('Valor de disparador: $disparador'),
             // Ejecutamos el metodo para las validaciones pertinentes
             funcion(),
           },

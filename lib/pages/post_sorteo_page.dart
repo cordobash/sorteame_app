@@ -146,7 +146,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
             Text('Por haber sido el ganador(a) en el sorteo de: '),
             Container(
               width: _deviceWidth! * 0.80,
-              height: _deviceHeight! * 0.10,
+              height: _deviceHeight! * 0.08,
               decoration: BoxDecoration(
                 color: colorGlobal.shade900,
                 borderRadius: BorderRadius.circular(10),
