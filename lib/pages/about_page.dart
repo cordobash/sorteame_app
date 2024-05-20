@@ -32,7 +32,15 @@ class AboutPage extends StatelessWidget {
             padding: EdgeInsets.only(top: 20),
             child: Container(
               decoration: BoxDecoration(
-                color: colorGlobal,
+                gradient: LinearGradient(colors: [
+                  colorGlobal,
+                  colorGlobal.shade600,
+                  colorGlobal.shade700,
+                  colorGlobal,
+                  colorGlobal.shade600,
+                  colorGlobal.shade700,
+                  colorGlobal.shade900,
+                ]),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Container(

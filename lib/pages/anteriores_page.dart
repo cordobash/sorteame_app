@@ -155,7 +155,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: _deviceWidth! * 0.70,
+                          width: _deviceWidth! * 0.68,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
@@ -219,11 +219,15 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   ),
                   SizedBox(
                     width: _deviceWidth,
-                    child: Text(
-                      "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.fade,
-                      style: TextStyle(color: Colors.white),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                   )
                 ],

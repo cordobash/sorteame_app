@@ -160,27 +160,34 @@ class _ResultadosPageState extends State<ResultadosPage> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Container(
-                  width: 200,
-                  height: 50,
-                  child: TextButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                    onPressed: () {
-                      setState(() {
-                        Navigator.pushNamed(context, '/');
-                      });
-                    },
-                    child: Text(
-                      'Regresar a inicio',
-                      style: TextStyle(color: Colors.white),
-                    ),
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Container(
+                width: 200,
+                height: 50,
+                child: TextButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pushNamed(context, '/');
+                    });
+                  },
+                  child: Text(
+                    'Regresar a inicio',
+                    style: TextStyle(color: Colors.white),
                   ),
-                ))
+                ),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                  colorGlobal,
+                  colorGlobal.shade400,
+                  colorGlobal.shade700,
+                  colorGlobal.shade700
+                ])),
+              ),
+            ),
           ],
         ),
       )),
