@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 // Models
@@ -68,41 +69,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                 onPressed: () => showDialog(
                     barrierDismissible: false,
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          backgroundColor: Colors.white,
-                          icon: Icon(
-                            Icons.warning,
-                            color: Colors.orange,
-                            size: 25,
-                          ),
-                          title: const Text('Advertencia'),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          content: const Text(
-                            'Esta accion eliminara todos los registros.¿Desea continuar?',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                boxSorteo.clear();
-                                setState(() {
-                                  _cajaVacia = true;
-                                  visibleFloatingAnteriores = false;
-                                });
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Eliminar todo'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancelar'),
-                            ),
-                          ],
-                        )),
+                    builder: (BuildContext context) =>
+                        _dialogEliminarTodosParticipantes(context)),
                 icon: Icon(fill: 1, Icons.delete_rounded, color: Colors.white),
               ),
             )
@@ -255,5 +223,58 @@ class _AnterioresPageState extends State<AnterioresPage> {
         ],
       ),
     ));
+  }
+
+  Widget _dialogEliminarTodosParticipantes(context) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          Icon(Icons.warning_rounded, color: Colors.yellow.shade900, size: 30),
+          const Text('Advertencia',
+              style: TextStyle(fontSize: 20, fontFamily: 'Barlow')),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      content: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: const Text(
+          'Esta accion eliminara todos los registros.¿Desea continuar?',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, fontFamily: 'Barlow'),
+        ),
+      ),
+      actions: [
+        TextButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.shade900,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5))),
+          onPressed: () {
+            boxSorteo.clear();
+            setState(() {
+              _cajaVacia = true;
+              visibleFloatingAnteriores = false;
+            });
+            Navigator.pop(context);
+          },
+          child: const Text(
+            'Eliminar todo',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            'Cancelar',
+            style: TextStyle(color: colorGlobal.shade700),
+          ),
+        ),
+      ],
+    );
   }
 }

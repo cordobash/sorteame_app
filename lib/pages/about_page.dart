@@ -25,7 +25,10 @@ class AboutPage extends StatelessWidget {
           ),
           Text(
             'Isaias Gerardo Cordova Palomares',
-            style: _estiloCabecera,
+            style: TextStyle(
+                color: Colors.grey.shade900,
+                fontSize: 20,
+                fontFamily: 'Poetsen'),
           ),
           Text('(Desarrollador de Software)'),
           Padding(
