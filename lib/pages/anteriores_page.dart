@@ -190,44 +190,40 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   ),
                   SizedBox(
                     width: _deviceWidth,
-                    child: Wrap(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Ganador: $ganadorSorteo',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                        ]),
+                    child: Text(
+                      'Ganador: $ganadorSorteo',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Poetsen'),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Row(
                     children: [
                       Text(
                         'Numero de participantes: ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                        style: TextStyle(color: Colors.white),
                       ),
                       Text(
                         "$cantidadParticipantes",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
                     width: _deviceWidth,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto}",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
-                      ),
+                    child: Text(
+                      "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto} hrs.",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                      maxLines: 2,
+                      overflow: TextOverflow.fade,
                     ),
                   )
                 ],

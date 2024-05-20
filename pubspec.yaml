@@ -96,6 +96,12 @@ flutter:
     - family: Manrope
       fonts:
         - asset: lib/src/fonts/Manrope/static/Manrope-Regular.ttf
+    - family: Poetsen
+      fonts:
+        - asset: lib/src/fonts/Poetsen_One/PoetsenOne-Regular.ttf
+    - family: Barlow
+      fonts:
+        - asset: lib/src/fonts/Barlow/Barlow-Regular.ttf
         # - asset: fonts/Schyler-Italic.ttf
   #   - family: Trajan Pro
   #     fonts:

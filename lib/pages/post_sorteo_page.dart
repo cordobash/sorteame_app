@@ -131,7 +131,11 @@ class _ResultadosPageState extends State<ResultadosPage> {
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     "${ganadorSorteo}",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        fontFamily: 'Barlow'),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -140,8 +144,8 @@ class _ResultadosPageState extends State<ResultadosPage> {
             ),
             Text('Por haber sido el ganador(a) en el sorteo de: '),
             Container(
-              width: _deviceWidth! * 0.70,
-              height: _deviceHeight! * 0.07,
+              width: _deviceWidth! * 0.80,
+              height: _deviceHeight! * 0.10,
               decoration: BoxDecoration(
                 color: colorGlobal.shade900,
                 borderRadius: BorderRadius.circular(10),
@@ -153,8 +157,10 @@ class _ResultadosPageState extends State<ResultadosPage> {
                     "$vTituloSorteo",
                     style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        overflow: TextOverflow.ellipsis),
+                        overflow: TextOverflow.ellipsis,
+                        fontFamily: 'Barlow'),
                   ),
                 ),
               ),
