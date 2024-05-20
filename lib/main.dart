@@ -607,7 +607,8 @@ class _MyAppState extends State<MyApp> {
           child: Opacity(
             opacity: (textEditingController.text.isNotEmpty &&
                     listaParticipantes.isNotEmpty &&
-                    _validarCaracteres(vTituloSorteo) == false)
+                    _validarCaracteres(vTituloSorteo) == false &&
+                    textEditingController.text.toString().codeUnitAt(0) != 32)
                 ? 1.0
                 : 0.5,
             child: Container(
@@ -625,7 +626,8 @@ class _MyAppState extends State<MyApp> {
                   calcularGanador(),
                   if (listaParticipantes.isNotEmpty &&
                       textEditingController.text.isNotEmpty &&
-                      _validarCaracteres(vTituloSorteo) == false)
+                      _validarCaracteres(vTituloSorteo) == false &&
+                      textEditingController.text.toString().codeUnitAt(0) != 32)
                     {
                       boxSorteo.put(
                           'key_${textEditingController.text}_${ganadorSorteo}',
@@ -691,7 +693,7 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(Icons.file_upload),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Selecciona un archivo',
+          Text('Agregar via archivo',
               style: TextStyle(
                 fontFamily: 'Poetsen',
                 color: Colors.black,
@@ -949,37 +951,71 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertDialogSinAnimacion() {
     return AlertDialog(
-      title: Text((vTituloSorteo != null)
-          ? vTituloSorteo!
-          : vTituloSorteo = "Sorteo sin nombre"),
+      shadowColor: Colors.black,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          Icon(Icons.info, color: Colors.blue),
+          Padding(padding: EdgeInsets.only(left: 5)),
+          Text(
+            'Resultados del sorteo',
+            style: TextStyle(fontFamily: 'Poetsen', fontSize: 18),
+          )
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('El gran ganador/a del $vTituloSorteo es...'),
+          Text(
+            'El ganador(a) del ${vTituloSorteo} es...',
+            style: TextStyle(
+                fontFamily: 'Barlow',
+                fontWeight: FontWeight.bold,
+                fontSize: 16),
+          ),
           Padding(
             padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
-            child: Text(
-              '$ganadorSorteo',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            child: Container(
+              width: 150,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: colorGlobal, borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    '$ganadorSorteo',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
             ),
           )
         ],
       ),
       actions: [
         TextButton(
-            onPressed: () => {
-                  setState(() {
-                    boxSorteo.put(
-                        'key_${textEditingController.text}_${ganadorSorteo}',
-                        Sorteo.conDatos(
-                            tituloSorteo: textEditingController.text,
-                            cantParticipantes: listaParticipantes.length,
-                            ganadorSorteo: ganadorSorteo));
-                    validarEliminarTodos();
-                  }),
-                  Navigator.pop(context),
-                },
-            child: const Text('Ok'))
+          onPressed: () => {
+            setState(() {
+              boxSorteo.put(
+                  'key_${textEditingController.text}_${ganadorSorteo}',
+                  Sorteo.conDatos(
+                      tituloSorteo: textEditingController.text,
+                      cantParticipantes: listaParticipantes.length,
+                      ganadorSorteo: ganadorSorteo));
+              validarEliminarTodos();
+            }),
+            Navigator.pop(context),
+          },
+          child: Text(
+            'Ok',
+            style: TextStyle(color: colorGlobal.shade900),
+          ),
+        )
       ],
     );
   }
