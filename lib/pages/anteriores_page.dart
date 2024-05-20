@@ -232,7 +232,10 @@ class _AnterioresPageState extends State<AnterioresPage> {
         children: [
           Icon(Icons.warning_rounded, color: Colors.yellow.shade900, size: 30),
           const Text('Advertencia',
-              style: TextStyle(fontSize: 20, fontFamily: 'Barlow')),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Barlow',
+                  fontWeight: FontWeight.bold)),
         ],
       ),
       shape: RoundedRectangleBorder(

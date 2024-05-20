@@ -730,16 +730,45 @@ class _MyAppState extends State<MyApp> {
 
   Widget _alertSalirAplicacion() {
     return AlertDialog(
-      content: Text('¿Estas seguro de salir de la aplicacion?'),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shadowColor: Colors.black,
+      title: Row(
+        children: [
+          Icon(Icons.exit_to_app, color: Colors.red),
+          Padding(padding: EdgeInsets.only(left: 10)),
+          Text(
+            'Salir de la aplicacion',
+            style: TextStyle(
+                fontFamily: 'Barlow',
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      content: Text(
+        '¿Estas seguro de salir de la aplicacion?',
+        style: TextStyle(
+            fontFamily: 'Barlow',
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.w600),
+      ),
       actions: [
         TextButton(
           onPressed: () =>
               SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-          child: Text('Salir'),
+          child: Text(
+            'Salir',
+            style: TextStyle(color: colorGlobal.shade900),
+          ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
+          child: Text(
+            'Cancelar',
+            style: TextStyle(color: colorGlobal.shade900),
+          ),
         )
       ],
     );
