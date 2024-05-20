@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -695,9 +696,11 @@ class _MyAppState extends State<MyApp> {
           Padding(padding: EdgeInsets.only(left: 10)),
           Text('Agregar via archivo',
               style: TextStyle(
-                fontFamily: 'Poetsen',
-                color: Colors.black,
-              )),
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.black,
+                  overflow: TextOverflow.ellipsis)),
         ],
       ),
       content: SizedBox(
@@ -707,13 +710,13 @@ class _MyAppState extends State<MyApp> {
           mainAxisSize: MainAxisSize.max,
           children: [
             const Text(
-              'Añade los participantes de tu sorteo desde un archivo',
-              style: TextStyle(fontFamily: 'Manrope'),
+              'Añade a los participantes de tu sorteo desde un archivo',
+              style: TextStyle(fontFamily: 'Barlow'),
             ),
 
             const Text(
               'El tipo de archivo admitido para esta operacion es solamente en formato .txt',
-              style: TextStyle(fontFamily: 'Manrope'),
+              style: TextStyle(fontFamily: 'Barlow'),
             ),
             Text(
               "${_nombreArchivoSeleccionado}",
@@ -772,24 +775,24 @@ class _MyAppState extends State<MyApp> {
       shadowColor: Colors.black,
       title: Row(
         children: [
-          Icon(Icons.exit_to_app, color: Colors.red),
+          Icon(Icons.exit_to_app, color: Colors.black),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
             'Salir de la aplicacion',
             style: TextStyle(
-                fontFamily: 'Barlow',
+                fontFamily: 'Manrope',
                 color: Colors.black,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.bold,
+                fontSize: 17),
           ),
         ],
       ),
       content: Text(
         '¿Estas seguro de salir de la aplicacion?',
         style: TextStyle(
-            fontFamily: 'Barlow',
-            color: Colors.black,
-            fontSize: 17,
-            fontWeight: FontWeight.w600),
+          color: Colors.black,
+          fontSize: 17,
+        ),
       ),
       actions: [
         TextButton(
@@ -820,24 +823,29 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(
             Icons.add,
-            color: Colors.blue,
+            color: Colors.black,
           ),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
             'Añadir participante',
-            style: TextStyle(fontFamily: 'Poetsen', fontSize: 20),
+            style: TextStyle(
+                fontFamily: 'Manrope',
+                fontSize: 18,
+                fontWeight: FontWeight.bold),
           ),
         ],
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const Text(
             'En el siguiente campo anote el nombre del participante: ',
             style: TextStyle(fontFamily: 'Manrope'),
           ),
           Padding(
-            padding: EdgeInsets.only(top: _deviceHeight! * 0.03),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: TextField(
               onChanged: (_) {
                 state(() {
@@ -886,9 +894,6 @@ class _MyAppState extends State<MyApp> {
                   _activarErrorTextAnadirParticipante = true;
                 });
               }
-              // listaParticipantes.add(_nuevoParticipante!);
-              // Navigator.pop(context);
-              // print('El nuevo participante $_nuevoParticipante');
               if (listaParticipantes.isNotEmpty) {
                 _colorContenedorBorder = Colors.grey;
                 _visibleLabel = false;
@@ -898,9 +903,19 @@ class _MyAppState extends State<MyApp> {
               }
             })
           },
-          child: Text(
-            'OK',
-            style: TextStyle(color: colorGlobal.shade900),
+          child: Container(
+            width: 100,
+            height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.green,
+            ),
+            child: Center(
+              child: Text(
+                'Agregar',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
         ),
         TextButton(
@@ -960,7 +975,10 @@ class _MyAppState extends State<MyApp> {
           Padding(padding: EdgeInsets.only(left: 5)),
           Text(
             'Resultados del sorteo',
-            style: TextStyle(fontFamily: 'Poetsen', fontSize: 18),
+            style: TextStyle(
+                fontFamily: 'Manrope',
+                fontSize: 18,
+                fontWeight: FontWeight.bold),
           )
         ],
       ),
