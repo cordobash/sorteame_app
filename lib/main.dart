@@ -116,14 +116,12 @@ class _MyAppState extends State<MyApp> {
 
     super.initState();
     listaParticipantes = [
-      "Pedro",
-      "Juan",
+      "Joselu",
+      "Marco Acosta",
       "Isaias",
-      "Isaias Gerardo Cordova Palomares",
-      "Paulina",
-      "Isaias Gerardo",
-      "This is a very very very long name, can my code handle it?",
-      "Alexander Constantine Theodore Bartholomew III",
+      "Juan",
+      "Pochetino",
+      "Lucio",
     ];
   }
 

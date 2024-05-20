@@ -448,10 +448,17 @@ class _EditarPageState extends State<EditarPage> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            colorGlobal.shade500,
+            colorGlobal,
             colorGlobal.shade600,
             colorGlobal.shade700,
-            colorGlobal.shade900
+            colorGlobal.shade900,
+            colorGlobal,
+            colorGlobal.shade600,
+            colorGlobal.shade700,
+            colorGlobal.shade800,
+            colorGlobal.shade600,
+            colorGlobal.shade900,
+            colorGlobal.shade900,
           ],
         ),
       ),
@@ -460,10 +467,15 @@ class _EditarPageState extends State<EditarPage> {
 
   Widget _segmentedButtons() {
     return SegmentedButton<Acciones>(
+      style: SegmentedButton.styleFrom(
+        selectedBackgroundColor: colorGlobal.withOpacity(0.23),
+      ),
       segments: const <ButtonSegment<Acciones>>[
         ButtonSegment<Acciones>(
           value: Acciones.eliminar,
-          label: Text('Eliminar'),
+          label: Text(
+            'Eliminar',
+          ),
           icon: Icon(Icons.delete),
         ),
         ButtonSegment<Acciones>(

@@ -322,16 +322,10 @@ class SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  List<int> obtenerRGB(Color c) {
-    return [c.red, c.blue, c.green];
-  }
-
   Widget _segmentedButtons() {
-    List<int> _colores = [...obtenerRGB(colorGlobal)];
     return SegmentedButton<Idiomas>(
       style: SegmentedButton.styleFrom(
-          selectedBackgroundColor:
-              Color.fromRGBO(_colores[0], _colores[1], _colores[1], 0.45)),
+          selectedBackgroundColor: colorGlobal.withOpacity(0.15)),
       showSelectedIcon: false,
       segments: const <ButtonSegment<Idiomas>>[
         ButtonSegment<Idiomas>(
