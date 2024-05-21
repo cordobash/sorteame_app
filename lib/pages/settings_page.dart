@@ -223,7 +223,6 @@ class SettingsPageState extends State<SettingsPage> {
                                             _contenedorColor(Colors.blue),
                                             _contenedorColor(Colors.red),
                                             _contenedorColor(Colors.purple),
-                                            _contenedorColor(Colors.white),
                                             _contenedorColor(Colors.green),
 
                                             // _contenedorColor(Colors.white),
@@ -427,7 +426,6 @@ class SettingsPageState extends State<SettingsPage> {
                   _contenedorColor(Colors.blue),
                   _contenedorColor(Colors.red),
                   _contenedorColor(Colors.purple),
-                  _contenedorColor(Colors.white),
                   _contenedorColor(Colors.green),
                 ],
               ),
