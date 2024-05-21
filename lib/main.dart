@@ -110,16 +110,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
-    listaParticipantes = [
-      "Joselu",
-      "Marco Acosta",
-      "Isaias",
-      "Juan",
-      "Pochetino",
-      "Lucio",
-    ];
   }
 
   @override

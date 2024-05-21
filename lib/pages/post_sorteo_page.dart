@@ -74,7 +74,7 @@ class _PostPageState extends State<PostPage>
                         seconds: cuentaRegresiva,
                         build: (BuildContext context, double tiempo) => Text(
                           tiempo.toInt().toString(),
-                          style: TextStyle(fontSize: 50, fontFamily: 'Poetsen'),
+                          style: TextStyle(fontSize: 60, fontFamily: 'Poetsen'),
                         ),
                         onFinished: () => {
                           setState(() {
