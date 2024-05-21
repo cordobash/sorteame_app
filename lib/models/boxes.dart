@@ -10,7 +10,7 @@ bool activarAnimacion = true;
 bool nombresDuplicados = true;
 bool mostrarDialogoConfirmacion = true;
 int limiteParticipantes = 50;
-List<int> listaConteo = [10, 3, 5, 7, 1];
+List<int> listaConteo = [3, 5, 7, 10, 15];
 int cuentaRegresiva = listaConteo.first;
 bool visibleFloatingAnteriores = (boxSorteo.isNotEmpty) ? true : false;
 String? ganadorSorteo;

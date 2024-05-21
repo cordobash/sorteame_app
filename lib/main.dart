@@ -1,13 +1,9 @@
 // main.dart: Archivo principal de ejecucion.
 // Paquetes de la libreria o externos.
-import 'dart:io';
 import 'dart:math';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;

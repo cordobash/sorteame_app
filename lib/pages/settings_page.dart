@@ -1,7 +1,5 @@
 import 'package:app_sorteos/models/boxes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key? key});
