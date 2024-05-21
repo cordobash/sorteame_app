@@ -2,6 +2,7 @@ import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';
+import 'package:app_sorteos/painter/rueda_painter.dart';
 
 class PostPage extends StatefulWidget {
   PostPage({Key? key});
@@ -10,8 +11,27 @@ class PostPage extends StatefulWidget {
   State<StatefulWidget> createState() => _PostPageState();
 }
 
-class _PostPageState extends State<PostPage> {
+class _PostPageState extends State<PostPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller; // Controlador de la rueda giratoria
   bool tiempoFuera = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this)
+          ..repeat();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +46,44 @@ class _PostPageState extends State<PostPage> {
                 backgroundColor: Colors.white,
               ),
               body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const Text(
-                      'Tiempo restante para conocer al ganador!',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    Countdown(
-                      seconds: cuentaRegresiva,
-                      build: (BuildContext context, double tiempo) => Text(
-                        tiempo.toInt().toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 50),
+                child: SizedBox(
+                  height: 400,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      CustomPaint(
+                        painter: RuedaPainter(
+                            animation: _controller, color: colorGlobal),
+                        child: SizedBox(
+                          width: 160,
+                          height: 170,
+                        ),
                       ),
-                      onFinished: () => {
-                        setState(() {
-                          tiempoFuera = true;
-                        })
-                      },
-                    ),
-                  ],
+                      const Center(
+                        child: const Text(
+                          'Tiempo restante para conocer al ganador!',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontFamily: 'Barlow'),
+                        ),
+                      ),
+                      Countdown(
+                        seconds: cuentaRegresiva,
+                        build: (BuildContext context, double tiempo) => Text(
+                          tiempo.toInt().toString(),
+                          style: TextStyle(fontSize: 50, fontFamily: 'Poetsen'),
+                        ),
+                        onFinished: () => {
+                          setState(() {
+                            tiempoFuera = true;
+                          })
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -119,7 +153,13 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 height: 140,
                 width: 120,
                 image: AssetImage('lib/src/images/trophy.png')),
-            const Text('Felicidades al ganador!'),
+            const Text(
+              'Felicidades al ganador!',
+              style: TextStyle(
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16),
+            ),
             Container(
               width: _deviceWidth! * 0.80,
               height: _deviceHeight! * 0.09,
@@ -143,7 +183,13 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 ),
               ),
             ),
-            Text('Por haber sido el ganador(a) en el sorteo de: '),
+            Text(
+              'Por haber sido el ganador(a) en el sorteo de: ',
+              style: TextStyle(
+                  fontFamily: 'Manrope',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
             Container(
               width: _deviceWidth! * 0.80,
               height: _deviceHeight! * 0.08,
@@ -189,9 +235,12 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
                   colorGlobal,
-                  colorGlobal.shade400,
+                  colorGlobal.shade600,
                   colorGlobal.shade700,
-                  colorGlobal.shade700
+                  colorGlobal,
+                  colorGlobal.shade600,
+                  colorGlobal.shade700,
+                  colorGlobal.shade900,
                 ])),
               ),
             ),
