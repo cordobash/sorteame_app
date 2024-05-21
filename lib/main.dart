@@ -362,11 +362,33 @@ class _MyAppState extends State<MyApp> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('Anadir participante',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis)),
+                              SizedBox(
+                                width: _deviceWidth! * 0.60,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.person_add_alt_1_outlined,
+                                        size: 25, color: Colors.black),
+                                    Text('Añadir participante',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            fontFamily: 'Manrope',
+                                            overflow: TextOverflow.ellipsis)),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                '¿Como deseas añadir a tus participantes?',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                    'Puedes hacerlo de dos formas: Los puedes ir agregando uno por uno o anotarlos en un archivo y subirlo a la aplicacion.'),
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -389,9 +411,20 @@ class _MyAppState extends State<MyApp> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
-                                    child: Text(
-                                      'Manualmente',
-                                      style: TextStyle(color: Colors.white),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.person_add_alt_1_outlined,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          'Manualmente',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   ElevatedButton(
@@ -407,9 +440,18 @@ class _MyAppState extends State<MyApp> {
                                                             archivo, setState));
                                           });
                                     },
-                                    child: Text(
-                                      'Subir un archivo',
-                                      style: TextStyle(color: Colors.white),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.upload_file,
+                                            color: Colors.white),
+                                        Text(
+                                          'Subir un archivo',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black,
