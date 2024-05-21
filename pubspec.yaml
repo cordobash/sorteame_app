@@ -72,7 +72,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/src/images/trophy.png
-    - lib/src/images/grow_trophy.png
+    - lib/src/images/primer_sorteo.png
     - lib/src/images/not_found.png
 
 

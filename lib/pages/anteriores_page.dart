@@ -213,12 +213,15 @@ class _AnterioresPageState extends State<AnterioresPage> {
         children: [
           Text(
             'Realiza tu primer sorteo!',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+                fontFamily: 'Poetsen'),
           ),
           Image(
             width: 300,
             height: _deviceHeight! * 0.55,
-            image: AssetImage('lib/src/images/grow_trophy.png'),
+            image: AssetImage('lib/src/images/primer_sorteo.png'),
           )
         ],
       ),

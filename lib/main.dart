@@ -360,25 +360,15 @@ class _MyAppState extends State<MyApp> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30)),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
-                                width: _deviceWidth! * 0.60,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.person_add_alt_1_outlined,
-                                        size: 25, color: Colors.black),
-                                    Text('Añadir participante',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            fontFamily: 'Manrope',
-                                            overflow: TextOverflow.ellipsis)),
-                                  ],
-                                ),
+                                child: Text('Añadir participante',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        fontFamily: 'Manrope',
+                                        overflow: TextOverflow.ellipsis)),
                               ),
                               Text(
                                 '¿Como deseas añadir a tus participantes?',
