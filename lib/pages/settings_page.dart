@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key? key});
@@ -20,6 +23,7 @@ class SettingsPageState extends State<SettingsPage> {
 
   // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 16);
+
   void checkActivarAnimacion() {
     setState(() {
       if (activarAnimacion) {
@@ -31,10 +35,61 @@ class SettingsPageState extends State<SettingsPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cargarDatos();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  Future<void> cargarDatos() async {
+    // Creamos instancia de sharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    // Cargamos cada una de las opciones
+    setState(() {
+      // General
+      eliminarTodos = prefs.getBool('key_elitodos') ?? true;
+      activarAnimacion = prefs.getBool('key_animaciones') ?? true;
+      // Editar participante
+      mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+      // Personalizacion.
+      colorGlobal = prefs.get('key_colores') ?? Colors.red;
+      _indiceEnum = prefs.getInt('key_idioma') ?? 0;
+    });
+  }
+
+  Future<void> guardarDatos() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('key_elitodos', eliminarTodos);
+    prefs.setBool('key_animaciones', activarAnimacion);
+    prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
+    // prefs.setString('key_colores', colorGlobal);
+    prefs.setInt('key_idioma', _indiceEnum);
+  }
+
+  // Future<void> guardarEliTodos() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('key_elitodos', eliminarTodos);
+  // }
+  // Future<void> guardarAnimaciones() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('key_animaciones', activarAnimacion);
+  // }
+
+  // Future<void> guardarConfigDialogo() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('key_confirmacion', );
+  // }
+
+  @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
-    // TODO: implement build
     return Scaffold(
         body: Center(
       child: Padding(
@@ -90,12 +145,13 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Eliminar participantes post sorteo',
                                   style: _estiloPersonalizado,
                                 ),
-                                _switchWidget(
-                                    () => {
-                                          setState(() {
-                                            eliminarTodos = !eliminarTodos;
-                                          })
-                                        },
+                                _switchWidget(() async {
+                                  setState(() {
+                                    eliminarTodos = !eliminarTodos;
+                                  });
+                                  await guardarDatos();
+                                  cargarDatos();
+                                },
                                     disparador: eliminarTodos,
                                     activarDisparador: true)
                               ],
@@ -111,11 +167,14 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Activar animacion',
                                   style: _estiloPersonalizado,
                                 ),
-                                _switchWidget(
-                                    () => {
-                                          activarAnimacion = !activarAnimacion,
-                                          checkActivarAnimacion(),
-                                        },
+                                _switchWidget(() async {
+                                  setState(() {
+                                    activarAnimacion = !activarAnimacion;
+                                    checkActivarAnimacion();
+                                  });
+                                  await guardarDatos();
+                                  cargarDatos();
+                                },
                                     disparador: activarAnimacion,
                                     activarDisparador: true)
                               ],
@@ -161,13 +220,14 @@ class SettingsPageState extends State<SettingsPage> {
                                   'Mostrar dialogo al eliminar participante',
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                _switchWidget(
-                                    () => {
-                                          setState(() {
-                                            mostrarDialogoConfirmacion =
-                                                !mostrarDialogoConfirmacion;
-                                          })
-                                        },
+                                _switchWidget(() async {
+                                  setState(() {
+                                    mostrarDialogoConfirmacion =
+                                        !mostrarDialogoConfirmacion;
+                                  });
+                                  await guardarDatos();
+                                  cargarDatos();
+                                },
                                     disparador: mostrarDialogoConfirmacion,
                                     activarDisparador: true)
                               ],

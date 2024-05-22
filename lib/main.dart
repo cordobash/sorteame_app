@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Vistas.
 import 'package:app_sorteos/pages/settings_page.dart';
@@ -111,6 +112,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    cargarDatos();
   }
 
   @override
@@ -118,6 +120,22 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement dispose
     super.dispose();
     textEditingController.dispose();
+  }
+
+  Future<void> cargarDatos() async {
+    // Creamos instancia de sharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    // Cargamos cada una de las opciones
+    setState(() {
+      // General
+      eliminarTodos = prefs.getBool('key_elitodos') ?? true;
+      activarAnimacion = prefs.getBool('key_animaciones') ?? true;
+      // Editar participante
+      mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+      // Personalizacion.
+      colorGlobal = prefs.get('key_colores') ?? Colors.red;
+      // _indiceEnum = prefs.getInt('key_idioma') ?? 0;
+    });
   }
 
   @override
