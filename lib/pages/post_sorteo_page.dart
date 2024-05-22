@@ -71,7 +71,7 @@ class _PostPageState extends State<PostPage>
                         ),
                       ),
                       Countdown(
-                        seconds: cuentaRegresiva,
+                        seconds: indiceListaConteo,
                         build: (BuildContext context, double tiempo) => Text(
                           tiempo.toInt().toString(),
                           style: TextStyle(fontSize: 60, fontFamily: 'Poetsen'),

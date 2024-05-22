@@ -17,7 +17,15 @@ class SettingsPageState extends State<SettingsPage> {
   double? _deviceWidth, _deviceHeight;
 
   dynamic _accionInicial = Idiomas.values.first;
-  int _indiceEnum = 0;
+
+  List<Color> listaColores = [
+    Colors.red,
+    Colors.orange,
+    Colors.pink,
+    Colors.blue,
+    Colors.green,
+    Colors.purple
+  ];
 
   SettingsPageState({Key? key});
 
@@ -57,9 +65,11 @@ class SettingsPageState extends State<SettingsPage> {
       activarAnimacion = prefs.getBool('key_animaciones') ?? true;
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+      indiceEnumModo = prefs.getInt('key_editar_modo') ?? 0;
       // Personalizacion.
-      colorGlobal = prefs.get('key_colores') ?? Colors.red;
-      _indiceEnum = prefs.getInt('key_idioma') ?? 0;
+      // colorGlobal = prefs.get('key_colores') ?? Colors.red;
+      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
     });
   }
 
@@ -68,23 +78,10 @@ class SettingsPageState extends State<SettingsPage> {
     prefs.setBool('key_elitodos', eliminarTodos);
     prefs.setBool('key_animaciones', activarAnimacion);
     prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
-    // prefs.setString('key_colores', colorGlobal);
-    prefs.setInt('key_idioma', _indiceEnum);
+    // prefs.setInt('key_colores', listaColores[indiceListaColores] as dynamic);
+    prefs.setInt('key_idioma', indiceEnumIdiomas);
+    prefs.setInt('key_conteoreg', indiceListaConteo);
   }
-
-  // Future<void> guardarEliTodos() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('key_elitodos', eliminarTodos);
-  // }
-  // Future<void> guardarAnimaciones() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('key_animaciones', activarAnimacion);
-  // }
-
-  // Future<void> guardarConfigDialogo() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('key_confirmacion', );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -278,14 +275,18 @@ class SettingsPageState extends State<SettingsPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            _contenedorColor(Colors.orange),
-                                            _contenedorColor(Colors.pink),
-                                            _contenedorColor(Colors.blue),
-                                            _contenedorColor(Colors.red),
-                                            _contenedorColor(Colors.purple),
-                                            _contenedorColor(Colors.green),
-
-                                            // _contenedorColor(Colors.white),
+                                            _contenedorColor(
+                                                listaColores[0], 0),
+                                            _contenedorColor(
+                                                listaColores[1], 1),
+                                            _contenedorColor(
+                                                listaColores[2], 2),
+                                            _contenedorColor(
+                                                listaColores[3], 3),
+                                            _contenedorColor(
+                                                listaColores[4], 4),
+                                            _contenedorColor(
+                                                listaColores[5], 5),
                                           ],
                                         ),
                                       )
@@ -365,7 +366,7 @@ class SettingsPageState extends State<SettingsPage> {
     ));
   }
 
-  Widget _contenedorColor(color) {
+  Widget _contenedorColor(color, indice) {
     return Container(
       height: 33,
       width: 30,
@@ -376,10 +377,13 @@ class SettingsPageState extends State<SettingsPage> {
       ),
       child: TextButton(
         child: SizedBox(),
-        onPressed: () {
+        onPressed: () async {
           setState(() {
             colorGlobal = color;
+            indiceListaColores = indice;
           });
+          await guardarDatos();
+          cargarDatos();
         },
       ),
     );
@@ -387,9 +391,9 @@ class SettingsPageState extends State<SettingsPage> {
 
   Widget _dropDownConteo() {
     return DropdownButton(
-        value: cuentaRegresiva,
+        value: indiceListaConteo,
         underline: Container(
-          color: colorGlobal,
+          color: listaColores[indiceListaColores],
           height: 2,
         ),
         icon: Icon(Icons.format_list_numbered_rtl_sharp),
@@ -401,10 +405,12 @@ class SettingsPageState extends State<SettingsPage> {
                 style: TextStyle(fontSize: 18),
               ));
         }).toList(),
-        onChanged: (_) {
+        onChanged: (_) async {
           setState(() {
-            (activarAnimacion) ? cuentaRegresiva = _! : 0;
+            (activarAnimacion) ? indiceListaConteo = _! : 0;
           });
+          await guardarDatos();
+          cargarDatos();
         });
   }
 
@@ -413,7 +419,7 @@ class SettingsPageState extends State<SettingsPage> {
     return Switch(
       value: disparador,
       activeColor: Colors.white,
-      activeTrackColor: colorGlobal.shade900,
+      activeTrackColor: listaColores[indiceListaColores],
       onChanged: (_) => {
         if (activarDisparador)
           {
@@ -459,7 +465,7 @@ class SettingsPageState extends State<SettingsPage> {
         setState(() {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
-          _indiceEnum = (_indiceEnum == 0) ? 1 : 0;
+          indiceEnumIdiomas = (indiceEnumIdiomas == 0) ? 1 : 0;
         });
       },
     );
@@ -481,12 +487,12 @@ class SettingsPageState extends State<SettingsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _contenedorColor(Colors.orange),
-                  _contenedorColor(Colors.pink),
-                  _contenedorColor(Colors.blue),
-                  _contenedorColor(Colors.red),
-                  _contenedorColor(Colors.purple),
-                  _contenedorColor(Colors.green),
+                  _contenedorColor(listaColores[0], 0),
+                  _contenedorColor(listaColores[1], 1),
+                  _contenedorColor(listaColores[2], 2),
+                  _contenedorColor(listaColores[3], 3),
+                  _contenedorColor(listaColores[4], 4),
+                  _contenedorColor(listaColores[5], 5),
                 ],
               ),
               ElevatedButton(

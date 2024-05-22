@@ -133,8 +133,8 @@ class _MyAppState extends State<MyApp> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      colorGlobal = prefs.get('key_colores') ?? Colors.red;
-      // _indiceEnum = prefs.getInt('key_idioma') ?? 0;
+      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
     });
   }
 
@@ -425,6 +425,7 @@ class _MyAppState extends State<MyApp> {
                                   ElevatedButton(
                                     onPressed: () {
                                       showDialog(
+                                        barrierDismissible: false,
                                           context: context,
                                           builder: (context) {
                                             return StatefulBuilder(
