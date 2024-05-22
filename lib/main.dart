@@ -21,8 +21,7 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
-  // Colors inicial
-  colorGlobal = Colors.red;
+  colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
@@ -135,6 +134,10 @@ class _MyAppState extends State<MyApp> {
       // Personalizacion.
       indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
+      indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+      colorGlobal = listaColores[indiceListaColores];
+      print('Color global: ${colorGlobal}');
+      print('Indice lista colores: ${indiceListaColores}');
     });
   }
 
@@ -425,7 +428,7 @@ class _MyAppState extends State<MyApp> {
                                   ElevatedButton(
                                     onPressed: () {
                                       showDialog(
-                                        barrierDismissible: false,
+                                          barrierDismissible: false,
                                           context: context,
                                           builder: (context) {
                                             return StatefulBuilder(

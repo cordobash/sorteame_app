@@ -19,16 +19,15 @@ class _EditarPageState extends State<EditarPage> {
   bool _statusModoTabla = true;
   String _nombreBuscar = "";
   List<String> _listaCoincidencias = [];
-  int _indiceEnum = 0;
   bool _cargando = false;
   dynamic _accionInicial = Acciones.values.first;
   bool _checkBoxConfirmacionPresionado = false;
-
+  int _indiceEnum = 0;
   bool _mostrarErrorText = false;
-
   _EditarPageState({Key? key}) {}
 
   late double _anchoTabla;
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;

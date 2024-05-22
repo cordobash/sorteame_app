@@ -18,29 +18,10 @@ class SettingsPageState extends State<SettingsPage> {
 
   dynamic _accionInicial = Idiomas.values.first;
 
-  List<Color> listaColores = [
-    Colors.red,
-    Colors.orange,
-    Colors.pink,
-    Colors.blue,
-    Colors.green,
-    Colors.purple
-  ];
-
   SettingsPageState({Key? key});
 
   // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 16);
-
-  void checkActivarAnimacion() {
-    setState(() {
-      if (activarAnimacion) {
-        opacidadCuentaRegresiva = 1.0;
-      } else {
-        opacidadCuentaRegresiva = 0.50;
-      }
-    });
-  }
 
   @override
   void initState() {
@@ -65,11 +46,14 @@ class SettingsPageState extends State<SettingsPage> {
       activarAnimacion = prefs.getBool('key_animaciones') ?? true;
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
-      indiceEnumModo = prefs.getInt('key_editar_modo') ?? 0;
       // Personalizacion.
       // colorGlobal = prefs.get('key_colores') ?? Colors.red;
       indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
+      indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+      colorGlobal = listaColores[indiceListaColores];
+      print('Color global: ${colorGlobal}');
+      print('Indice lista colores: ${indiceListaColores}');
     });
   }
 
@@ -78,9 +62,9 @@ class SettingsPageState extends State<SettingsPage> {
     prefs.setBool('key_elitodos', eliminarTodos);
     prefs.setBool('key_animaciones', activarAnimacion);
     prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
-    // prefs.setInt('key_colores', listaColores[indiceListaColores] as dynamic);
     prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
+    prefs.setInt('key_indicecolor', indiceListaColores);
   }
 
   @override
@@ -117,7 +101,7 @@ class SettingsPageState extends State<SettingsPage> {
                               ),
                             ),
                             Opacity(
-                              opacity: opacidadCuentaRegresiva!,
+                              opacity: (activarAnimacion) ? 1.0 : 0.40,
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
@@ -167,7 +151,6 @@ class SettingsPageState extends State<SettingsPage> {
                                 _switchWidget(() async {
                                   setState(() {
                                     activarAnimacion = !activarAnimacion;
-                                    checkActivarAnimacion();
                                   });
                                   await guardarDatos();
                                   cargarDatos();
@@ -377,12 +360,12 @@ class SettingsPageState extends State<SettingsPage> {
       ),
       child: TextButton(
         child: SizedBox(),
-        onPressed: () async {
+        onPressed: () {
           setState(() {
-            colorGlobal = color;
+            colorGlobal = listaColores[indice];
             indiceListaColores = indice;
           });
-          await guardarDatos();
+          guardarDatos();
           cargarDatos();
         },
       ),
