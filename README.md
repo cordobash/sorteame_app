@@ -1,7 +1,7 @@
 # SorteaMe 
-SorteaMe es una aplicacion cuyo proposito principal fue aprender el framework Flutter. Durante la realizacion se aprendio a maquetar ui, trabajar con bases de datos, animaciones basicas,almacenar configuraciones, manejo de archivos multimedia, manejo de estado.
+SorteaMe es una aplicacion cuyo proposito principal fue conocer el framework Flutter para el desarrollo multiplataforma. Durante la realizacion se aprendio a maquetar ui, trabajar con bases de datos de forma local, animaciones basicas,almacenar configuraciones, manejo de archivos multimedia y manejo de estados.
 
-El haber creado esta aplicacion me lleno de orgullo, porque mas alla de la funcionalidad y alcanze se lograron aprender a prueba y error muchas cosas valiosas para futuros proyectos.
+El haber creado esta aplicacion me lleno de orgullo, porque mas alla de la funcionalidad o alcanze; Se logro aprender a prueba y error muchas cosas valiosas que podre utilizar y mejorar en futuros proyectos.
 
 ## Imagenes del proyecto
 En esta seccion destaco unas capturas de prueba que se hicieron de la aplicacion, cada seccion estara dividida.
