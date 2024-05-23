@@ -1,10 +1,10 @@
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
 import 'package:app_sorteos/models/boxes.dart';
 
-@immutable
 class AboutPage extends StatelessWidget {
   AboutPage({Key? key});
 
@@ -20,7 +20,7 @@ class AboutPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Desarrollado por:',
+            S.current.developedby,
             style: _estiloCabecera,
           ),
           Text(

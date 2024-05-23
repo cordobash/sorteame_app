@@ -1,1 +1,21 @@
-{}
+{
+    "ok":"Aceptar",
+    "cancel":"Cancelar",
+    "countdown":"Cuenta regresiva",
+    "general":"General",
+    "deleteAfter":"Eliminar participantes post sorteo",
+    "activateAnimations":"Activar animacion",
+    "duplicatedNames":"Permitir nombres duplicados",
+    "editparticipant":"Editar participante",
+    "showDeleteDialog":"Mostrar dialogo al eliminar participante",
+    "maxCells":"Maximo de celdas por fila en modo mosaico",
+    "personalization":"Personalizacion",
+    "themeApp":"Color principal",
+    "language":"Seleccionar idioma",
+    "thememode":"Activar modo oscuro",
+    "modalchoicecolor":"Seleccionar un color",
+    "choicecolor":"Selecciona uno de los siguientes colores:",
+    "developedby":"Desarrollado por",
+    "career":"(Desarrollador de software)"
+
+}

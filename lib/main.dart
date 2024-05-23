@@ -1,9 +1,11 @@
 // main.dart: Archivo principal de ejecucion.
 // Paquetes de la libreria o externos.
 import 'dart:math';
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -46,6 +48,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale locale = Locale('en');
   _MyAppState({Key? key});
 
   var objSettings = new SettingsPageState();
@@ -112,6 +115,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
+    S.load(locale);
   }
 
   @override
@@ -157,6 +161,13 @@ class _MyAppState extends State<MyApp> {
         });
       },
       child: MaterialApp(
+        locale: locale,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           resizeToAvoidBottomInset: false,

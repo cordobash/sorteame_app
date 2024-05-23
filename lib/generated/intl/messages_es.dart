@@ -21,5 +21,34 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "activateAnimations":
+            MessageLookupByLibrary.simpleMessage("Activar animacion"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "career":
+            MessageLookupByLibrary.simpleMessage("(Desarrollador de software)"),
+        "choicecolor": MessageLookupByLibrary.simpleMessage(
+            "Selecciona uno de los siguientes colores:"),
+        "countdown": MessageLookupByLibrary.simpleMessage("Cuenta regresiva"),
+        "deleteAfter": MessageLookupByLibrary.simpleMessage(
+            "Eliminar participantes post sorteo"),
+        "developedby": MessageLookupByLibrary.simpleMessage("Desarrollado por"),
+        "duplicatedNames":
+            MessageLookupByLibrary.simpleMessage("Permitir nombres duplicados"),
+        "editparticipant":
+            MessageLookupByLibrary.simpleMessage("Editar participante"),
+        "general": MessageLookupByLibrary.simpleMessage("General"),
+        "language": MessageLookupByLibrary.simpleMessage("Seleccionar idioma"),
+        "maxCells": MessageLookupByLibrary.simpleMessage(
+            "Maximo de celdas por fila en modo mosaico"),
+        "modalchoicecolor":
+            MessageLookupByLibrary.simpleMessage("Seleccionar un color"),
+        "ok": MessageLookupByLibrary.simpleMessage("Aceptar"),
+        "personalization":
+            MessageLookupByLibrary.simpleMessage("Personalizacion"),
+        "showDeleteDialog": MessageLookupByLibrary.simpleMessage(
+            "Mostrar dialogo al eliminar participante"),
+        "themeApp": MessageLookupByLibrary.simpleMessage("Color principal"),
+        "thememode": MessageLookupByLibrary.simpleMessage("Activar modo oscuro")
+      };
 }

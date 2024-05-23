@@ -1,1 +1,21 @@
-{}
+{
+    "ok":"Ok",
+    "cancel":"Cancel",
+    "countdown":"Countdown",
+    "general":"General",
+    "deleteAfter":"Delete all participants after draw",
+    "activateAnimations":"Enable draw animations",
+    "duplicatedNames":"Allow duplicated names",
+    "editparticipant":"Edit participant",
+    "showDeleteDialog":"Show deletion dialog",
+    "maxCells":"Maximum cells in a row on mosaic mode ",
+    "personalization":"Personalization",
+    "themeApp":"Theme color",
+    "language":"Select language",
+    "thememode":"Enable dark mode",
+    "modalchoicecolor":"Choice a color",
+    "choicecolor":"Choice one of the following colors:",
+    "developedby":"Developed by",
+    "career":"(Software Engineer)"
+
+}
