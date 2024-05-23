@@ -16,11 +16,8 @@ enum Idiomas { Espanol, Ingles, Portugues }
 class SettingsPageState extends State<SettingsPage> {
   double? _deviceWidth, _deviceHeight;
 
-  dynamic _accionInicial = Idiomas.values.first;
-
+  Idiomas _accionInicial = Idiomas.values.first;
   SettingsPageState({Key? key});
-
-  // Flags
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 16);
 
   @override
@@ -47,13 +44,11 @@ class SettingsPageState extends State<SettingsPage> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      // colorGlobal = prefs.get('key_colores') ?? Colors.red;
       indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
-      print('Color global: ${colorGlobal}');
-      print('Indice lista colores: ${indiceListaColores}');
+      print('El idioma actual es: ${indiceEnumIdiomas}');
     });
   }
 
@@ -448,8 +443,10 @@ class SettingsPageState extends State<SettingsPage> {
         setState(() {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
-          indiceEnumIdiomas = (indiceEnumIdiomas == 0) ? 1 : 0;
+          indiceEnumIdiomas = _accionInicial.index;
         });
+        guardarDatos();
+        cargarDatos();
       },
     );
   }

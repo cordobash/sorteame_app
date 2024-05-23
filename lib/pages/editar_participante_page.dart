@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditarPage extends StatefulWidget {
   EditarPage({Key? key});
@@ -27,6 +28,23 @@ class _EditarPageState extends State<EditarPage> {
   _EditarPageState({Key? key}) {}
 
   late double _anchoTabla;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cargarDato();
+  }
+
+  Future<void> guardarDato() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
+  }
+
+  Future<void> cargarDato() async {
+    final prefs = await SharedPreferences.getInstance();
+    mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -552,16 +570,15 @@ class _EditarPageState extends State<EditarPage> {
             // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
-                icon: (!_checkBoxConfirmacionPresionado)
-                    ? Icon(Icons.check_box_outline_blank)
-                    : Icon(Icons.check_box),
-                onPressed: () => {
-                  state(() {
-                    _checkBoxConfirmacionPresionado =
-                        !_checkBoxConfirmacionPresionado;
-                  })
-                },
-              ),
+                  icon: (!_checkBoxConfirmacionPresionado)
+                      ? Icon(Icons.check_box_outline_blank)
+                      : Icon(Icons.check_box),
+                  onPressed: () {
+                    state(() {
+                      _checkBoxConfirmacionPresionado =
+                          !_checkBoxConfirmacionPresionado;
+                    });
+                  }),
               Expanded(
                 child: Text(
                   'No volver a mostrar este dialogo',
@@ -579,6 +596,7 @@ class _EditarPageState extends State<EditarPage> {
                   setState(() {
                     if (_checkBoxConfirmacionPresionado) {
                       mostrarDialogoConfirmacion = false;
+                      guardarDato();
                     }
                     _eliminarParticipante(indice, listaParticipantes);
                     Navigator.pop(context);

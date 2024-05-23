@@ -136,8 +136,7 @@ class _MyAppState extends State<MyApp> {
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
-      print('Color global: ${colorGlobal}');
-      print('Indice lista colores: ${indiceListaColores}');
+      print('El idioma actual es: ${indiceEnumIdiomas}');
     });
   }
 
