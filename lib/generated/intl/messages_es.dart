@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("(Desarrollador de software)"),
         "choicecolor": MessageLookupByLibrary.simpleMessage(
             "Selecciona uno de los siguientes colores:"),
+        "contact": MessageLookupByLibrary.simpleMessage("Vias de contacto"),
         "countdown": MessageLookupByLibrary.simpleMessage("Cuenta regresiva"),
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Eliminar participantes post sorteo"),
@@ -39,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Editar participante"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
         "language": MessageLookupByLibrary.simpleMessage("Seleccionar idioma"),
+        "letsmakereal":
+            MessageLookupByLibrary.simpleMessage("Hagamos realidad tus ideas!"),
         "maxCells": MessageLookupByLibrary.simpleMessage(
             "Maximo de celdas por fila en modo mosaico"),
         "modalchoicecolor":

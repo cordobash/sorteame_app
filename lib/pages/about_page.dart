@@ -30,7 +30,7 @@ class AboutPage extends StatelessWidget {
                 fontSize: 20,
                 fontFamily: 'Poetsen'),
           ),
-          Text('(Desarrollador de Software)'),
+          Text(S.current.career),
           Padding(
             padding: EdgeInsets.only(top: 20),
             child: Container(
@@ -49,7 +49,7 @@ class AboutPage extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  'Hagamos realidad tus ideas!',
+                  S.current.letsmakereal,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -61,7 +61,7 @@ class AboutPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Text(
-              'Vias de contacto',
+              S.current.contact,
               style: TextStyle(color: Colors.grey.shade800, fontSize: 17),
             ),
           ),

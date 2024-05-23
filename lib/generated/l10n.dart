@@ -229,6 +229,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Let's make real your ideas!`
+  String get letsmakereal {
+    return Intl.message(
+      'Let\'s make real your ideas!',
+      name: 'letsmakereal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My social networks`
+  String get contact {
+    return Intl.message(
+      'My social networks',
+      name: 'contact',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
