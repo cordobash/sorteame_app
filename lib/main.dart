@@ -320,7 +320,8 @@ class _MyAppState extends State<MyApp> {
                 _tituloSorteo(),
                 SizedBox(
                     width: _deviceWidth! * 0.75,
-                    child: const Text('Lista de participantes')),
+                    child: Text(S.current.main_ltspart)),
+                // child:Text(S.current.main_ltspart),
                 _visibleLabel!
                     ? Text(
                         'Añade al menos 1 participante',
@@ -381,7 +382,7 @@ class _MyAppState extends State<MyApp> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
-                                child: Text('Añadir participante',
+                                child: Text(S.current.main_modal_titlelabel,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
@@ -389,13 +390,12 @@ class _MyAppState extends State<MyApp> {
                                         overflow: TextOverflow.ellipsis)),
                               ),
                               Text(
-                                '¿Como deseas añadir a tus participantes?',
+                                S.current.main_modal_subtext_one,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                    'Puedes hacerlo de dos formas: Los puedes ir agregando uno por uno o anotarlos en un archivo y subirlo a la aplicacion.'),
+                                child: Text(S.current.main_modal_subtext_two),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -426,7 +426,7 @@ class _MyAppState extends State<MyApp> {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          'Manualmente',
+                                          S.current.main_modal_btnmanual,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Manrope',
@@ -454,7 +454,7 @@ class _MyAppState extends State<MyApp> {
                                         Icon(Icons.upload_file,
                                             color: Colors.white),
                                         Text(
-                                          'Subir un archivo',
+                                          S.current.main_modal_btnsubir,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Manrope',
@@ -478,7 +478,7 @@ class _MyAppState extends State<MyApp> {
           child: Row(
             children: [
               Icon(Icons.add, color: Colors.white),
-              Text('Agregar participante',
+              Text(S.current.main_btnadd,
                   style: TextStyle(color: Colors.white)),
             ],
           ),
@@ -559,11 +559,11 @@ class _MyAppState extends State<MyApp> {
                 ),
                 errorText:
                     (_mostrarErrorText || _validarCaracteres(vTituloSorteo))
-                        ? 'El titulo esta vacio/tiene caracteres invalidos'
+                        ? S.current.main_errortext_textfield
                         : null,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: 'Titulo del sorteo')));
+                labelText: S.current.main_hintitle)));
   }
 
   Widget _contenedorListaParticipantes() {
@@ -719,7 +719,7 @@ class _MyAppState extends State<MyApp> {
                             : Icons.play_disabled,
                         color: Colors.white),
                     Text(
-                      'Realizar sorteo',
+                      S.current.main_btndraw,
                       style: TextStyle(color: Colors.white),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -1078,7 +1078,7 @@ class _MyAppState extends State<MyApp> {
             Navigator.pop(context),
           },
           child: Text(
-            'Ok',
+            S.current.ok,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         )

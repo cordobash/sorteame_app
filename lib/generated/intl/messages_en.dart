@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "PAGINA_ACERCADE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_AJUSTES": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_RESULTADOSANTERIORES": MessageLookupByLibrary.simpleMessage(""),
+        "PRINCIPAL": MessageLookupByLibrary.simpleMessage(""),
+        "PRINCIPAL_MODALVIEW": MessageLookupByLibrary.simpleMessage(""),
         "TRADUCCION_MESES": MessageLookupByLibrary.simpleMessage(""),
         "activateAnimations":
             MessageLookupByLibrary.simpleMessage("Enable draw animations"),
@@ -65,6 +67,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Select language"),
         "letsmakereal": MessageLookupByLibrary.simpleMessage(
             "Let\'s make real your ideas!"),
+        "main_btnadd": MessageLookupByLibrary.simpleMessage("Add"),
+        "main_btndraw": MessageLookupByLibrary.simpleMessage("Make the draw!"),
+        "main_errortext_textfield": MessageLookupByLibrary.simpleMessage(
+            "The title is empty or its not valid"),
+        "main_hintitle": MessageLookupByLibrary.simpleMessage("Draw title"),
+        "main_ltspart":
+            MessageLookupByLibrary.simpleMessage("List of participants"),
+        "main_modal_btnmanual":
+            MessageLookupByLibrary.simpleMessage("Manually"),
+        "main_modal_btnsubir":
+            MessageLookupByLibrary.simpleMessage("Upload file"),
+        "main_modal_subtext_one": MessageLookupByLibrary.simpleMessage(
+            "With what way you wanna add the participants?"),
+        "main_modal_subtext_two": MessageLookupByLibrary.simpleMessage(
+            "You can add the participants adding them manually or you can upload a text file"),
+        "main_modal_titlelabel":
+            MessageLookupByLibrary.simpleMessage("Add new participant"),
         "march": MessageLookupByLibrary.simpleMessage("March"),
         "maxCells": MessageLookupByLibrary.simpleMessage(
             "Maximum cells in a row on mosaic mode "),

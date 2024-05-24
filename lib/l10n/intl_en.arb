@@ -42,7 +42,19 @@
     "september":"September",
     "october":"October",
     "november":"November",
-    "december":"December"
+    "december":"December",
+    "PRINCIPAL":"",
+    "main_hintitle":"Draw title",
+    "main_ltspart":"List of participants",
+    "main_btndraw":"Make the draw!",
+    "main_btnadd":"Add",
+    "main_errortext_textfield":"The title is empty or its not valid",
+    "PRINCIPAL_MODALVIEW":"",
+    "main_modal_titlelabel":"Add new participant",
+    "main_modal_subtext_one":"With what way you wanna add the participants?",
+    "main_modal_subtext_two":"You can add the participants adding them manually or you can upload a text file",
+    "main_modal_btnmanual":"Manually",
+    "main_modal_btnsubir":"Upload file"
 
 
 }

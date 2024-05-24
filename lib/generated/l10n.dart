@@ -482,6 +482,126 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get PRINCIPAL {
+    return Intl.message(
+      '',
+      name: 'PRINCIPAL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Draw title`
+  String get main_hintitle {
+    return Intl.message(
+      'Draw title',
+      name: 'main_hintitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List of participants`
+  String get main_ltspart {
+    return Intl.message(
+      'List of participants',
+      name: 'main_ltspart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make the draw!`
+  String get main_btndraw {
+    return Intl.message(
+      'Make the draw!',
+      name: 'main_btndraw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get main_btnadd {
+    return Intl.message(
+      'Add',
+      name: 'main_btnadd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The title is empty or its not valid`
+  String get main_errortext_textfield {
+    return Intl.message(
+      'The title is empty or its not valid',
+      name: 'main_errortext_textfield',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PRINCIPAL_MODALVIEW {
+    return Intl.message(
+      '',
+      name: 'PRINCIPAL_MODALVIEW',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new participant`
+  String get main_modal_titlelabel {
+    return Intl.message(
+      'Add new participant',
+      name: 'main_modal_titlelabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `With what way you wanna add the participants?`
+  String get main_modal_subtext_one {
+    return Intl.message(
+      'With what way you wanna add the participants?',
+      name: 'main_modal_subtext_one',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can add the participants adding them manually or you can upload a text file`
+  String get main_modal_subtext_two {
+    return Intl.message(
+      'You can add the participants adding them manually or you can upload a text file',
+      name: 'main_modal_subtext_two',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manually`
+  String get main_modal_btnmanual {
+    return Intl.message(
+      'Manually',
+      name: 'main_modal_btnmanual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload file`
+  String get main_modal_btnsubir {
+    return Intl.message(
+      'Upload file',
+      name: 'main_modal_btnsubir',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -42,8 +42,17 @@
     "september":"Septiembre",
     "october":"Octubre",
     "november":"Noviembre",
-    "december":"Diciembre"
-
-
-
+    "december":"Diciembre",
+    "PRINCIPAL":"",
+    "main_hintitle":"Titulo del sorteo",
+    "main_ltspart":"Lista de participantes",
+    "main_btndraw":"Realizar sorteo",
+    "main_btnadd":"Agregar participantes",
+    "main_errortext_textfield":"El titulo esta vacio o no es valido",
+    "PRINCIPAL_MODALVIEW":"",
+    "main_modal_titlelabel":"Añadir participante",
+    "main_modal_subtext_one":"¿Como deseas añadir a tus participantes?",
+    "main_modal_subtext_two":"Puedes hacerlo de dos formas: Los puedes ir agregando de forma manual uno por uno o anotarlos en un archivo con formato txt y subirlo a la aplicacion",
+    "main_modal_btnmanual":"Manualmente",
+    "main_modal_btnsubir":"Subir un archivo"
 }

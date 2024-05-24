@@ -222,7 +222,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Realiza tu primer sorteo!',
+            // 'Realiza tu primer sorteo!',
+            S.current.firstdraw,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
