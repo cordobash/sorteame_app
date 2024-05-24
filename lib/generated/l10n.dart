@@ -50,6 +50,8 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  // skipped getter for the 'LABELS GENERALES' key
+
   /// `Ok`
   String get ok {
     return Intl.message(
@@ -65,6 +67,26 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning`
+  String get warning {
+    return Intl.message(
+      'Warning',
+      name: 'warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PAGINA_AJUSTES {
+    return Intl.message(
+      '',
+      name: 'PAGINA_AJUSTES',
       desc: '',
       args: [],
     );
@@ -210,6 +232,16 @@ class S {
     );
   }
 
+  /// ``
+  String get PAGINA_ACERCADE {
+    return Intl.message(
+      '',
+      name: 'PAGINA_ACERCADE',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Developed by`
   String get developedby {
     return Intl.message(
@@ -245,6 +277,207 @@ class S {
     return Intl.message(
       'My social networks',
       name: 'contact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PAGINA_RESULTADOSANTERIORES {
+    return Intl.message(
+      '',
+      name: 'PAGINA_RESULTADOSANTERIORES',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Winner: {name}`
+  String pastwinner(Object name) {
+    return Intl.message(
+      'Winner: $name',
+      name: 'pastwinner',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Number of participants: `
+  String get amount {
+    return Intl.message(
+      'Number of participants: ',
+      name: 'amount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make your first draw!`
+  String get firstdraw {
+    return Intl.message(
+      'Make your first draw!',
+      name: 'firstdraw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date: {month} {day}, {year} at {hora}:{minuto} hours`
+  String datetimedraw(
+      Object month, Object day, Object year, Object hora, Object minuto) {
+    return Intl.message(
+      'Date: $month $day, $year at $hora:$minuto hours',
+      name: 'datetimedraw',
+      desc: '',
+      args: [month, day, year, hora, minuto],
+    );
+  }
+
+  /// `Delete all`
+  String get historydelall {
+    return Intl.message(
+      'Delete all',
+      name: 'historydelall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action will delete all draw records. Do you want to continue?`
+  String get history_warningmessage {
+    return Intl.message(
+      'This action will delete all draw records. Do you want to continue?',
+      name: 'history_warningmessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get TRADUCCION_MESES {
+    return Intl.message(
+      '',
+      name: 'TRADUCCION_MESES',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `January`
+  String get january {
+    return Intl.message(
+      'January',
+      name: 'january',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Febraury`
+  String get febraury {
+    return Intl.message(
+      'Febraury',
+      name: 'febraury',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `March`
+  String get march {
+    return Intl.message(
+      'March',
+      name: 'march',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `April`
+  String get april {
+    return Intl.message(
+      'April',
+      name: 'april',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `May`
+  String get may {
+    return Intl.message(
+      'May',
+      name: 'may',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `June`
+  String get june {
+    return Intl.message(
+      'June',
+      name: 'june',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `July`
+  String get july {
+    return Intl.message(
+      'July',
+      name: 'july',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `August`
+  String get august {
+    return Intl.message(
+      'August',
+      name: 'august',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `September`
+  String get september {
+    return Intl.message(
+      'September',
+      name: 'september',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `October`
+  String get october {
+    return Intl.message(
+      'October',
+      name: 'october',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `November`
+  String get november {
+    return Intl.message(
+      'November',
+      name: 'november',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `December`
+  String get december {
+    return Intl.message(
+      'December',
+      name: 'december',
       desc: '',
       args: [],
     );

@@ -1,6 +1,9 @@
 {
+    "LABELS GENERALES":"",
     "ok":"Aceptar",
     "cancel":"Cancelar",
+    "warning":"Advertencia",
+    "PAGINA_AJUSTES":"",
     "countdown":"Cuenta regresiva",
     "general":"General",
     "deleteAfter":"Eliminar participantes post sorteo",
@@ -15,10 +18,32 @@
     "thememode":"Activar modo oscuro",
     "modalchoicecolor":"Seleccionar un color",
     "choicecolor":"Selecciona uno de los siguientes colores:",
+    "PAGINA_ACERCADE":"",
     "developedby":"Desarrollado por",
     "career":"(Desarrollador de software)",
     "letsmakereal":"Hagamos realidad tus ideas!",
-    "contact":"Vias de contacto"
+    "contact":"Vias de contacto",
+    "PAGINA_RESULTADOSANTERIORES":"",
+    "pastwinner":"Ganador: {nombre}",
+    "amount":"Numero de participantes: ",
+    "firstdraw":"Realiza tu primer sorteo!",
+    "datetimedraw":"Fecha del sorteo: {dia} de {mes} del {anio} a las {hora}:{minuto} hrs",
+    "historydelall":"Eliminar todo",
+    "history_warningmessage":"Esta accion eliminara todos los registros.¿Desea continuar?",
+    "TRADUCCION_MESES":"",
+    "january":"Enero",
+    "febraury":"Febrero",
+    "march":"Marzo",
+    "april":"Abril",
+    "may":"Mayo",
+    "june":"Junio",
+    "july":"Julio",
+    "august":"Agosto",
+    "september":"Septiembre",
+    "october":"Octubre",
+    "november":"Noviembre",
+    "december":"Diciembre"
+
 
 
 }

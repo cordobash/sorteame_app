@@ -1,3 +1,4 @@
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:hive/hive.dart';
 part 'Sorteo.g.dart';
 
@@ -47,18 +48,18 @@ class Sorteo {
 
   String? getNombreMes(int mes) {
     List<String> _listaMeses = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre"
+      S.current.january,
+      S.current.febraury,
+      S.current.march,
+      S.current.april,
+      S.current.may,
+      S.current.june,
+      S.current.july,
+      S.current.august,
+      S.current.september,
+      S.current.october,
+      S.current.november,
+      S.current.december
     ];
     return _listaMeses[mes - 1];
   }

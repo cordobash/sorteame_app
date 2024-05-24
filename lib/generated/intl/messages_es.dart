@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "PAGINA_ACERCADE": MessageLookupByLibrary.simpleMessage(""),
+        "PAGINA_AJUSTES": MessageLookupByLibrary.simpleMessage(""),
         "activateAnimations":
             MessageLookupByLibrary.simpleMessage("Activar animacion"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),

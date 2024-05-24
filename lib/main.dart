@@ -48,7 +48,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale locale = Locale('en');
+  Locale locale = Locale('es');
   _MyAppState({Key? key});
 
   var objSettings = new SettingsPageState();

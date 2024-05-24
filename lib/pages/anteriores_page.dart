@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,14 @@ class AnterioresPage extends StatefulWidget {
 class _AnterioresPageState extends State<AnterioresPage> {
   double? _deviceWidth, _deviceHeight;
   bool _cajaVacia = boxSorteo.isEmpty;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    S.load(locale);
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -157,7 +166,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   SizedBox(
                     width: _deviceWidth,
                     child: Text(
-                      'Ganador: $ganadorSorteo',
+                      S.current.pastwinner(ganadorSorteo),
+                      // 'Ganador: $ganadorSorteo',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
@@ -169,7 +179,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   Row(
                     children: [
                       Text(
-                        'Numero de participantes: ',
+                        // 'Numero de participantes: ',
+                        S.current.amount,
                         style: TextStyle(color: Colors.white),
                       ),
                       Text(
@@ -184,7 +195,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
                   SizedBox(
                     width: _deviceWidth,
                     child: Text(
-                      "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto} hrs.",
+                      // "Fecha del sorteo: $dia de ${mes} del $anio a las $hora:${minuto} hrs.",
+                      S.current.datetimedraw(mes, dia, anio, hora, minuto),
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w400),
@@ -232,7 +244,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
       title: Row(
         children: [
           Icon(Icons.warning_rounded, color: Colors.yellow.shade900, size: 30),
-          const Text('Advertencia',
+          Text(S.current.warning,
               style: TextStyle(
                   fontSize: 20,
                   fontFamily: 'Barlow',
@@ -244,8 +256,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
       ),
       content: Padding(
         padding: const EdgeInsets.only(bottom: 30),
-        child: const Text(
-          'Esta accion eliminara todos los registros.¿Desea continuar?',
+        child: Text(
+          S.current.history_warningmessage,
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 16, fontFamily: 'Barlow'),
         ),
@@ -264,8 +276,9 @@ class _AnterioresPageState extends State<AnterioresPage> {
             });
             Navigator.pop(context);
           },
-          child: const Text(
-            'Eliminar todo',
+          child: Text(
+            // 'Eliminar todo',
+            S.current.historydelall,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -274,7 +287,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
             Navigator.pop(context);
           },
           child: Text(
-            'Cancelar',
+            S.current.cancel,
             style: TextStyle(color: colorGlobal.shade700),
           ),
         ),

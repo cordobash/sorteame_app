@@ -1,6 +1,9 @@
 {
+    "LABELS GENERALES":"",
     "ok":"Ok",
     "cancel":"Cancel",
+    "warning":"Warning",
+    "PAGINA_AJUSTES":"",
     "countdown":"Countdown",
     "general":"General",
     "deleteAfter":"Delete all participants after draw",
@@ -15,9 +18,31 @@
     "thememode":"Enable dark mode",
     "modalchoicecolor":"Choice a color",
     "choicecolor":"Choice one of the following colors:",
+    "PAGINA_ACERCADE":"",
     "developedby":"Developed by",
     "career":"(Software Engineer)",
     "letsmakereal":"Let's make real your ideas!",
-    "contact":"My social networks"
+    "contact":"My social networks",
+    "PAGINA_RESULTADOSANTERIORES":"",
+    "pastwinner":"Winner: {name}",
+    "amount":"Number of participants: ",
+    "firstdraw":"Make your first draw!",
+    "datetimedraw":"Date: {month} {day}, {year} at {hora}:{minuto} hours",
+    "historydelall":"Delete all",
+    "history_warningmessage":"This action will delete all draw records. Do you want to continue?",
+    "TRADUCCION_MESES":"", 
+    "january":"January",
+    "febraury":"Febraury",
+    "march":"March",
+    "april":"April",
+    "may":"May",
+    "june":"June",
+    "july":"July",
+    "august":"August",
+    "september":"September",
+    "october":"October",
+    "november":"November",
+    "december":"December"
+
 
 }
