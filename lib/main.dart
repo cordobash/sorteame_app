@@ -324,7 +324,7 @@ class _MyAppState extends State<MyApp> {
                 // child:Text(S.current.main_ltspart),
                 _visibleLabel!
                     ? Text(
-                        'Añade al menos 1 participante',
+                        S.current.main_emptycontainer,
                         style: TextStyle(color: Colors.red, fontSize: 15),
                       )
                     : SizedBox(),
@@ -736,7 +736,7 @@ class _MyAppState extends State<MyApp> {
 // Añade los participantes de tu sorteo desde un archivo
   Widget _alertAnadirArchivo(Archivo archivo, state) {
     String _nombreArchivoSeleccionado =
-        archivo.getNombreArchivo() ?? "Ningun archivo seleccionado";
+        archivo.getNombreArchivo() ?? S.current.main_modal_archivo_defaultempty;
     return AlertDialog(
       shadowColor: Colors.black,
       backgroundColor: Colors.white,
@@ -745,7 +745,7 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(Icons.file_upload),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Agregar via archivo',
+          Text(S.current.main_modal_archivo_title,
               style: TextStyle(
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.bold,
@@ -760,13 +760,13 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Text(
-              'Añade a los participantes de tu sorteo desde un archivo',
+            Text(
+              S.current.main_modal_archivo_subtextone,
               style: TextStyle(fontFamily: 'Barlow'),
             ),
 
-            const Text(
-              'El tipo de archivo admitido para esta operacion es solamente en formato .txt',
+            Text(
+              S.current.main_modal_archivo_subtextwo,
               style: TextStyle(fontFamily: 'Barlow'),
             ),
             Text(
@@ -793,7 +793,7 @@ class _MyAppState extends State<MyApp> {
                       }),
                     },
                 child: Text(
-                  'Selecciona un archivo',
+                  S.current.main_modal_archivo_btntext,
                   style: TextStyle(color: Colors.white),
                 ))
           ],
@@ -811,7 +811,7 @@ class _MyAppState extends State<MyApp> {
             })
           },
           child: Text(
-            'Salir',
+            S.current.exit,
             style: TextStyle(color: colorGlobal),
           ),
         )
@@ -878,7 +878,7 @@ class _MyAppState extends State<MyApp> {
           ),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
-            'Añadir participante',
+            S.current.main_modal_manual_title,
             style: TextStyle(
                 fontFamily: 'Manrope',
                 fontSize: 18,
@@ -889,8 +889,8 @@ class _MyAppState extends State<MyApp> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'En el siguiente campo anote el nombre del participante: ',
+          Text(
+            S.current.main_modal_manual_content,
             style: TextStyle(fontFamily: 'Manrope'),
           ),
           Padding(
@@ -909,10 +909,10 @@ class _MyAppState extends State<MyApp> {
               },
               decoration: InputDecoration(
                 errorText: (_activarErrorTextAnadirParticipante)
-                    ? 'El contenido del campo no es adecuado.'
+                    ? S.current.main_errortext_textfield
                     : null,
                 enabled: true,
-                labelText: 'Nombre del participante',
+                labelText: S.current.main_modal_manual_hintext,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -960,7 +960,7 @@ class _MyAppState extends State<MyApp> {
             ),
             child: Center(
               child: Text(
-                'Agregar',
+                S.current.add,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -975,7 +975,7 @@ class _MyAppState extends State<MyApp> {
                   })
                 },
             child: Text(
-              'Cancelar',
+              S.current.cancel,
               style: TextStyle(color: colorGlobal.shade900),
             ))
       ],
@@ -991,15 +991,15 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(Icons.info, color: Colors.blue),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Informacion'),
+          Text(S.current.na_information),
         ],
       ),
-      content: Text('Funcion no disponible en version web.'),
+      content: Text(S.current.na_text),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Aceptar',
+            S.current.ok,
             style: TextStyle(color: Colors.white),
           ),
           style: ElevatedButton.styleFrom(

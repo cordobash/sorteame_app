@@ -82,6 +82,46 @@ class S {
     );
   }
 
+  /// `Close`
+  String get exit {
+    return Intl.message(
+      'Close',
+      name: 'exit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actualizar`
+  String get update {
+    return Intl.message(
+      'Actualizar',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eliminar`
+  String get delete {
+    return Intl.message(
+      'Eliminar',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agregar`
+  String get add {
+    return Intl.message(
+      'Agregar',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get PAGINA_AJUSTES {
     return Intl.message(
@@ -543,6 +583,16 @@ class S {
     );
   }
 
+  /// `Add at least 1 participant`
+  String get main_emptycontainer {
+    return Intl.message(
+      'Add at least 1 participant',
+      name: 'main_emptycontainer',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get PRINCIPAL_MODALVIEW {
     return Intl.message(
@@ -598,6 +648,146 @@ class S {
     return Intl.message(
       'Upload file',
       name: 'main_modal_btnsubir',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PRINCIPAL_MODALVIEW_MANUAL {
+    return Intl.message(
+      '',
+      name: 'PRINCIPAL_MODALVIEW_MANUAL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new participant`
+  String get main_modal_manual_title {
+    return Intl.message(
+      'Add new participant',
+      name: 'main_modal_manual_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the next field write the of new participant:`
+  String get main_modal_manual_content {
+    return Intl.message(
+      'In the next field write the of new participant:',
+      name: 'main_modal_manual_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name goes here`
+  String get main_modal_manual_hintext {
+    return Intl.message(
+      'Name goes here',
+      name: 'main_modal_manual_hintext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get main_modal_manual_action {
+    return Intl.message(
+      'Add',
+      name: 'main_modal_manual_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PRINCIPAL_MODALVIEW_ARCHIVO {
+    return Intl.message(
+      '',
+      name: 'PRINCIPAL_MODALVIEW_ARCHIVO',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload a file`
+  String get main_modal_archivo_title {
+    return Intl.message(
+      'Upload a file',
+      name: 'main_modal_archivo_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can import the participant's list from a file`
+  String get main_modal_archivo_subtextone {
+    return Intl.message(
+      'You can import the participant\'s list from a file',
+      name: 'main_modal_archivo_subtextone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The file extension allowed is .txt `
+  String get main_modal_archivo_subtextwo {
+    return Intl.message(
+      'The file extension allowed is .txt ',
+      name: 'main_modal_archivo_subtextwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No file selected`
+  String get main_modal_archivo_defaultempty {
+    return Intl.message(
+      'No file selected',
+      name: 'main_modal_archivo_defaultempty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a file`
+  String get main_modal_archivo_btntext {
+    return Intl.message(
+      'Select a file',
+      name: 'main_modal_archivo_btntext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get PRINCIPAL_ALERT_NODISPONIBLE {
+    return Intl.message(
+      '',
+      name: 'PRINCIPAL_ALERT_NODISPONIBLE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information`
+  String get na_information {
+    return Intl.message(
+      'Information',
+      name: 'na_information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This feature is not available on web version.`
+  String get na_text {
+    return Intl.message(
+      'This feature is not available on web version.',
+      name: 'na_text',
       desc: '',
       args: [],
     );

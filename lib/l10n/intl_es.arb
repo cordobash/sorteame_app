@@ -3,6 +3,10 @@
     "ok":"Aceptar",
     "cancel":"Cancelar",
     "warning":"Advertencia",
+    "exit":"Salir",
+    "update":"Actualizar",
+    "delete":"Eliminar",
+    "add":"Agregar",
     "PAGINA_AJUSTES":"",
     "countdown":"Cuenta regresiva",
     "general":"General",
@@ -48,11 +52,32 @@
     "main_ltspart":"Lista de participantes",
     "main_btndraw":"Realizar sorteo",
     "main_btnadd":"Agregar participantes",
+    "main_emptycontainer":"Añade al menos 1 participante",
     "main_errortext_textfield":"El titulo esta vacio o no es valido",
     "PRINCIPAL_MODALVIEW":"",
     "main_modal_titlelabel":"Añadir participante",
     "main_modal_subtext_one":"¿Como deseas añadir a tus participantes?",
     "main_modal_subtext_two":"Puedes hacerlo de dos formas: Los puedes ir agregando de forma manual uno por uno o anotarlos en un archivo con formato txt y subirlo a la aplicacion",
     "main_modal_btnmanual":"Manualmente",
-    "main_modal_btnsubir":"Subir un archivo"
+    "main_modal_btnsubir":"Subir un archivo",
+    "PRINCIPAL_MODALVIEW_MANUAL":"",
+    "main_modal_manual_title":"Añadir participante",
+    "main_modal_manual_content":"En el siguiente campo anote el nombre del participante:",
+    "main_modal_manual_hintext":"Nombre del participante",
+    "main_modal_manual_action":"Agregar",
+    "PRINCIPAL_MODALVIEW_ARCHIVO":"",
+    "main_modal_archivo_title":"Agregar via archivo",
+    "main_modal_archivo_subtextone":"Añade a los participantes de tu sorteo desde un archivo",
+    "main_modal_archivo_subtextwo":"El tipo de archivo admitido para esta operacion es solamente en formato .txt",
+    "main_modal_archivo_defaultempty":"Ningun archivo seleccionado",
+    "main_modal_archivo_btntext":"Selecciona un archivo",
+    "PRINCIPAL_ALERT_NODISPONIBLE":"",
+    "na_information":"Informacion",
+    "na_text":"Caracteristica no disponible en version web."
+
+
+
+
+
+
 }
