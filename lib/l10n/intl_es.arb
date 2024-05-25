@@ -73,7 +73,28 @@
     "main_modal_archivo_btntext":"Selecciona un archivo",
     "PRINCIPAL_ALERT_NODISPONIBLE":"",
     "na_information":"Informacion",
-    "na_text":"Caracteristica no disponible en version web."
+    "na_text":"Caracteristica no disponible en version web.",
+    "EDITAR_PARTICIPANTE":"",
+    "edit_bartitle":"Editar participante",
+    "edit_empty":"Aun no haz agregado participantes",
+    "edit_filter":"Buscar por nombre",
+    "edit_alert_update_title":"Editar participante",
+    "edit_alert_update_content":"En este apartado podras modificar el nombre del participante que hayas seleccionado en la lista.",
+    "edit_alert_update_currentnamelabel":"Nombre actual:",
+    "edit_alert_update_newnamelabel":"Nuevo nombre:",
+    "edit_alert_update_textfield_hint":"Nuevo nombre",
+    "edit_alert_delete_title":"Eliminar participante",
+    "edit_alert_delete_content":"Este es un dialogo de confirmacion para la eliminacion del participante seleccionado. Puedes desactivar este dialogo en ajustes o marcando la casilla.",
+    "edit_alert_delete_additional_label":"El participante que seleccionaste para eliminar es:",
+    "edit_alert_delete_continue":"¿Deseas continuar?",
+    "edit_alert_delete_checktext":"No volver a mostrar este dialogo",
+    "edit_table_name":"Nombre participante",
+    "edit_table_modify":"Modificar",
+    "edit_table_delete":"Eliminar",
+    "edit_segmented_label":"Accion a realizar"
+
+   
+
 
 
 

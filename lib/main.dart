@@ -136,7 +136,8 @@ class _MyAppState extends State<MyApp> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      // indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];

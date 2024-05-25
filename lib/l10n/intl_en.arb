@@ -56,7 +56,7 @@
     "main_emptycontainer":"Add at least 1 participant",
     "PRINCIPAL_MODALVIEW":"",
     "main_modal_titlelabel":"Add new participant",
-    "main_modal_subtext_one":"With what way you wanna add the participants?",
+    "main_modal_subtext_one":"How would you like to add the participants?",
     "main_modal_subtext_two":"You can add the participants adding them manually or you can upload a text file",
     "main_modal_btnmanual":"Manually",
     "main_modal_btnsubir":"Upload file",
@@ -73,7 +73,26 @@
     "main_modal_archivo_btntext":"Select a file",
     "PRINCIPAL_ALERT_NODISPONIBLE":"",
     "na_information":"Information",
-    "na_text":"This feature is not available on web version."
+    "na_text":"This feature is not available on web version.",
+    "EDITAR_PARTICIPANTE":"",
+    "edit_bartitle":"Edit participant",
+    "edit_empty":"You haven't added any participant yet",
+    "edit_filter":"Search by name",
+    "edit_alert_update_title":"Edit",
+    "edit_alert_update_content":"In this section you can edit the participant you've choosen",
+    "edit_alert_update_currentnamelabel":"Current name:",
+    "edit_alert_update_newnamelabel":"New name:",
+    "edit_alert_update_textfield_hint":"New name",
+    "edit_alert_delete_title":"Delete participant",
+    "edit_alert_delete_content":"If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings",
+    "edit_alert_delete_additional_label":"The seletec participant to be deleted is:",
+    "edit_alert_delete_continue":"Do you want to continue?",
+    "edit_alert_delete_checktext":"Do not show this dialog again",
+    "edit_table_name":"   Name",
+    "edit_table_modify":"Modify",
+    "edit_table_delete":"Delete",
+    "edit_segmented_label":"Action to be taken"
+
 
 
 }

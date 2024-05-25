@@ -613,10 +613,10 @@ class S {
     );
   }
 
-  /// `With what way you wanna add the participants?`
+  /// `How would you like to add the participants?`
   String get main_modal_subtext_one {
     return Intl.message(
-      'With what way you wanna add the participants?',
+      'How would you like to add the participants?',
       name: 'main_modal_subtext_one',
       desc: '',
       args: [],
@@ -788,6 +788,186 @@ class S {
     return Intl.message(
       'This feature is not available on web version.',
       name: 'na_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get EDITAR_PARTICIPANTE {
+    return Intl.message(
+      '',
+      name: 'EDITAR_PARTICIPANTE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit participant`
+  String get edit_bartitle {
+    return Intl.message(
+      'Edit participant',
+      name: 'edit_bartitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You haven't added any participant yet`
+  String get edit_empty {
+    return Intl.message(
+      'You haven\'t added any participant yet',
+      name: 'edit_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by name`
+  String get edit_filter {
+    return Intl.message(
+      'Search by name',
+      name: 'edit_filter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit_alert_update_title {
+    return Intl.message(
+      'Edit',
+      name: 'edit_alert_update_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In this section you can edit the participant you've choosen`
+  String get edit_alert_update_content {
+    return Intl.message(
+      'In this section you can edit the participant you\'ve choosen',
+      name: 'edit_alert_update_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current name:`
+  String get edit_alert_update_currentnamelabel {
+    return Intl.message(
+      'Current name:',
+      name: 'edit_alert_update_currentnamelabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New name:`
+  String get edit_alert_update_newnamelabel {
+    return Intl.message(
+      'New name:',
+      name: 'edit_alert_update_newnamelabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New name`
+  String get edit_alert_update_textfield_hint {
+    return Intl.message(
+      'New name',
+      name: 'edit_alert_update_textfield_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete participant`
+  String get edit_alert_delete_title {
+    return Intl.message(
+      'Delete participant',
+      name: 'edit_alert_delete_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings`
+  String get edit_alert_delete_content {
+    return Intl.message(
+      'If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings',
+      name: 'edit_alert_delete_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The seletec participant to be deleted is:`
+  String get edit_alert_delete_additional_label {
+    return Intl.message(
+      'The seletec participant to be deleted is:',
+      name: 'edit_alert_delete_additional_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to continue?`
+  String get edit_alert_delete_continue {
+    return Intl.message(
+      'Do you want to continue?',
+      name: 'edit_alert_delete_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do not show this dialog again`
+  String get edit_alert_delete_checktext {
+    return Intl.message(
+      'Do not show this dialog again',
+      name: 'edit_alert_delete_checktext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `   Name`
+  String get edit_table_name {
+    return Intl.message(
+      '   Name',
+      name: 'edit_table_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Modify`
+  String get edit_table_modify {
+    return Intl.message(
+      'Modify',
+      name: 'edit_table_modify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get edit_table_delete {
+    return Intl.message(
+      'Delete',
+      name: 'edit_table_delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Action to be taken`
+  String get edit_segmented_label {
+    return Intl.message(
+      'Action to be taken',
+      name: 'edit_segmented_label',
       desc: '',
       args: [],
     );

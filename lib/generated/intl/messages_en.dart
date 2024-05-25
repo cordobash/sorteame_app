@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "EDITAR_PARTICIPANTE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_ACERCADE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_AJUSTES": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_RESULTADOSANTERIORES": MessageLookupByLibrary.simpleMessage(""),
@@ -58,6 +59,36 @@ class MessageLookup extends MessageLookupByLibrary {
         "developedby": MessageLookupByLibrary.simpleMessage("Developed by"),
         "duplicatedNames":
             MessageLookupByLibrary.simpleMessage("Allow duplicated names"),
+        "edit_alert_delete_additional_label":
+            MessageLookupByLibrary.simpleMessage(
+                "The seletec participant to be deleted is:"),
+        "edit_alert_delete_checktext": MessageLookupByLibrary.simpleMessage(
+            "Do not show this dialog again"),
+        "edit_alert_delete_content": MessageLookupByLibrary.simpleMessage(
+            "If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings"),
+        "edit_alert_delete_continue":
+            MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
+        "edit_alert_delete_title":
+            MessageLookupByLibrary.simpleMessage("Delete participant"),
+        "edit_alert_update_content": MessageLookupByLibrary.simpleMessage(
+            "In this section you can edit the participant you\'ve choosen"),
+        "edit_alert_update_currentnamelabel":
+            MessageLookupByLibrary.simpleMessage("Current name:"),
+        "edit_alert_update_newnamelabel":
+            MessageLookupByLibrary.simpleMessage("New name:"),
+        "edit_alert_update_textfield_hint":
+            MessageLookupByLibrary.simpleMessage("New name"),
+        "edit_alert_update_title": MessageLookupByLibrary.simpleMessage("Edit"),
+        "edit_bartitle":
+            MessageLookupByLibrary.simpleMessage("Edit participant"),
+        "edit_empty": MessageLookupByLibrary.simpleMessage(
+            "You haven\'t added any participant yet"),
+        "edit_filter": MessageLookupByLibrary.simpleMessage("Search by name"),
+        "edit_segmented_label":
+            MessageLookupByLibrary.simpleMessage("Action to be taken"),
+        "edit_table_delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "edit_table_modify": MessageLookupByLibrary.simpleMessage("Modify"),
+        "edit_table_name": MessageLookupByLibrary.simpleMessage("   Name"),
         "editparticipant":
             MessageLookupByLibrary.simpleMessage("Edit participant"),
         "exit": MessageLookupByLibrary.simpleMessage("Close"),
@@ -105,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "main_modal_manual_title":
             MessageLookupByLibrary.simpleMessage("Add new participant"),
         "main_modal_subtext_one": MessageLookupByLibrary.simpleMessage(
-            "With what way you wanna add the participants?"),
+            "How would you like to add the participants?"),
         "main_modal_subtext_two": MessageLookupByLibrary.simpleMessage(
             "You can add the participants adding them manually or you can upload a text file"),
         "main_modal_titlelabel":
