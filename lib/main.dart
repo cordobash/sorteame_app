@@ -23,6 +23,8 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
+  Locale locale = Locale('es');
+  S.load(locale);
   colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
@@ -48,7 +50,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale locale = Locale('es');
   _MyAppState({Key? key});
 
   var objSettings = new SettingsPageState();
@@ -74,12 +75,13 @@ class _MyAppState extends State<MyApp> {
     colorGlobal.shade900,
   ];
 
-  final List<String> _titulosSuperior = [
-    "Principal",
-    "Resultados anteriores",
-    "Ajustes",
-    "Acerca de mi"
+  List<String> _titulosSuperior = [
+    S.current.nav_main,
+    S.current.nav_history,
+    S.current.nav_settings,
+    S.current.nav_about
   ];
+  // List<String> _titulosSuperior = ["A", "b", "C", "d"];
 
   final List<Widget> _listaWidgets = [
     const Text(
@@ -136,8 +138,8 @@ class _MyAppState extends State<MyApp> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      // indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
-      indiceEnumIdiomas = 0;
+      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
@@ -213,8 +215,8 @@ class _MyAppState extends State<MyApp> {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  child: const Text(
-                    'Menu de opciones',
+                  child: Text(
+                    S.current.drawer_title,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -239,7 +241,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selectedColor: colorGlobal,
-                    title: const Text('Principal'),
+                    title: Text(S.current.nav_main),
                   );
                 }),
                 Builder(builder: (context) {
@@ -258,7 +260,7 @@ class _MyAppState extends State<MyApp> {
                     },
                     selected: (_selectedIndex == 1) ? true : false,
                     selectedColor: colorGlobal,
-                    title: const Text('Resultados anteriores'),
+                    title: Text(S.current.nav_history),
                   );
                 }),
                 Builder(builder: (context) {
@@ -277,7 +279,7 @@ class _MyAppState extends State<MyApp> {
                     },
                     selected: (_selectedIndex == 2) ? true : false,
                     selectedColor: colorGlobal,
-                    title: const Text('Ajustes'),
+                    title: Text(S.current.nav_settings),
                   );
                 }),
                 Builder(builder: (context) {
@@ -296,7 +298,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selectedColor: colorGlobal,
-                    title: const Text('Acerca de'),
+                    title: Text(S.current.nav_about),
                   );
                 }),
               ],

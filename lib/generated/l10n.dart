@@ -123,6 +123,76 @@ class S {
   }
 
   /// ``
+  String get BARRA_NAVEGACION_TITULOS {
+    return Intl.message(
+      '',
+      name: 'BARRA_NAVEGACION_TITULOS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Main`
+  String get nav_main {
+    return Intl.message(
+      'Main',
+      name: 'nav_main',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History`
+  String get nav_history {
+    return Intl.message(
+      'History',
+      name: 'nav_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get nav_settings {
+    return Intl.message(
+      'Settings',
+      name: 'nav_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get nav_about {
+    return Intl.message(
+      'About',
+      name: 'nav_about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get DRAWER_MENU {
+    return Intl.message(
+      '',
+      name: 'DRAWER_MENU',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menu`
+  String get drawer_title {
+    return Intl.message(
+      'Menu',
+      name: 'drawer_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
   String get PAGINA_AJUSTES {
     return Intl.message(
       '',

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "BARRA_NAVEGACION_TITULOS": MessageLookupByLibrary.simpleMessage(""),
+        "DRAWER_MENU": MessageLookupByLibrary.simpleMessage(""),
         "EDITAR_PARTICIPANTE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_ACERCADE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_AJUSTES": MessageLookupByLibrary.simpleMessage(""),
@@ -57,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Delete all participants after draw"),
         "developedby": MessageLookupByLibrary.simpleMessage("Developed by"),
+        "drawer_title": MessageLookupByLibrary.simpleMessage("Menu"),
         "duplicatedNames":
             MessageLookupByLibrary.simpleMessage("Allow duplicated names"),
         "edit_alert_delete_additional_label":
@@ -150,6 +153,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "na_information": MessageLookupByLibrary.simpleMessage("Information"),
         "na_text": MessageLookupByLibrary.simpleMessage(
             "This feature is not available on web version."),
+        "nav_about": MessageLookupByLibrary.simpleMessage("About"),
+        "nav_history": MessageLookupByLibrary.simpleMessage("History"),
+        "nav_main": MessageLookupByLibrary.simpleMessage("Main"),
+        "nav_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "november": MessageLookupByLibrary.simpleMessage("November"),
         "october": MessageLookupByLibrary.simpleMessage("October"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
