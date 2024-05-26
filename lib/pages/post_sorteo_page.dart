@@ -108,7 +108,6 @@ class _ResultadosPageState extends State<ResultadosPage> {
     _confettiController = ConfettiController(duration: Duration(seconds: 15));
     // TODO: implement initState
     super.initState();
-    print('idioma actual = ${locale}');
   }
 
   @override
