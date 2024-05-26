@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,7 @@ class _EditarPageState extends State<EditarPage> {
     // TODO: implement initState
     super.initState();
     cargarDato();
+    print('idioma actual = ${locale}');
   }
 
   Future<void> guardarDato() async {
@@ -61,8 +63,8 @@ class _EditarPageState extends State<EditarPage> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            title: const Text(
-              'Editar participante',
+            title: Text(
+              S.current.edit_bartitle,
               style: TextStyle(fontFamily: 'Manrope', fontSize: 18),
             ),
           ),
@@ -118,7 +120,7 @@ class _EditarPageState extends State<EditarPage> {
             SizedBox(
               width: _deviceWidth!,
               child: Text(
-                'Aun no has agregado participantes',
+                S.current.edit_empty,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 textAlign: TextAlign.center,
               ),
@@ -159,7 +161,7 @@ class _EditarPageState extends State<EditarPage> {
               enabled: (listaParticipantes.isNotEmpty) ? true : false,
               decoration: InputDecoration(
                   alignLabelWithHint: true,
-                  hintText: 'Buscar por nombre',
+                  hintText: S.current.edit_filter,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
               onChanged: (_) {
@@ -238,12 +240,12 @@ class _EditarPageState extends State<EditarPage> {
             height: 50,
             decoration: BoxDecoration(border: Border.all()),
             // Cabecera de la tabla
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('Nombre participante'),
-                Text('Modificar'),
-                Text('Eliminar')
+                Text(S.current.edit_table_name),
+                Text(S.current.edit_table_modify),
+                Text(S.current.edit_table_delete)
               ],
             ),
           ),
@@ -325,7 +327,7 @@ class _EditarPageState extends State<EditarPage> {
   Widget _accionesRealizar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [Text('Accion a realizar: '), _segmentedButtons()],
+      children: [Text(S.current.edit_segmented_label), _segmentedButtons()],
     );
   }
 
@@ -483,17 +485,17 @@ class _EditarPageState extends State<EditarPage> {
       style: SegmentedButton.styleFrom(
         selectedBackgroundColor: colorGlobal.withOpacity(0.23),
       ),
-      segments: const <ButtonSegment<Acciones>>[
+      segments: <ButtonSegment<Acciones>>[
         ButtonSegment<Acciones>(
           value: Acciones.eliminar,
           label: Text(
-            'Eliminar',
+            S.current.delete,
           ),
           icon: Icon(Icons.delete),
         ),
         ButtonSegment<Acciones>(
             value: Acciones.modificar,
-            label: Text('Modificar'),
+            label: Text(S.current.update),
             icon: Icon(Icons.edit))
       ],
       selected: <Acciones>{_accionInicial},
@@ -516,7 +518,7 @@ class _EditarPageState extends State<EditarPage> {
         children: [
           Icon(Icons.delete),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Eliminar participante',
+          Text(S.current.edit_alert_delete_title,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -529,15 +531,13 @@ class _EditarPageState extends State<EditarPage> {
         children: [
           LimitedBox(
             maxWidth: _deviceWidth! * 0.90,
-            child: Text(
-                'Este es un dialogo de confirmacion para eliminacion del participante seleccionado, puedes desactivar este dialogo en ajustes o marcando la cajita.'),
+            child: Text(S.current.edit_alert_delete_content),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10),
             child: SizedBox(
                 width: _deviceWidth!,
-                child: Text(
-                    'El participante que seleccionaste para eliminar es:')),
+                child: Text(S.current.edit_alert_delete_additional_label)),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -563,7 +563,7 @@ class _EditarPageState extends State<EditarPage> {
             ),
           ),
           Text(
-            '¿Deseas continuar?',
+            S.current.edit_alert_delete_continue,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Row(
@@ -581,7 +581,7 @@ class _EditarPageState extends State<EditarPage> {
                   }),
               Expanded(
                 child: Text(
-                  'No volver a mostrar este dialogo',
+                  S.current.edit_alert_delete_checktext,
                   maxLines: 2,
                   overflow: TextOverflow.fade,
                 ),
@@ -611,14 +611,14 @@ class _EditarPageState extends State<EditarPage> {
                 ),
                 child: Center(
                   child: Text(
-                    "Eliminar",
+                    S.current.delete,
                     style: TextStyle(color: Colors.white),
                   ),
                 ))),
         TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Cancelar',
+              S.current.cancel,
               style: TextStyle(color: colorGlobal.shade700),
             ))
       ],
@@ -638,7 +638,7 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             Icon(Icons.update),
             Padding(padding: EdgeInsets.only(left: 10)),
-            Text('Editar participante',
+            Text(S.current.edit_alert_update_title,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -651,11 +651,10 @@ class _EditarPageState extends State<EditarPage> {
           children: [
             SizedBox(
               width: _deviceWidth!,
-              child: Text(
-                  'En este apartado podras modificar el nombre del participante que hayas seleccionado en la lista.'),
+              child: Text(S.current.edit_alert_update_content),
             ),
             Padding(padding: EdgeInsets.only(top: 10)),
-            Text('Nombre actual: '),
+            Text(S.current.edit_alert_update_currentnamelabel),
             Container(
               width: _deviceWidth! * 0.90,
               height: 50,
@@ -674,7 +673,7 @@ class _EditarPageState extends State<EditarPage> {
                             fontWeight: FontWeight.bold),
                       ))),
             ),
-            Text('Nuevo nombre: '),
+            Text(S.current.edit_alert_update_newnamelabel),
             TextField(
               controller: textEditingController,
               enabled: true,
@@ -690,7 +689,7 @@ class _EditarPageState extends State<EditarPage> {
               },
               decoration: InputDecoration(
                 alignLabelWithHint: true,
-                hintText: 'Nuevo nombre',
+                hintText: S.current.edit_alert_update_textfield_hint,
                 errorText:
                     (_mostrarErrorText) ? 'El nuevo nombre no es valido' : null,
                 border: OutlineInputBorder(
@@ -724,7 +723,7 @@ class _EditarPageState extends State<EditarPage> {
               ),
               child: Center(
                 child: Text(
-                  'Actualizar',
+                  S.current.update,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -733,7 +732,7 @@ class _EditarPageState extends State<EditarPage> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Cancelar',
+              S.current.delete,
               style: TextStyle(color: colorGlobal.shade700),
             ),
           )

@@ -1,9 +1,11 @@
 // main.dart: Archivo principal de ejecucion.
 // Paquetes de la libreria o externos.
 import 'dart:math';
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -21,6 +23,8 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
+  Locale locale = Locale('es');
+  S.load(locale);
   colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
@@ -71,12 +75,13 @@ class _MyAppState extends State<MyApp> {
     colorGlobal.shade900,
   ];
 
-  final List<String> _titulosSuperior = [
-    "Principal",
-    "Resultados anteriores",
-    "Ajustes",
-    "Acerca de mi"
+  List<String> _titulosSuperior = [
+    S.current.nav_main,
+    S.current.nav_history,
+    S.current.nav_settings,
+    S.current.nav_about
   ];
+  // List<String> _titulosSuperior = ["A", "b", "C", "d"];
 
   final List<Widget> _listaWidgets = [
     const Text(
@@ -112,6 +117,8 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
+    S.load(locale);
+    print('idioma actual = ${locale}');
   }
 
   @override
@@ -133,6 +140,7 @@ class _MyAppState extends State<MyApp> {
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
       indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
@@ -157,6 +165,13 @@ class _MyAppState extends State<MyApp> {
         });
       },
       child: MaterialApp(
+        locale: locale,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -201,8 +216,8 @@ class _MyAppState extends State<MyApp> {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  child: const Text(
-                    'Menu de opciones',
+                  child: Text(
+                    S.current.drawer_title,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -227,7 +242,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selectedColor: colorGlobal,
-                    title: const Text('Principal'),
+                    title: Text(S.current.nav_main),
                   );
                 }),
                 Builder(builder: (context) {
@@ -246,7 +261,7 @@ class _MyAppState extends State<MyApp> {
                     },
                     selected: (_selectedIndex == 1) ? true : false,
                     selectedColor: colorGlobal,
-                    title: const Text('Resultados anteriores'),
+                    title: Text(S.current.nav_history),
                   );
                 }),
                 Builder(builder: (context) {
@@ -265,7 +280,7 @@ class _MyAppState extends State<MyApp> {
                     },
                     selected: (_selectedIndex == 2) ? true : false,
                     selectedColor: colorGlobal,
-                    title: const Text('Ajustes'),
+                    title: Text(S.current.nav_settings),
                   );
                 }),
                 Builder(builder: (context) {
@@ -284,7 +299,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selectedColor: colorGlobal,
-                    title: const Text('Acerca de'),
+                    title: Text(S.current.nav_about),
                   );
                 }),
               ],
@@ -309,10 +324,11 @@ class _MyAppState extends State<MyApp> {
                 _tituloSorteo(),
                 SizedBox(
                     width: _deviceWidth! * 0.75,
-                    child: const Text('Lista de participantes')),
+                    child: Text(S.current.main_ltspart)),
+                // child:Text(S.current.main_ltspart),
                 _visibleLabel!
                     ? Text(
-                        'Añade al menos 1 participante',
+                        S.current.main_emptycontainer,
                         style: TextStyle(color: Colors.red, fontSize: 15),
                       )
                     : SizedBox(),
@@ -370,7 +386,7 @@ class _MyAppState extends State<MyApp> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
-                                child: Text('Añadir participante',
+                                child: Text(S.current.main_modal_titlelabel,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
@@ -378,13 +394,12 @@ class _MyAppState extends State<MyApp> {
                                         overflow: TextOverflow.ellipsis)),
                               ),
                               Text(
-                                '¿Como deseas añadir a tus participantes?',
+                                S.current.main_modal_subtext_one,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                    'Puedes hacerlo de dos formas: Los puedes ir agregando uno por uno o anotarlos en un archivo y subirlo a la aplicacion.'),
+                                child: Text(S.current.main_modal_subtext_two),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -415,7 +430,7 @@ class _MyAppState extends State<MyApp> {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          'Manualmente',
+                                          S.current.main_modal_btnmanual,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Manrope',
@@ -443,7 +458,7 @@ class _MyAppState extends State<MyApp> {
                                         Icon(Icons.upload_file,
                                             color: Colors.white),
                                         Text(
-                                          'Subir un archivo',
+                                          S.current.main_modal_btnsubir,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Manrope',
@@ -467,7 +482,7 @@ class _MyAppState extends State<MyApp> {
           child: Row(
             children: [
               Icon(Icons.add, color: Colors.white),
-              Text('Agregar participante',
+              Text(S.current.main_btnadd,
                   style: TextStyle(color: Colors.white)),
             ],
           ),
@@ -548,11 +563,11 @@ class _MyAppState extends State<MyApp> {
                 ),
                 errorText:
                     (_mostrarErrorText || _validarCaracteres(vTituloSorteo))
-                        ? 'El titulo esta vacio/tiene caracteres invalidos'
+                        ? S.current.main_errortext_textfield
                         : null,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: 'Titulo del sorteo')));
+                labelText: S.current.main_hintitle)));
   }
 
   Widget _contenedorListaParticipantes() {
@@ -708,7 +723,7 @@ class _MyAppState extends State<MyApp> {
                             : Icons.play_disabled,
                         color: Colors.white),
                     Text(
-                      'Realizar sorteo',
+                      S.current.main_btndraw,
                       style: TextStyle(color: Colors.white),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -725,7 +740,7 @@ class _MyAppState extends State<MyApp> {
 // Añade los participantes de tu sorteo desde un archivo
   Widget _alertAnadirArchivo(Archivo archivo, state) {
     String _nombreArchivoSeleccionado =
-        archivo.getNombreArchivo() ?? "Ningun archivo seleccionado";
+        archivo.getNombreArchivo() ?? S.current.main_modal_archivo_defaultempty;
     return AlertDialog(
       shadowColor: Colors.black,
       backgroundColor: Colors.white,
@@ -734,7 +749,7 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(Icons.file_upload),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Agregar via archivo',
+          Text(S.current.main_modal_archivo_title,
               style: TextStyle(
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.bold,
@@ -749,13 +764,13 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Text(
-              'Añade a los participantes de tu sorteo desde un archivo',
+            Text(
+              S.current.main_modal_archivo_subtextone,
               style: TextStyle(fontFamily: 'Barlow'),
             ),
 
-            const Text(
-              'El tipo de archivo admitido para esta operacion es solamente en formato .txt',
+            Text(
+              S.current.main_modal_archivo_subtextwo,
               style: TextStyle(fontFamily: 'Barlow'),
             ),
             Text(
@@ -782,7 +797,7 @@ class _MyAppState extends State<MyApp> {
                       }),
                     },
                 child: Text(
-                  'Selecciona un archivo',
+                  S.current.main_modal_archivo_btntext,
                   style: TextStyle(color: Colors.white),
                 ))
           ],
@@ -800,7 +815,7 @@ class _MyAppState extends State<MyApp> {
             })
           },
           child: Text(
-            'Salir',
+            S.current.exit,
             style: TextStyle(color: colorGlobal),
           ),
         )
@@ -818,7 +833,7 @@ class _MyAppState extends State<MyApp> {
           Icon(Icons.exit_to_app, color: Colors.black),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
-            'Salir de la aplicacion',
+            S.current.exit_title,
             style: TextStyle(
                 fontFamily: 'Manrope',
                 color: Colors.black,
@@ -828,7 +843,7 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
       content: Text(
-        '¿Estas seguro de salir de la aplicacion?',
+        S.current.exit_content,
         style: TextStyle(
           color: Colors.black,
           fontSize: 17,
@@ -839,14 +854,14 @@ class _MyAppState extends State<MyApp> {
           onPressed: () =>
               SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
           child: Text(
-            'Salir',
+            S.current.exit,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Cancelar',
+            S.current.cancel,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         )
@@ -867,7 +882,7 @@ class _MyAppState extends State<MyApp> {
           ),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
-            'Añadir participante',
+            S.current.main_modal_manual_title,
             style: TextStyle(
                 fontFamily: 'Manrope',
                 fontSize: 18,
@@ -878,8 +893,8 @@ class _MyAppState extends State<MyApp> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'En el siguiente campo anote el nombre del participante: ',
+          Text(
+            S.current.main_modal_manual_content,
             style: TextStyle(fontFamily: 'Manrope'),
           ),
           Padding(
@@ -898,10 +913,10 @@ class _MyAppState extends State<MyApp> {
               },
               decoration: InputDecoration(
                 errorText: (_activarErrorTextAnadirParticipante)
-                    ? 'El contenido del campo no es adecuado.'
+                    ? S.current.main_errortext_textfield
                     : null,
                 enabled: true,
-                labelText: 'Nombre del participante',
+                labelText: S.current.main_modal_manual_hintext,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -949,7 +964,7 @@ class _MyAppState extends State<MyApp> {
             ),
             child: Center(
               child: Text(
-                'Agregar',
+                S.current.add,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -964,7 +979,7 @@ class _MyAppState extends State<MyApp> {
                   })
                 },
             child: Text(
-              'Cancelar',
+              S.current.cancel,
               style: TextStyle(color: colorGlobal.shade900),
             ))
       ],
@@ -980,15 +995,15 @@ class _MyAppState extends State<MyApp> {
         children: [
           Icon(Icons.info, color: Colors.blue),
           Padding(padding: EdgeInsets.only(left: 10)),
-          Text('Informacion'),
+          Text(S.current.na_information),
         ],
       ),
-      content: Text('Funcion no disponible en version web.'),
+      content: Text(S.current.na_text),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Aceptar',
+            S.current.ok,
             style: TextStyle(color: Colors.white),
           ),
           style: ElevatedButton.styleFrom(
@@ -1067,7 +1082,7 @@ class _MyAppState extends State<MyApp> {
             Navigator.pop(context),
           },
           child: Text(
-            'Ok',
+            S.current.ok,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         )

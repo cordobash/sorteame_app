@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,7 @@ class SettingsPageState extends State<SettingsPage> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
+    S.load(locale);
   }
 
   @override
@@ -90,7 +92,7 @@ class SettingsPageState extends State<SettingsPage> {
                             SizedBox(
                               width: _deviceWidth!,
                               child: Text(
-                                'General',
+                                S.current.general,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
@@ -103,7 +105,7 @@ class SettingsPageState extends State<SettingsPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Cuenta regresiva',
+                                    S.current.countdown,
                                     style: _estiloPersonalizado,
                                   ),
                                   _dropDownConteo()
@@ -118,7 +120,7 @@ class SettingsPageState extends State<SettingsPage> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Eliminar participantes post sorteo',
+                                  S.current.deleteAfter,
                                   style: _estiloPersonalizado,
                                 ),
                                 _switchWidget(() async {
@@ -140,7 +142,7 @@ class SettingsPageState extends State<SettingsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Activar animacion',
+                                  S.current.activateAnimations,
                                   style: _estiloPersonalizado,
                                 ),
                                 _switchWidget(() async {
@@ -163,7 +165,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Permitir nombres duplicados',
+                                    S.current.duplicatedNames,
                                     style: _estiloPersonalizado,
                                   ),
                                   _switchWidget(() => {},
@@ -181,7 +183,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: SizedBox(
                                 width: _deviceWidth!,
                                 child: Text(
-                                  'Editar Participante',
+                                  S.current.editparticipant,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
@@ -192,7 +194,8 @@ class SettingsPageState extends State<SettingsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Mostrar dialogo al eliminar participante',
+                                  S.current.showDeleteDialog,
+                                  style: TextStyle(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 _switchWidget(() async {
@@ -216,8 +219,7 @@ class SettingsPageState extends State<SettingsPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                          'Maximo de celdas por fila en modo mosaico'),
+                                      Text(S.current.maxCells),
                                       Text(
                                         '${(_deviceWidth! < 500) ? 2 : 3}',
                                         overflow: TextOverflow.ellipsis,
@@ -232,7 +234,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: SizedBox(
                                 width: _deviceWidth!,
                                 child: Text(
-                                  'Personalizacion',
+                                  S.current.personalization,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
@@ -243,7 +245,7 @@ class SettingsPageState extends State<SettingsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Color principal',
+                                  S.current.themeApp,
                                   style: _estiloPersonalizado,
                                 ),
                                 (_deviceWidth! > 400)
@@ -284,7 +286,7 @@ class SettingsPageState extends State<SettingsPage> {
                                                   _modalSeleccionarColor());
                                         },
                                         child: Text(
-                                          'Seleccionar color',
+                                          S.current.modalchoicecolor,
                                           style: TextStyle(color: Colors.white),
                                         ))
                               ],
@@ -294,7 +296,7 @@ class SettingsPageState extends State<SettingsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Seleccionar idioma',
+                                  S.current.language,
                                   style: _estiloPersonalizado,
                                 ),
                                 Row(
@@ -320,7 +322,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Activar modo oscuro',
+                                    S.current.thememode,
                                     style: _estiloPersonalizado,
                                   ),
                                   _switchWidget(() => {},
@@ -430,13 +432,6 @@ class SettingsPageState extends State<SettingsPage> {
             style: TextStyle(fontSize: 20),
           ),
         ),
-        ButtonSegment(
-          value: Idiomas.Portugues,
-          label: Text(
-            '🇵🇹',
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
       ],
       selected: <Idiomas>{_accionInicial},
       onSelectionChanged: (Set<Idiomas> nuevoElemento) {
@@ -444,6 +439,19 @@ class SettingsPageState extends State<SettingsPage> {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
           indiceEnumIdiomas = _accionInicial.index;
+          switch (indiceEnumIdiomas) {
+            case 0:
+              locale = Locale('es');
+              S.load(locale);
+              break;
+            case 1:
+              locale = Locale('en');
+              S.load(locale);
+              break;
+            default:
+              locale = Locale('es');
+              S.load(locale);
+          }
         });
         guardarDatos();
         cargarDatos();
@@ -460,7 +468,7 @@ class SettingsPageState extends State<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Selecciona uno de los siguientes colores: ',
+                S.current.choicecolor,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Row(
