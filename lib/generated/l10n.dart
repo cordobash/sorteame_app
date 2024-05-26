@@ -663,10 +663,10 @@ class S {
     );
   }
 
-  /// `Add`
+  /// `Add people`
   String get main_btnadd {
     return Intl.message(
-      'Add',
+      'Add people',
       name: 'main_btnadd',
       desc: '',
       args: [],
@@ -783,10 +783,10 @@ class S {
     );
   }
 
-  /// `Name goes here`
+  /// `New participant name`
   String get main_modal_manual_hintext {
     return Intl.message(
-      'Name goes here',
+      'New participant name',
       name: 'main_modal_manual_hintext',
       desc: '',
       args: [],
@@ -1003,10 +1003,10 @@ class S {
     );
   }
 
-  /// `The seletec participant to be deleted is:`
+  /// `The choosen participant to be deleted of the list is:`
   String get edit_alert_delete_additional_label {
     return Intl.message(
-      'The seletec participant to be deleted is:',
+      'The choosen participant to be deleted of the list is:',
       name: 'edit_alert_delete_additional_label',
       desc: '',
       args: [],

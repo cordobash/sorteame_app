@@ -61,7 +61,7 @@
     "main_hintitle":"Draw title",
     "main_ltspart":"List of participants",
     "main_btndraw":"Make the draw!",
-    "main_btnadd":"Add",
+    "main_btnadd":"Add people",
     "main_errortext_textfield":"The title is empty or its not valid",
     "main_emptycontainer":"Add at least 1 participant",
     "PRINCIPAL_MODALVIEW":"",
@@ -73,7 +73,7 @@
     "PRINCIPAL_MODALVIEW_MANUAL":"",
     "main_modal_manual_title":"Add new participant",
     "main_modal_manual_content":"In the next field write the of new participant:",
-    "main_modal_manual_hintext":"Name goes here",
+    "main_modal_manual_hintext":"New participant name",
     "main_modal_manual_action":"Add",
     "PRINCIPAL_MODALVIEW_ARCHIVO":"",
     "main_modal_archivo_title":"Upload a file",
@@ -95,14 +95,11 @@
     "edit_alert_update_textfield_hint":"New name",
     "edit_alert_delete_title":"Delete participant",
     "edit_alert_delete_content":"If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings",
-    "edit_alert_delete_additional_label":"The seletec participant to be deleted is:",
+    "edit_alert_delete_additional_label":"The choosen participant to be deleted of the list is:",
     "edit_alert_delete_continue":"Do you want to continue?",
     "edit_alert_delete_checktext":"Do not show this dialog again",
     "edit_table_name":"   Name",
     "edit_table_modify":"Modify",
     "edit_table_delete":"Delete",
     "edit_segmented_label":"Action to be taken"
-
-
-
 }

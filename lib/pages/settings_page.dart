@@ -442,11 +442,19 @@ class SettingsPageState extends State<SettingsPage> {
           switch (indiceEnumIdiomas) {
             case 0:
               locale = Locale('es');
-              S.load(locale);
+              setState(() {
+                S.load(locale);
+                guardarDatos();
+                cargarDatos();
+              });
               break;
             case 1:
               locale = Locale('en');
-              S.load(locale);
+              setState(() {
+                S.load(locale);
+                guardarDatos();
+                cargarDatos();
+              });
               break;
             default:
               locale = Locale('es');
@@ -489,7 +497,7 @@ class SettingsPageState extends State<SettingsPage> {
                   ),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
-                    'Aceptar',
+                    S.current.ok,
                     style: TextStyle(color: Colors.white),
                   )),
             ],

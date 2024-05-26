@@ -23,7 +23,6 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
-  Locale locale = Locale('es');
   S.load(locale);
   colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();

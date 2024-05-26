@@ -732,7 +732,7 @@ class _EditarPageState extends State<EditarPage> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              S.current.delete,
+              S.current.cancel,
               style: TextStyle(color: colorGlobal.shade700),
             ),
           )

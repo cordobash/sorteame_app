@@ -65,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allow duplicated names"),
         "edit_alert_delete_additional_label":
             MessageLookupByLibrary.simpleMessage(
-                "The seletec participant to be deleted is:"),
+                "The choosen participant to be deleted of the list is:"),
         "edit_alert_delete_checktext": MessageLookupByLibrary.simpleMessage(
             "Do not show this dialog again"),
         "edit_alert_delete_content": MessageLookupByLibrary.simpleMessage(
@@ -112,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Select language"),
         "letsmakereal": MessageLookupByLibrary.simpleMessage(
             "Let\'s make real your ideas!"),
-        "main_btnadd": MessageLookupByLibrary.simpleMessage("Add"),
+        "main_btnadd": MessageLookupByLibrary.simpleMessage("Add people"),
         "main_btndraw": MessageLookupByLibrary.simpleMessage("Make the draw!"),
         "main_emptycontainer":
             MessageLookupByLibrary.simpleMessage("Add at least 1 participant"),
@@ -139,7 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "main_modal_manual_content": MessageLookupByLibrary.simpleMessage(
             "In the next field write the of new participant:"),
         "main_modal_manual_hintext":
-            MessageLookupByLibrary.simpleMessage("Name goes here"),
+            MessageLookupByLibrary.simpleMessage("New participant name"),
         "main_modal_manual_title":
             MessageLookupByLibrary.simpleMessage("Add new participant"),
         "main_modal_subtext_one": MessageLookupByLibrary.simpleMessage(

@@ -8,7 +8,7 @@
     "delete":"Eliminar",
     "add":"Agregar",
     "EXIT_DIALOG":"",
-    "exit_title":"Salir de la aplicacion",
+    "exit_title":"",
     "exit_content":"¿Estas seguro de salir de la aplicacion?",
     "BARRA_NAVEGACION_TITULOS":"",
     "nav_main":"Principal",
@@ -31,17 +31,17 @@
     "language":"Seleccionar idioma",
     "thememode":"Activar modo oscuro",
     "modalchoicecolor":"Seleccionar un color",
-    "choicecolor":"Selecciona uno de los siguientes colores:",
+    "choicecolor":"Selecciona uno de los siguientes colores",
     "PAGINA_ACERCADE":"",
     "developedby":"Desarrollado por",
     "career":"(Desarrollador de software)",
     "letsmakereal":"Hagamos realidad tus ideas!",
     "contact":"Vias de contacto",
     "PAGINA_RESULTADOSANTERIORES":"",
-    "pastwinner":"Ganador: {nombre}",
+    "pastwinner":"Ganador: {name}",
     "amount":"Numero de participantes: ",
     "firstdraw":"Realiza tu primer sorteo!",
-    "datetimedraw":"Fecha del sorteo: {dia} de {mes} del {anio} a las {hora}:{minuto} hrs",
+    "datetimedraw":"Fecha del sorteo: {day} de {month} del {year} a las {hora}:{minuto} hrs",
     "historydelall":"Eliminar todo",
     "history_warningmessage":"Esta accion eliminara todos los registros.¿Desea continuar?",
     "TRADUCCION_MESES":"",
@@ -61,7 +61,7 @@
     "main_hintitle":"Titulo del sorteo",
     "main_ltspart":"Lista de participantes",
     "main_btndraw":"Realizar sorteo",
-    "main_btnadd":"Agregar participantes",
+    "main_btnadd":"Agregar participante",
     "main_emptycontainer":"Añade al menos 1 participante",
     "main_errortext_textfield":"El titulo esta vacio o no es valido",
     "PRINCIPAL_MODALVIEW":"",
@@ -102,13 +102,4 @@
     "edit_table_modify":"Modificar",
     "edit_table_delete":"Eliminar",
     "edit_segmented_label":"Accion a realizar"
-
-   
-
-
-
-
-
-
-
 }
