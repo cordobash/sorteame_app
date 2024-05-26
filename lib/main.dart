@@ -118,6 +118,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     cargarDatos();
     S.load(locale);
+    print('idioma actual = ${locale}');
   }
 
   @override
@@ -832,7 +833,7 @@ class _MyAppState extends State<MyApp> {
           Icon(Icons.exit_to_app, color: Colors.black),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text(
-            'Salir de la aplicacion',
+            S.current.exit_title,
             style: TextStyle(
                 fontFamily: 'Manrope',
                 color: Colors.black,
@@ -842,7 +843,7 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
       content: Text(
-        '¿Estas seguro de salir de la aplicacion?',
+        S.current.exit_content,
         style: TextStyle(
           color: Colors.black,
           fontSize: 17,
@@ -853,14 +854,14 @@ class _MyAppState extends State<MyApp> {
           onPressed: () =>
               SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
           child: Text(
-            'Salir',
+            S.current.exit,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Cancelar',
+            S.current.cancel,
             style: TextStyle(color: colorGlobal.shade900),
           ),
         )

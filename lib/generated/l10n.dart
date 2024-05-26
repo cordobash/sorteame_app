@@ -92,31 +92,61 @@ class S {
     );
   }
 
-  /// `Actualizar`
+  /// `Update`
   String get update {
     return Intl.message(
-      'Actualizar',
+      'Update',
       name: 'update',
       desc: '',
       args: [],
     );
   }
 
-  /// `Eliminar`
+  /// `Delete`
   String get delete {
     return Intl.message(
-      'Eliminar',
+      'Delete',
       name: 'delete',
       desc: '',
       args: [],
     );
   }
 
-  /// `Agregar`
+  /// `Add`
   String get add {
     return Intl.message(
-      'Agregar',
+      'Add',
       name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get EXIT_DIALOG {
+    return Intl.message(
+      '',
+      name: 'EXIT_DIALOG',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close App`
+  String get exit_title {
+    return Intl.message(
+      'Close App',
+      name: 'exit_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to close this app?`
+  String get exit_content {
+    return Intl.message(
+      'Do you want to close this app?',
+      name: 'exit_content',
       desc: '',
       args: [],
     );

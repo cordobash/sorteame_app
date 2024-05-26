@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "BARRA_NAVEGACION_TITULOS": MessageLookupByLibrary.simpleMessage(""),
         "DRAWER_MENU": MessageLookupByLibrary.simpleMessage(""),
         "EDITAR_PARTICIPANTE": MessageLookupByLibrary.simpleMessage(""),
+        "EXIT_DIALOG": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_ACERCADE": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_AJUSTES": MessageLookupByLibrary.simpleMessage(""),
         "PAGINA_RESULTADOSANTERIORES": MessageLookupByLibrary.simpleMessage(""),
@@ -42,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "TRADUCCION_MESES": MessageLookupByLibrary.simpleMessage(""),
         "activateAnimations":
             MessageLookupByLibrary.simpleMessage("Enable draw animations"),
-        "add": MessageLookupByLibrary.simpleMessage("Agregar"),
+        "add": MessageLookupByLibrary.simpleMessage("Add"),
         "amount":
             MessageLookupByLibrary.simpleMessage("Number of participants: "),
         "april": MessageLookupByLibrary.simpleMessage("April"),
@@ -55,7 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "countdown": MessageLookupByLibrary.simpleMessage("Countdown"),
         "datetimedraw": m0,
         "december": MessageLookupByLibrary.simpleMessage("December"),
-        "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Delete all participants after draw"),
         "developedby": MessageLookupByLibrary.simpleMessage("Developed by"),
@@ -95,6 +96,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "editparticipant":
             MessageLookupByLibrary.simpleMessage("Edit participant"),
         "exit": MessageLookupByLibrary.simpleMessage("Close"),
+        "exit_content": MessageLookupByLibrary.simpleMessage(
+            "Do you want to close this app?"),
+        "exit_title": MessageLookupByLibrary.simpleMessage("Close App"),
         "febraury": MessageLookupByLibrary.simpleMessage("Febraury"),
         "firstdraw":
             MessageLookupByLibrary.simpleMessage("Make your first draw!"),
@@ -168,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Show deletion dialog"),
         "themeApp": MessageLookupByLibrary.simpleMessage("Theme color"),
         "thememode": MessageLookupByLibrary.simpleMessage("Enable dark mode"),
-        "update": MessageLookupByLibrary.simpleMessage("Actualizar"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning")
       };
 }
