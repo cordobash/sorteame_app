@@ -195,6 +195,7 @@ class SettingsPageState extends State<SettingsPage> {
                               children: [
                                 Text(
                                   S.current.showDeleteDialog,
+                                  style: TextStyle(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 _switchWidget(() async {
@@ -428,13 +429,6 @@ class SettingsPageState extends State<SettingsPage> {
           value: Idiomas.Ingles,
           label: Text(
             '🇺🇸',
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-        ButtonSegment(
-          value: Idiomas.Portugues,
-          label: Text(
-            '🇵🇹',
             style: TextStyle(fontSize: 20),
           ),
         ),
