@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';
 import 'package:app_sorteos/painter/rueda_painter.dart';
+import 'package:app_sorteos/generated/l10n.dart';
 
 class PostPage extends StatefulWidget {
   PostPage({Key? key});
@@ -61,9 +62,9 @@ class _PostPageState extends State<PostPage>
                           height: 170,
                         ),
                       ),
-                      const Center(
-                        child: const Text(
-                          'Tiempo restante para conocer al ganador!',
+                      Center(
+                        child: Text(
+                          S.current.timeleft,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -127,7 +128,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
       appBar: AppBar(
         backgroundColor: colorGlobal.shade700,
         centerTitle: true,
-        title: const Text('Resultados del sorteo',
+        title: Text(S.current.draw_result_title,
             style: TextStyle(
                 color: Colors.white, fontFamily: 'Manrope', fontSize: 18)),
         leading: IconButton(
@@ -153,8 +154,8 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 height: 140,
                 width: 120,
                 image: AssetImage('lib/src/images/trophy.png')),
-            const Text(
-              'Felicidades al ganador!',
+            Text(
+              S.current.draw_congratulations,
               style: TextStyle(
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w700,
@@ -184,7 +185,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
               ),
             ),
             Text(
-              'Por haber sido el ganador(a) en el sorteo de: ',
+              S.current.draw_congratulations_forbeing,
               style: TextStyle(
                   fontFamily: 'Manrope',
                   fontSize: 16,
@@ -228,7 +229,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
                     });
                   },
                   child: Text(
-                    'Regresar a inicio',
+                    S.current.backtohome,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

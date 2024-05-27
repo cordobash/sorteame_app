@@ -101,5 +101,10 @@
     "edit_table_name":"Nombre participante",
     "edit_table_modify":"Modificar",
     "edit_table_delete":"Eliminar",
-    "edit_segmented_label":"Accion a realizar"
+    "edit_segmented_label":"Accion a realizar",
+    "timeleft":"Tiempo restante para conocer al ganador!",
+    "draw_result_title":"Resultados del sorteo",
+    "draw_congratulations":"Felicidades al ganador!",
+    "draw_congratulations_forbeing":"Por haber sido ganador del sorteo",
+    "backtohome":"Regresar a inicio"
 }

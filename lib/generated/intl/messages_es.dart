@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Numero de participantes: "),
         "april": MessageLookupByLibrary.simpleMessage("Abril"),
         "august": MessageLookupByLibrary.simpleMessage("Agosto"),
+        "backtohome": MessageLookupByLibrary.simpleMessage("Regresar a inicio"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "career":
             MessageLookupByLibrary.simpleMessage("(Desarrollador de software)"),
@@ -61,6 +62,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Eliminar participantes post sorteo"),
         "developedby": MessageLookupByLibrary.simpleMessage("Desarrollado por"),
+        "draw_congratulations":
+            MessageLookupByLibrary.simpleMessage("Felicidades al ganador!"),
+        "draw_congratulations_forbeing": MessageLookupByLibrary.simpleMessage(
+            "Por haber sido ganador del sorteo"),
+        "draw_result_title":
+            MessageLookupByLibrary.simpleMessage("Resultados del sorteo"),
         "drawer_title":
             MessageLookupByLibrary.simpleMessage("Menu de opciones"),
         "duplicatedNames":
@@ -182,6 +189,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "themeApp": MessageLookupByLibrary.simpleMessage("Color principal"),
         "thememode":
             MessageLookupByLibrary.simpleMessage("Activar modo oscuro"),
+        "timeleft": MessageLookupByLibrary.simpleMessage(
+            "Tiempo restante para conocer al ganador!"),
         "update": MessageLookupByLibrary.simpleMessage("Actualizar"),
         "warning": MessageLookupByLibrary.simpleMessage("Advertencia")
       };

@@ -25,8 +25,6 @@ class _AnterioresPageState extends State<AnterioresPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    S.load(locale);
-    print('idioma actual = ${locale}');
   }
 
   @override

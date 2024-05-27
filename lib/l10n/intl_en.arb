@@ -101,5 +101,10 @@
     "edit_table_name":"   Name",
     "edit_table_modify":"Modify",
     "edit_table_delete":"Delete",
-    "edit_segmented_label":"Action to be taken"
+    "edit_segmented_label":"Action to be taken",
+    "timeleft":"Time left to know the winner!",
+    "draw_result_title":"Draw results",
+    "draw_congratulations":"Congratulations to the winner!",
+    "draw_congratulations_forbeing":"For being the winner of the draw",
+    "backtohome":"Back to home"
 }

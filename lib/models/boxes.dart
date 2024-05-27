@@ -28,4 +28,3 @@ String? ganadorSorteo;
 String vTituloSorteo = '';
 double? opacidadCuentaRegresiva = 1.0;
 dynamic colorGlobal;
-Locale locale = Locale('es');

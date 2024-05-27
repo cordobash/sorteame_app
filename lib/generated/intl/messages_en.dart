@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Number of participants: "),
         "april": MessageLookupByLibrary.simpleMessage("April"),
         "august": MessageLookupByLibrary.simpleMessage("August"),
+        "backtohome": MessageLookupByLibrary.simpleMessage("Back to home"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "career": MessageLookupByLibrary.simpleMessage("(Software Engineer)"),
         "choicecolor": MessageLookupByLibrary.simpleMessage(
@@ -60,6 +61,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Delete all participants after draw"),
         "developedby": MessageLookupByLibrary.simpleMessage("Developed by"),
+        "draw_congratulations": MessageLookupByLibrary.simpleMessage(
+            "Congratulations to the winner!"),
+        "draw_congratulations_forbeing": MessageLookupByLibrary.simpleMessage(
+            "For being the winner of the draw"),
+        "draw_result_title":
+            MessageLookupByLibrary.simpleMessage("Draw results"),
         "drawer_title": MessageLookupByLibrary.simpleMessage("Menu"),
         "duplicatedNames":
             MessageLookupByLibrary.simpleMessage("Allow duplicated names"),
@@ -172,6 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Show deletion dialog"),
         "themeApp": MessageLookupByLibrary.simpleMessage("Theme color"),
         "thememode": MessageLookupByLibrary.simpleMessage("Enable dark mode"),
+        "timeleft": MessageLookupByLibrary.simpleMessage(
+            "Time left to know the winner!"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning")
       };

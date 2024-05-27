@@ -15,9 +15,12 @@ class SettingsPage extends StatefulWidget {
 enum Idiomas { Espanol, Ingles, Portugues }
 
 class SettingsPageState extends State<SettingsPage> {
+  Locale locale = new Locale('es');
   double? _deviceWidth, _deviceHeight;
 
-  Idiomas _accionInicial = Idiomas.values.first;
+  // Idiomas _accionInicial = Idiomas.values.first;
+  Idiomas _accionInicial = Idiomas.values.elementAt(0);
+
   SettingsPageState({Key? key});
   static TextStyle _estiloPersonalizado = TextStyle(fontSize: 16);
 
@@ -26,7 +29,7 @@ class SettingsPageState extends State<SettingsPage> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
-    S.load(locale);
+    _accionInicial = Idiomas.values.elementAt(indiceEnumIdiomas);
   }
 
   @override
@@ -50,7 +53,7 @@ class SettingsPageState extends State<SettingsPage> {
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
-      print('El idioma actual es: ${indiceEnumIdiomas}');
+      S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
   }
 

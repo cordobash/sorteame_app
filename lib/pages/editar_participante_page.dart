@@ -35,7 +35,6 @@ class _EditarPageState extends State<EditarPage> {
     // TODO: implement initState
     super.initState();
     cargarDato();
-    print('idioma actual = ${locale}');
   }
 
   Future<void> guardarDato() async {

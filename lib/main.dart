@@ -23,7 +23,9 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 
 void main(List<String> args) async {
-  S.load(locale);
+  // S.load(locale);
+  S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
+
   colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
@@ -116,8 +118,6 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
-    S.load(locale);
-    print('idioma actual = ${locale}');
   }
 
   @override
@@ -143,7 +143,7 @@ class _MyAppState extends State<MyApp> {
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       colorGlobal = listaColores[indiceListaColores];
-      print('El idioma actual es: ${indiceEnumIdiomas}');
+      S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
   }
 
@@ -164,7 +164,7 @@ class _MyAppState extends State<MyApp> {
         });
       },
       child: MaterialApp(
-        locale: locale,
+        // locale:
         localizationsDelegates: [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

@@ -1072,6 +1072,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Time left to know the winner!`
+  String get timeleft {
+    return Intl.message(
+      'Time left to know the winner!',
+      name: 'timeleft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Draw results`
+  String get draw_result_title {
+    return Intl.message(
+      'Draw results',
+      name: 'draw_result_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations to the winner!`
+  String get draw_congratulations {
+    return Intl.message(
+      'Congratulations to the winner!',
+      name: 'draw_congratulations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For being the winner of the draw`
+  String get draw_congratulations_forbeing {
+    return Intl.message(
+      'For being the winner of the draw',
+      name: 'draw_congratulations_forbeing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to home`
+  String get backtohome {
+    return Intl.message(
+      'Back to home',
+      name: 'backtohome',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
