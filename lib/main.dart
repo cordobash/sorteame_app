@@ -82,7 +82,6 @@ class _MyAppState extends State<MyApp> {
     S.current.nav_settings,
     S.current.nav_about
   ];
-  // List<String> _titulosSuperior = ["A", "b", "C", "d"];
 
   final List<Widget> _listaWidgets = [
     const Text(
@@ -196,7 +195,7 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.white),
             ),
             backgroundColor: colorGlobal.shade900,
-            centerTitle: false,
+            centerTitle: true,
           ),
           body: (_selectedIndex == 0)
               ? (_deviceHeight! >= 350)
@@ -1025,7 +1024,7 @@ class _MyAppState extends State<MyApp> {
           Icon(Icons.info, color: Colors.blue),
           Padding(padding: EdgeInsets.only(left: 5)),
           Text(
-            'Resultados del sorteo',
+            S.current.draw_result_title,
             style: TextStyle(
                 fontFamily: 'Manrope',
                 fontSize: 18,
@@ -1037,7 +1036,7 @@ class _MyAppState extends State<MyApp> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'El ganador(a) del ${vTituloSorteo} es...',
+            S.current.noanimated_content(vTituloSorteo),
             style: TextStyle(
                 fontFamily: 'Barlow',
                 fontWeight: FontWeight.bold,

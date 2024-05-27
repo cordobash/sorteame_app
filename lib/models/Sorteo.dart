@@ -49,7 +49,7 @@ class Sorteo {
   String? getNombreMes(int mes) {
     List<String> _listaMeses = [
       S.current.january,
-      S.current.febraury,
+      S.current.february,
       S.current.march,
       S.current.april,
       S.current.may,

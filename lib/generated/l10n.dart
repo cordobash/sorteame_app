@@ -302,10 +302,10 @@ class S {
     );
   }
 
-  /// `Maximum cells in a row on mosaic mode `
+  /// `Maximum cells per row in mosaic mode`
   String get maxCells {
     return Intl.message(
-      'Maximum cells in a row on mosaic mode ',
+      'Maximum cells per row in mosaic mode',
       name: 'maxCells',
       desc: '',
       args: [],
@@ -352,20 +352,20 @@ class S {
     );
   }
 
-  /// `Choice a color`
+  /// `Choose a color`
   String get modalchoicecolor {
     return Intl.message(
-      'Choice a color',
+      'Choose a color',
       name: 'modalchoicecolor',
       desc: '',
       args: [],
     );
   }
 
-  /// `Choice one of the following colors:`
+  /// `Choose one of the following colors:`
   String get choicecolor {
     return Intl.message(
-      'Choice one of the following colors:',
+      'Choose one of the following colors:',
       name: 'choicecolor',
       desc: '',
       args: [],
@@ -402,10 +402,10 @@ class S {
     );
   }
 
-  /// `Let's make real your ideas!`
+  /// `Let's make your ideas real!`
   String get letsmakereal {
     return Intl.message(
-      'Let\'s make real your ideas!',
+      'Let\'s make your ideas real!',
       name: 'letsmakereal',
       desc: '',
       args: [],
@@ -513,11 +513,11 @@ class S {
     );
   }
 
-  /// `Febraury`
-  String get febraury {
+  /// `February`
+  String get february {
     return Intl.message(
-      'Febraury',
-      name: 'febraury',
+      'February',
+      name: 'february',
       desc: '',
       args: [],
     );
@@ -673,10 +673,10 @@ class S {
     );
   }
 
-  /// `The title is empty or its not valid`
+  /// `The title is empty or not valid`
   String get main_errortext_textfield {
     return Intl.message(
-      'The title is empty or its not valid',
+      'The title is empty or not valid',
       name: 'main_errortext_textfield',
       desc: '',
       args: [],
@@ -723,10 +723,10 @@ class S {
     );
   }
 
-  /// `You can add the participants adding them manually or you can upload a text file`
+  /// `You can add the participants manually or upload a text file`
   String get main_modal_subtext_two {
     return Intl.message(
-      'You can add the participants adding them manually or you can upload a text file',
+      'You can add the participants manually or upload a text file',
       name: 'main_modal_subtext_two',
       desc: '',
       args: [],
@@ -773,10 +773,10 @@ class S {
     );
   }
 
-  /// `In the next field write the of new participant:`
+  /// `In the next field write the name of the new participant:`
   String get main_modal_manual_content {
     return Intl.message(
-      'In the next field write the of new participant:',
+      'In the next field write the name of the new participant:',
       name: 'main_modal_manual_content',
       desc: '',
       args: [],
@@ -823,20 +823,20 @@ class S {
     );
   }
 
-  /// `You can import the participant's list from a file`
+  /// `You can import the participant list from a file`
   String get main_modal_archivo_subtextone {
     return Intl.message(
-      'You can import the participant\'s list from a file',
+      'You can import the participant list from a file',
       name: 'main_modal_archivo_subtextone',
       desc: '',
       args: [],
     );
   }
 
-  /// `The file extension allowed is .txt `
+  /// `The allowed file extension is .txt`
   String get main_modal_archivo_subtextwo {
     return Intl.message(
-      'The file extension allowed is .txt ',
+      'The allowed file extension is .txt',
       name: 'main_modal_archivo_subtextwo',
       desc: '',
       args: [],
@@ -883,10 +883,10 @@ class S {
     );
   }
 
-  /// `This feature is not available on web version.`
+  /// `This feature is not available in the web version.`
   String get na_text {
     return Intl.message(
-      'This feature is not available on web version.',
+      'This feature is not available in the web version.',
       name: 'na_text',
       desc: '',
       args: [],
@@ -943,10 +943,10 @@ class S {
     );
   }
 
-  /// `In this section you can edit the participant you've choosen`
+  /// `In this section you can edit the participant you've chosen`
   String get edit_alert_update_content {
     return Intl.message(
-      'In this section you can edit the participant you\'ve choosen',
+      'In this section you can edit the participant you\'ve chosen',
       name: 'edit_alert_update_content',
       desc: '',
       args: [],
@@ -993,20 +993,20 @@ class S {
     );
   }
 
-  /// `If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings`
+  /// `If you have mistakenly added a participant, you can delete it in this section. This confirmation dialog can be disabled in the settings`
   String get edit_alert_delete_content {
     return Intl.message(
-      'If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings',
+      'If you have mistakenly added a participant, you can delete it in this section. This confirmation dialog can be disabled in the settings',
       name: 'edit_alert_delete_content',
       desc: '',
       args: [],
     );
   }
 
-  /// `The choosen participant to be deleted of the list is:`
+  /// `The chosen participant to be deleted from the list is:`
   String get edit_alert_delete_additional_label {
     return Intl.message(
-      'The choosen participant to be deleted of the list is:',
+      'The chosen participant to be deleted from the list is:',
       name: 'edit_alert_delete_additional_label',
       desc: '',
       args: [],
@@ -1120,6 +1120,26 @@ class S {
       name: 'backtohome',
       desc: '',
       args: [],
+    );
+  }
+
+  /// ``
+  String get ALERT_NOANIMATED {
+    return Intl.message(
+      '',
+      name: 'ALERT_NOANIMATED',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The winner of the draw {name} are...`
+  String noanimated_content(Object name) {
+    return Intl.message(
+      'The winner of the draw $name are...',
+      name: 'noanimated_content',
+      desc: '',
+      args: [name],
     );
   }
 }

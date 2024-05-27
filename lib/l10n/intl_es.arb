@@ -46,7 +46,7 @@
     "history_warningmessage":"Esta accion eliminara todos los registros.¿Desea continuar?",
     "TRADUCCION_MESES":"",
     "january":"Enero",
-    "febraury":"Febrero",
+    "february":"Febrero",
     "march":"Marzo",
     "april":"Abril",
     "may":"Mayo",
@@ -106,5 +106,7 @@
     "draw_result_title":"Resultados del sorteo",
     "draw_congratulations":"Felicidades al ganador!",
     "draw_congratulations_forbeing":"Por haber sido ganador del sorteo",
-    "backtohome":"Regresar a inicio"
+    "backtohome":"Regresar a inicio",
+    "ALERT_NOANIMATED":"",
+    "noanimated_content":"El ganador del sorteo {name} es..."
 }

@@ -23,10 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(month, day, year, hora, minuto) =>
       "Fecha del sorteo: ${day} de ${month} del ${year} a las ${hora}:${minuto} hrs";
 
-  static String m1(name) => "Ganador: ${name}";
+  static String m1(name) => "El ganador del sorteo ${name} es...";
+
+  static String m2(name) => "Ganador: ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ALERT_NOANIMATED": MessageLookupByLibrary.simpleMessage(""),
         "BARRA_NAVEGACION_TITULOS": MessageLookupByLibrary.simpleMessage(""),
         "DRAWER_MENU": MessageLookupByLibrary.simpleMessage(""),
         "EDITAR_PARTICIPANTE": MessageLookupByLibrary.simpleMessage(""),
@@ -111,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit_content": MessageLookupByLibrary.simpleMessage(
             "¿Estas seguro de salir de la aplicacion?"),
         "exit_title": MessageLookupByLibrary.simpleMessage(""),
-        "febraury": MessageLookupByLibrary.simpleMessage("Febrero"),
+        "february": MessageLookupByLibrary.simpleMessage("Febrero"),
         "firstdraw":
             MessageLookupByLibrary.simpleMessage("Realiza tu primer sorteo!"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
@@ -177,10 +180,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Resultados anteriores"),
         "nav_main": MessageLookupByLibrary.simpleMessage("Principal"),
         "nav_settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
+        "noanimated_content": m1,
         "november": MessageLookupByLibrary.simpleMessage("Noviembre"),
         "october": MessageLookupByLibrary.simpleMessage("Octubre"),
         "ok": MessageLookupByLibrary.simpleMessage("Aceptar"),
-        "pastwinner": m1,
+        "pastwinner": m2,
         "personalization":
             MessageLookupByLibrary.simpleMessage("Personalizacion"),
         "september": MessageLookupByLibrary.simpleMessage("Septiembre"),

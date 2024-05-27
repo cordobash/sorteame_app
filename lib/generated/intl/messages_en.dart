@@ -23,10 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(month, day, year, hora, minuto) =>
       "Date: ${month} ${day}, ${year} at ${hora}:${minuto} hours";
 
-  static String m1(name) => "Winner: ${name}";
+  static String m1(name) => "The winner of the draw ${name} are...";
+
+  static String m2(name) => "Winner: ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ALERT_NOANIMATED": MessageLookupByLibrary.simpleMessage(""),
         "BARRA_NAVEGACION_TITULOS": MessageLookupByLibrary.simpleMessage(""),
         "DRAWER_MENU": MessageLookupByLibrary.simpleMessage(""),
         "EDITAR_PARTICIPANTE": MessageLookupByLibrary.simpleMessage(""),
@@ -52,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "career": MessageLookupByLibrary.simpleMessage("(Software Engineer)"),
         "choicecolor": MessageLookupByLibrary.simpleMessage(
-            "Choice one of the following colors:"),
+            "Choose one of the following colors:"),
         "contact": MessageLookupByLibrary.simpleMessage("My social networks"),
         "countdown": MessageLookupByLibrary.simpleMessage("Countdown"),
         "datetimedraw": m0,
@@ -72,17 +75,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allow duplicated names"),
         "edit_alert_delete_additional_label":
             MessageLookupByLibrary.simpleMessage(
-                "The choosen participant to be deleted of the list is:"),
+                "The chosen participant to be deleted from the list is:"),
         "edit_alert_delete_checktext": MessageLookupByLibrary.simpleMessage(
             "Do not show this dialog again"),
         "edit_alert_delete_content": MessageLookupByLibrary.simpleMessage(
-            "If you have added by a mistake a participant in this section you can delete it.This confirmation dialog can be disabled in the settings"),
+            "If you have mistakenly added a participant, you can delete it in this section. This confirmation dialog can be disabled in the settings"),
         "edit_alert_delete_continue":
             MessageLookupByLibrary.simpleMessage("Do you want to continue?"),
         "edit_alert_delete_title":
             MessageLookupByLibrary.simpleMessage("Delete participant"),
         "edit_alert_update_content": MessageLookupByLibrary.simpleMessage(
-            "In this section you can edit the participant you\'ve choosen"),
+            "In this section you can edit the participant you\'ve chosen"),
         "edit_alert_update_currentnamelabel":
             MessageLookupByLibrary.simpleMessage("Current name:"),
         "edit_alert_update_newnamelabel":
@@ -106,7 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit_content": MessageLookupByLibrary.simpleMessage(
             "Do you want to close this app?"),
         "exit_title": MessageLookupByLibrary.simpleMessage("Close App"),
-        "febraury": MessageLookupByLibrary.simpleMessage("Febraury"),
+        "february": MessageLookupByLibrary.simpleMessage("February"),
         "firstdraw":
             MessageLookupByLibrary.simpleMessage("Make your first draw!"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
@@ -118,13 +121,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "june": MessageLookupByLibrary.simpleMessage("June"),
         "language": MessageLookupByLibrary.simpleMessage("Select language"),
         "letsmakereal": MessageLookupByLibrary.simpleMessage(
-            "Let\'s make real your ideas!"),
+            "Let\'s make your ideas real!"),
         "main_btnadd": MessageLookupByLibrary.simpleMessage("Add people"),
         "main_btndraw": MessageLookupByLibrary.simpleMessage("Make the draw!"),
         "main_emptycontainer":
             MessageLookupByLibrary.simpleMessage("Add at least 1 participant"),
         "main_errortext_textfield": MessageLookupByLibrary.simpleMessage(
-            "The title is empty or its not valid"),
+            "The title is empty or not valid"),
         "main_hintitle": MessageLookupByLibrary.simpleMessage("Draw title"),
         "main_ltspart":
             MessageLookupByLibrary.simpleMessage("List of participants"),
@@ -133,9 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "main_modal_archivo_defaultempty":
             MessageLookupByLibrary.simpleMessage("No file selected"),
         "main_modal_archivo_subtextone": MessageLookupByLibrary.simpleMessage(
-            "You can import the participant\'s list from a file"),
+            "You can import the participant list from a file"),
         "main_modal_archivo_subtextwo": MessageLookupByLibrary.simpleMessage(
-            "The file extension allowed is .txt "),
+            "The allowed file extension is .txt"),
         "main_modal_archivo_title":
             MessageLookupByLibrary.simpleMessage("Upload a file"),
         "main_modal_btnmanual":
@@ -144,7 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Upload file"),
         "main_modal_manual_action": MessageLookupByLibrary.simpleMessage("Add"),
         "main_modal_manual_content": MessageLookupByLibrary.simpleMessage(
-            "In the next field write the of new participant:"),
+            "In the next field write the name of the new participant:"),
         "main_modal_manual_hintext":
             MessageLookupByLibrary.simpleMessage("New participant name"),
         "main_modal_manual_title":
@@ -152,26 +155,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "main_modal_subtext_one": MessageLookupByLibrary.simpleMessage(
             "How would you like to add the participants?"),
         "main_modal_subtext_two": MessageLookupByLibrary.simpleMessage(
-            "You can add the participants adding them manually or you can upload a text file"),
+            "You can add the participants manually or upload a text file"),
         "main_modal_titlelabel":
             MessageLookupByLibrary.simpleMessage("Add new participant"),
         "march": MessageLookupByLibrary.simpleMessage("March"),
         "maxCells": MessageLookupByLibrary.simpleMessage(
-            "Maximum cells in a row on mosaic mode "),
+            "Maximum cells per row in mosaic mode"),
         "may": MessageLookupByLibrary.simpleMessage("May"),
         "modalchoicecolor":
-            MessageLookupByLibrary.simpleMessage("Choice a color"),
+            MessageLookupByLibrary.simpleMessage("Choose a color"),
         "na_information": MessageLookupByLibrary.simpleMessage("Information"),
         "na_text": MessageLookupByLibrary.simpleMessage(
-            "This feature is not available on web version."),
+            "This feature is not available in the web version."),
         "nav_about": MessageLookupByLibrary.simpleMessage("About"),
         "nav_history": MessageLookupByLibrary.simpleMessage("History"),
         "nav_main": MessageLookupByLibrary.simpleMessage("Main"),
         "nav_settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "noanimated_content": m1,
         "november": MessageLookupByLibrary.simpleMessage("November"),
         "october": MessageLookupByLibrary.simpleMessage("October"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
-        "pastwinner": m1,
+        "pastwinner": m2,
         "personalization":
             MessageLookupByLibrary.simpleMessage("Personalization"),
         "september": MessageLookupByLibrary.simpleMessage("September"),
