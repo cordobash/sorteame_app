@@ -113,7 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "exit": MessageLookupByLibrary.simpleMessage("Salir"),
         "exit_content": MessageLookupByLibrary.simpleMessage(
             "¿Estas seguro de salir de la aplicacion?"),
-        "exit_title": MessageLookupByLibrary.simpleMessage(""),
+        "exit_title":
+            MessageLookupByLibrary.simpleMessage("Salir de la aplicacion"),
         "february": MessageLookupByLibrary.simpleMessage("Febrero"),
         "firstdraw":
             MessageLookupByLibrary.simpleMessage("Realiza tu primer sorteo!"),

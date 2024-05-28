@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
@@ -18,10 +17,8 @@ class SettingsPage extends StatefulWidget {
 enum Idiomas { Espanol, Ingles }
 
 class SettingsPageState extends State<SettingsPage> {
-  Locale locale = new Locale('es');
   double? _deviceWidth, _deviceHeight;
 
-  // Idiomas _accionInicial = Idiomas.values.first;
   Idiomas _accionInicial = Idiomas.values.elementAt(0);
 
   SettingsPageState({Key? key});
@@ -32,7 +29,6 @@ class SettingsPageState extends State<SettingsPage> {
     // TODO: implement initState
     super.initState();
     cargarDatos();
-    _accionInicial = Idiomas.values.elementAt(indiceEnumIdiomas);
   }
 
   @override
@@ -52,14 +48,8 @@ class SettingsPageState extends State<SettingsPage> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
-      indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-      // indiceListaColores = context.read<MainProvider>().indiceListaColores;
-      // colorGlobal = listaColores[indiceListaColores];
-      // colorGlobal = context.read<MainProvider>().colorGlobal;
-
-      S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
+      // indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
     });
   }
 
@@ -70,10 +60,19 @@ class SettingsPageState extends State<SettingsPage> {
     prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
     // prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
-    prefs.setInt('key_indicecolor', indiceListaColores);
+    // prefs.setInt('key_indicecolor', indiceListaColores);
     // prefs.setInt(
     //     'key_indicecolor', context.watch<MainProvider>().indiceListaColores);
   }
+
+  List<Color> _listaColores = [
+    Colors.red,
+    Colors.orange,
+    Colors.pink,
+    Colors.blue,
+    Colors.green,
+    Colors.purple
+  ];
 
   Future<void> guardarColor() async {
     final prefs = await SharedPreferences.getInstance();
@@ -277,17 +276,17 @@ class SettingsPageState extends State<SettingsPage> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             _contenedorColor(
-                                                listaColores[0], 0),
+                                                _listaColores[0], 0),
                                             _contenedorColor(
-                                                listaColores[1], 1),
+                                                _listaColores[1], 1),
                                             _contenedorColor(
-                                                listaColores[2], 2),
+                                                _listaColores[2], 2),
                                             _contenedorColor(
-                                                listaColores[3], 3),
+                                                _listaColores[3], 3),
                                             _contenedorColor(
-                                                listaColores[4], 4),
+                                                _listaColores[4], 4),
                                             _contenedorColor(
-                                                listaColores[5], 5),
+                                                _listaColores[5], 5),
                                           ],
                                         ),
                                       )
@@ -391,7 +390,7 @@ class SettingsPageState extends State<SettingsPage> {
     return DropdownButton(
         value: indiceListaConteo,
         underline: Container(
-          color: listaColores[indiceListaColores],
+          color: context.watch<MainProvider>().colorGlobal,
           height: 2,
         ),
         icon: Icon(Icons.format_list_numbered_rtl_sharp),
@@ -453,15 +452,12 @@ class SettingsPageState extends State<SettingsPage> {
           ),
         ],
         selected: <Idiomas>{
-          // Idiomas.values
-          //     .elementAt(context.read<MainProvider>().indiceEnumIdioma)
           Idiomas.values
               .elementAt(context.watch<MainProvider>().indiceEnumIdioma)
         },
         onSelectionChanged: (Set<Idiomas> nuevoElemento) {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
-          indiceEnumIdiomas = _accionInicial.index;
           // Cambiamos el valor del indiceEnumIdioma en el MainProvider.
           context.read<MainProvider>().cambiarIdioma(_accionInicial.index);
           // Guardamos el valor
@@ -485,12 +481,12 @@ class SettingsPageState extends State<SettingsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _contenedorColor(listaColores[0], 0),
-                  _contenedorColor(listaColores[1], 1),
-                  _contenedorColor(listaColores[2], 2),
-                  _contenedorColor(listaColores[3], 3),
-                  _contenedorColor(listaColores[4], 4),
-                  _contenedorColor(listaColores[5], 5),
+                  _contenedorColor(_listaColores[0], 0),
+                  _contenedorColor(_listaColores[1], 1),
+                  _contenedorColor(_listaColores[2], 2),
+                  _contenedorColor(_listaColores[3], 3),
+                  _contenedorColor(_listaColores[4], 4),
+                  _contenedorColor(_listaColores[5], 5),
                 ],
               ),
               ElevatedButton(

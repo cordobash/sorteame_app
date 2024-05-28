@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
       // indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
-      indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+      // indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
 
       // S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
       // S.load(Locale('es'));

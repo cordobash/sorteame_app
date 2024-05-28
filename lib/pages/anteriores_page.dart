@@ -291,8 +291,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
           },
           child: Text(
             S.current.cancel,
-            style: TextStyle(
-                color: context.watch<MainProvider>().colorGlobal.shade700),
+            style: TextStyle(color: Colors.red.shade700),
           ),
         ),
       ],

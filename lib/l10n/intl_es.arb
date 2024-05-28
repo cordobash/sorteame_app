@@ -8,7 +8,7 @@
     "delete":"Eliminar",
     "add":"Agregar",
     "EXIT_DIALOG":"",
-    "exit_title":"",
+    "exit_title":"Salir de la aplicacion",
     "exit_content":"¿Estas seguro de salir de la aplicacion?",
     "BARRA_NAVEGACION_TITULOS":"",
     "nav_main":"Principal",
