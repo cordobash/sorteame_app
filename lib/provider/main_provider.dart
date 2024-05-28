@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainProvider extends ChangeNotifier {
-  late Color _colorGlobal;
   late int _indiceListaColores = 0;
   List<Color> _listaColores = [
     Colors.red,
@@ -13,15 +12,27 @@ class MainProvider extends ChangeNotifier {
     Colors.purple
   ];
 
+  List<Color> _gradiente = [];
   // Getters
   // Color get colorGlobal => _colorGlobal;
   int get indiceListaColores => _indiceListaColores;
-  Color get colorGlobal => _listaColores[indiceListaColores];
+  dynamic get colorGlobal => _listaColores[indiceListaColores];
+  List<dynamic> get gradiente => obtenerGradiente();
 
   // Setters
   cambiarIndice(int indice) {
     _indiceListaColores = indice;
     notifyListeners();
+  }
+
+  obtenerGradiente() {
+    return [
+      colorGlobal,
+      colorGlobal.shade400,
+      colorGlobal.shade500,
+      colorGlobal.shade600,
+      colorGlobal.shade900
+    ];
   }
 
   Future<void> guardarDatos() async {

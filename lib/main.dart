@@ -76,7 +76,9 @@ class _MyAppState extends State<MyApp> {
   Color _colorContenedorBorder = Colors.grey.shade700;
   bool? _visibleLabel = false;
 
-  final List<Color> _gradienteRosaRojoAzul = [
+  late List<dynamic> _gradiente;
+
+  List<Color> _gradienteRosaRojoAzul = [
     colorGlobal,
     colorGlobal.shade400,
     colorGlobal.shade500,
@@ -151,12 +153,16 @@ class _MyAppState extends State<MyApp> {
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       // colorGlobal = listaColores[indiceListaColores];
       colorGlobal = context.read<MainProvider>().colorGlobal;
+
+      // colorGlobal = Colors.blue;
+
       S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _gradiente = context.watch<MainProvider>().gradiente;
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
 
@@ -231,15 +237,16 @@ class _MyAppState extends State<MyApp> {
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Cerdaville'),
                   ),
-                  decoration: BoxDecoration(color: colorGlobal.shade700),
+                  decoration: BoxDecoration(
+                      color: context.watch<MainProvider>().colorGlobal),
                 ),
                 Builder(builder: (context) {
                   return ListTile(
                     leading: Icon(
                       Icons.menu,
                       color: (_selectedIndex == 0)
-                          ? colorGlobal
-                          : colorGlobal.shade900,
+                          ? context.read<MainProvider>().colorGlobal
+                          : Colors.black,
                     ),
                     selected: (_selectedIndex == 0) ? true : false,
                     onTap: () {
@@ -248,7 +255,7 @@ class _MyAppState extends State<MyApp> {
                         Navigator.pop(context);
                       });
                     },
-                    selectedColor: colorGlobal,
+                    selectedColor: context.read<MainProvider>().colorGlobal,
                     title: Text(S.current.nav_main),
                   );
                 }),
@@ -257,8 +264,8 @@ class _MyAppState extends State<MyApp> {
                     leading: Icon(
                       Icons.history,
                       color: (_selectedIndex == 1)
-                          ? colorGlobal
-                          : colorGlobal.shade900,
+                          ? context.read<MainProvider>().colorGlobal
+                          : Colors.black,
                     ),
                     onTap: () {
                       setState(() {
@@ -267,7 +274,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selected: (_selectedIndex == 1) ? true : false,
-                    selectedColor: colorGlobal,
+                    selectedColor: context.read<MainProvider>().colorGlobal,
                     title: Text(S.current.nav_history),
                   );
                 }),
@@ -276,8 +283,8 @@ class _MyAppState extends State<MyApp> {
                     leading: Icon(
                       Icons.settings,
                       color: (_selectedIndex == 2)
-                          ? colorGlobal
-                          : colorGlobal.shade900,
+                          ? context.read<MainProvider>().colorGlobal
+                          : Colors.black,
                     ),
                     onTap: () {
                       setState(() {
@@ -286,7 +293,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selected: (_selectedIndex == 2) ? true : false,
-                    selectedColor: colorGlobal,
+                    selectedColor: context.read<MainProvider>().colorGlobal,
                     title: Text(S.current.nav_settings),
                   );
                 }),
@@ -295,8 +302,8 @@ class _MyAppState extends State<MyApp> {
                     leading: Icon(
                       Icons.message,
                       color: (_selectedIndex == 3)
-                          ? colorGlobal
-                          : colorGlobal.shade900,
+                          ? context.read<MainProvider>().colorGlobal
+                          : Colors.black,
                     ),
                     selected: (_selectedIndex == 3) ? true : false,
                     onTap: () {
@@ -305,7 +312,7 @@ class _MyAppState extends State<MyApp> {
                         Navigator.pop(context);
                       });
                     },
-                    selectedColor: colorGlobal,
+                    selectedColor: context.read<MainProvider>().colorGlobal,
                     title: Text(S.current.nav_about),
                   );
                 }),
@@ -494,8 +501,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           style: ElevatedButton.styleFrom(
-            backgroundColor:
-                (colorGlobal != Colors.white) ? colorGlobal : Colors.black,
+            backgroundColor: context.read<MainProvider>().colorGlobal,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -563,10 +569,12 @@ class _MyAppState extends State<MyApp> {
             obscureText: false,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: colorGlobal.shade900),
+                  borderSide: BorderSide(
+                      color: context.read<MainProvider>().colorGlobal.shade900),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: colorGlobal),
+                  borderSide: BorderSide(
+                      color: context.read<MainProvider>().colorGlobal),
                 ),
                 errorText:
                     (_mostrarErrorText || _validarCaracteres(vTituloSorteo))
@@ -673,11 +681,11 @@ class _MyAppState extends State<MyApp> {
                     _validarCaracteres(vTituloSorteo) == false &&
                     textEditingController.text.toString().codeUnitAt(0) != 32)
                 ? 1.0
-                : 0.5,
+                : 0.65,
             child: Container(
               decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: [..._gradienteRosaRojoAzul])),
+                gradient: LinearGradient(colors: [..._gradiente]),
+              ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -788,7 +796,7 @@ class _MyAppState extends State<MyApp> {
             // "${_nombreArchivoSeleccionado.substring(1, _nombreArchivoSeleccionado.length - 1)}"),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: colorGlobal.shade900,
+                    backgroundColor: context.read<MainProvider>().colorGlobal,
                     shadowColor: Colors.black,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7))),
@@ -823,7 +831,7 @@ class _MyAppState extends State<MyApp> {
           },
           child: Text(
             S.current.exit,
-            style: TextStyle(color: colorGlobal),
+            style: TextStyle(color: context.read<MainProvider>().colorGlobal),
           ),
         )
       ],
@@ -862,14 +870,16 @@ class _MyAppState extends State<MyApp> {
               SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
           child: Text(
             S.current.exit,
-            style: TextStyle(color: colorGlobal.shade900),
+            style: TextStyle(
+                color: context.read<MainProvider>().colorGlobal.shade900),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
             S.current.cancel,
-            style: TextStyle(color: colorGlobal.shade900),
+            style: TextStyle(
+                color: context.read<MainProvider>().colorGlobal.shade900),
           ),
         )
       ],
@@ -987,7 +997,8 @@ class _MyAppState extends State<MyApp> {
                 },
             child: Text(
               S.current.cancel,
-              style: TextStyle(color: colorGlobal.shade900),
+              style: TextStyle(
+                  color: context.read<MainProvider>().colorGlobal.shade900),
             ))
       ],
     );
@@ -1014,7 +1025,7 @@ class _MyAppState extends State<MyApp> {
             style: TextStyle(color: Colors.white),
           ),
           style: ElevatedButton.styleFrom(
-              backgroundColor: colorGlobal,
+              backgroundColor: context.read<MainProvider>().colorGlobal,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
               shadowColor: Colors.black),
@@ -1057,7 +1068,8 @@ class _MyAppState extends State<MyApp> {
               width: 150,
               height: 40,
               decoration: BoxDecoration(
-                  color: colorGlobal, borderRadius: BorderRadius.circular(10)),
+                  color: context.read<MainProvider>().colorGlobal,
+                  borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -1090,7 +1102,8 @@ class _MyAppState extends State<MyApp> {
           },
           child: Text(
             S.current.ok,
-            style: TextStyle(color: colorGlobal.shade900),
+            style: TextStyle(
+                color: context.read<MainProvider>().colorGlobal.shade900),
           ),
         )
       ],
