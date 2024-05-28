@@ -4,7 +4,9 @@ import 'dart:math';
 
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Models
 import '../models/Sorteo.dart';
@@ -69,7 +71,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
             ),
       floatingActionButton: (visibleFloatingAnteriores)
           ? FloatingActionButton(
-              backgroundColor: colorGlobal.shade900,
+              backgroundColor:
+                  context.watch<MainProvider>().colorGlobal.shade900,
               onPressed: () => {},
               child: IconButton(
                 onPressed: () => showDialog(
@@ -87,11 +90,11 @@ class _AnterioresPageState extends State<AnterioresPage> {
   dynamic elegirColor(ColorGlobal) {
     Random ran = new Random();
     List<Color> _listaColores = [
-      ColorGlobal,
-      ColorGlobal.shade600,
-      ColorGlobal.shade700,
-      ColorGlobal.shade800,
-      ColorGlobal.shade900
+      context.watch<MainProvider>().colorGlobal,
+      context.watch<MainProvider>().colorGlobal.shade600,
+      context.watch<MainProvider>().colorGlobal.shade700,
+      context.watch<MainProvider>().colorGlobal.shade800,
+      context.watch<MainProvider>().colorGlobal.shade900
     ];
     int indice = ran.nextInt(_listaColores.length);
     return _listaColores[indice];
@@ -117,7 +120,7 @@ class _AnterioresPageState extends State<AnterioresPage> {
             height: _deviceHeight! * 0.30,
             width: _deviceWidth! * 0.95,
             decoration: BoxDecoration(
-                color: elegirColor(colorGlobal),
+                color: elegirColor(context.watch<MainProvider>().colorGlobal),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.white)),
             child: Padding(
@@ -288,7 +291,8 @@ class _AnterioresPageState extends State<AnterioresPage> {
           },
           child: Text(
             S.current.cancel,
-            style: TextStyle(color: colorGlobal.shade700),
+            style: TextStyle(
+                color: context.watch<MainProvider>().colorGlobal.shade700),
           ),
         ),
       ],

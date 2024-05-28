@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditarPage extends StatefulWidget {
@@ -177,7 +179,9 @@ class _EditarPageState extends State<EditarPage> {
           ),
         ),
         Container(
-            color: (_statusModoTabla) ? colorGlobal.shade900 : Colors.white,
+            color: (_statusModoTabla)
+                ? context.watch<MainProvider>().colorGlobal.shade900
+                : Colors.white,
             child: IconButton(
                 onPressed: () => {
                       setState(() {
@@ -191,7 +195,9 @@ class _EditarPageState extends State<EditarPage> {
                 icon: Icon(Icons.list,
                     color: (_statusModoTabla) ? Colors.white : Colors.black))),
         Container(
-          color: (!_statusModoTabla) ? colorGlobal.shade900 : Colors.white,
+          color: (!_statusModoTabla)
+              ? context.watch<MainProvider>().colorGlobal.shade900
+              : Colors.white,
           child: IconButton(
             onPressed: () => {
               setState(() {
@@ -462,17 +468,17 @@ class _EditarPageState extends State<EditarPage> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            colorGlobal,
-            colorGlobal.shade600,
-            colorGlobal.shade700,
-            colorGlobal.shade900,
-            colorGlobal,
-            colorGlobal.shade600,
-            colorGlobal.shade700,
-            colorGlobal.shade800,
-            colorGlobal.shade600,
-            colorGlobal.shade900,
-            colorGlobal.shade900,
+            context.watch<MainProvider>().colorGlobal,
+            context.watch<MainProvider>().colorGlobal.shade600,
+            context.watch<MainProvider>().colorGlobal.shade700,
+            context.watch<MainProvider>().colorGlobal.shade900,
+            context.watch<MainProvider>().colorGlobal,
+            context.watch<MainProvider>().colorGlobal.shade600,
+            context.watch<MainProvider>().colorGlobal.shade700,
+            context.watch<MainProvider>().colorGlobal.shade800,
+            context.watch<MainProvider>().colorGlobal.shade600,
+            context.watch<MainProvider>().colorGlobal.shade900,
+            context.watch<MainProvider>().colorGlobal.shade900,
           ],
         ),
       ),
@@ -482,7 +488,8 @@ class _EditarPageState extends State<EditarPage> {
   Widget _segmentedButtons() {
     return SegmentedButton<Acciones>(
       style: SegmentedButton.styleFrom(
-        selectedBackgroundColor: colorGlobal.withOpacity(0.23),
+        selectedBackgroundColor:
+            context.watch<MainProvider>().colorGlobal.withOpacity(0.23),
       ),
       segments: <ButtonSegment<Acciones>>[
         ButtonSegment<Acciones>(
@@ -544,7 +551,7 @@ class _EditarPageState extends State<EditarPage> {
               width: 250,
               height: 40,
               decoration: BoxDecoration(
-                color: colorGlobal.shade700,
+                color: context.watch<MainProvider>().colorGlobal.shade700,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Center(
@@ -618,7 +625,8 @@ class _EditarPageState extends State<EditarPage> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               S.current.cancel,
-              style: TextStyle(color: colorGlobal.shade700),
+              style: TextStyle(
+                  color: context.watch<MainProvider>().colorGlobal.shade700),
             ))
       ],
     );
@@ -659,7 +667,7 @@ class _EditarPageState extends State<EditarPage> {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: colorGlobal.shade600,
+                color: context.watch<MainProvider>().colorGlobal.shade600,
               ),
               child: Center(
                   child: SingleChildScrollView(
@@ -732,7 +740,8 @@ class _EditarPageState extends State<EditarPage> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               S.current.cancel,
-              style: TextStyle(color: colorGlobal.shade700),
+              style: TextStyle(
+                  color: context.watch<MainProvider>().colorGlobal.shade700),
             ),
           )
         ],

@@ -27,4 +27,4 @@ bool visibleFloatingAnteriores = (boxSorteo.isNotEmpty) ? true : false;
 String? ganadorSorteo;
 String vTituloSorteo = '';
 double? opacidadCuentaRegresiva = 1.0;
-dynamic colorGlobal;
+// dynamic colorGlobal;

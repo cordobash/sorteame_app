@@ -56,7 +56,7 @@ class SettingsPageState extends State<SettingsPage> {
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
       // indiceListaColores = context.read<MainProvider>().indiceListaColores;
       // colorGlobal = listaColores[indiceListaColores];
-      colorGlobal = context.read<MainProvider>().colorGlobal;
+      // colorGlobal = context.read<MainProvider>().colorGlobal;
 
       S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
@@ -375,15 +375,8 @@ class SettingsPageState extends State<SettingsPage> {
         child: SizedBox(),
         onPressed: () {
           context.read<MainProvider>().cambiarIndice(indice);
-
-          setState(() {
-            colorGlobal = listaColores[indice];
-            indiceListaColores = indice;
-            // context.watch<MainProvider>().cambiarIndice(3);
-            // print('color actual: ${context.read<MainProvider>().colorGlobal}');
-          });
-          guardarDatos();
-          cargarDatos();
+          // Se llama al metodo de guardar datos del MainProvider para que almacene en la key correspondiente el color.
+          context.read<MainProvider>().guardarDatos();
         },
       ),
     );
@@ -419,7 +412,7 @@ class SettingsPageState extends State<SettingsPage> {
     return Switch(
       value: disparador,
       activeColor: Colors.white,
-      activeTrackColor: listaColores[indiceListaColores],
+      activeTrackColor: context.watch<MainProvider>().colorGlobal,
       onChanged: (_) => {
         if (activarDisparador)
           {
@@ -435,7 +428,8 @@ class SettingsPageState extends State<SettingsPage> {
   Widget _segmentedButtons() {
     return SegmentedButton<Idiomas>(
       style: SegmentedButton.styleFrom(
-          selectedBackgroundColor: colorGlobal.withOpacity(0.15)),
+          selectedBackgroundColor:
+              context.watch<MainProvider>().colorGlobal.withOpacity(0.15)),
       showSelectedIcon: false,
       segments: const <ButtonSegment<Idiomas>>[
         ButtonSegment<Idiomas>(

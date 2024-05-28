@@ -12,6 +12,8 @@ class MainProvider extends ChangeNotifier {
     Colors.purple
   ];
 
+  late int _indiceEnumIdioma = 0;
+
   List<Color> _gradiente = [];
   // Getters
   // Color get colorGlobal => _colorGlobal;
@@ -38,16 +40,19 @@ class MainProvider extends ChangeNotifier {
   Future<void> guardarDatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('key_indicecolor', _indiceListaColores);
+    prefs.setInt('key_Idioma', _indiceEnumIdioma);
   }
 
   Future<void> cargarDatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+    _indiceEnumIdioma = prefs.getInt('key_Idioma') ?? 0;
     notifyListeners();
   }
 
   // Constructor
   MainProvider() {
+    // Carga el contenido de las preferencias.
     cargarDatos();
   }
 }

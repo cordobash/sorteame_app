@@ -29,7 +29,7 @@ void main(List<String> args) async {
   // S.load(locale);
   S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
 
-  colorGlobal = listaColores[indiceListaColores];
+  // colorGlobal = listaColores[indiceListaColores];
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
   // Abriendo la box
@@ -77,14 +77,6 @@ class _MyAppState extends State<MyApp> {
   bool? _visibleLabel = false;
 
   late List<dynamic> _gradiente;
-
-  List<Color> _gradienteRosaRojoAzul = [
-    colorGlobal,
-    colorGlobal.shade400,
-    colorGlobal.shade500,
-    colorGlobal.shade600,
-    colorGlobal.shade900,
-  ];
 
   List<String> _titulosSuperior = [
     S.current.nav_main,
@@ -151,10 +143,6 @@ class _MyAppState extends State<MyApp> {
       // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-      // colorGlobal = listaColores[indiceListaColores];
-      colorGlobal = context.read<MainProvider>().colorGlobal;
-
-      // colorGlobal = Colors.blue;
 
       S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });

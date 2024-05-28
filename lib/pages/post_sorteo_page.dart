@@ -1,5 +1,7 @@
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:confetti/confetti.dart';
 import 'package:app_sorteos/painter/rueda_painter.dart';
@@ -56,7 +58,8 @@ class _PostPageState extends State<PostPage>
                     children: [
                       CustomPaint(
                         painter: RuedaPainter(
-                            animation: _controller, color: colorGlobal),
+                            animation: _controller,
+                            color: context.watch<MainProvider>().colorGlobal),
                         child: SizedBox(
                           width: 160,
                           height: 170,
@@ -126,7 +129,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorGlobal.shade700,
+        backgroundColor: context.watch<MainProvider>().colorGlobal.shade700,
         centerTitle: true,
         title: Text(S.current.draw_result_title,
             style: TextStyle(
@@ -165,7 +168,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
               width: _deviceWidth! * 0.80,
               height: _deviceHeight! * 0.09,
               decoration: BoxDecoration(
-                color: colorGlobal.shade700,
+                color: context.watch<MainProvider>().colorGlobal.shade700,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -195,7 +198,7 @@ class _ResultadosPageState extends State<ResultadosPage> {
               width: _deviceWidth! * 0.80,
               height: _deviceHeight! * 0.08,
               decoration: BoxDecoration(
-                color: colorGlobal.shade900,
+                color: context.watch<MainProvider>().colorGlobal.shade900,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -235,13 +238,13 @@ class _ResultadosPageState extends State<ResultadosPage> {
                 ),
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
-                  colorGlobal,
-                  colorGlobal.shade600,
-                  colorGlobal.shade700,
-                  colorGlobal,
-                  colorGlobal.shade600,
-                  colorGlobal.shade700,
-                  colorGlobal.shade900,
+                  context.watch<MainProvider>().colorGlobal,
+                  context.watch<MainProvider>().colorGlobal.shade600,
+                  context.watch<MainProvider>().colorGlobal.shade700,
+                  context.watch<MainProvider>().colorGlobal,
+                  context.watch<MainProvider>().colorGlobal.shade600,
+                  context.watch<MainProvider>().colorGlobal.shade700,
+                  context.watch<MainProvider>().colorGlobal.shade900,
                 ])),
               ),
             ),

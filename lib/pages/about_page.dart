@@ -1,5 +1,7 @@
 import 'package:app_sorteos/generated/l10n.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:mailto/mailto.dart';
@@ -36,13 +38,13 @@ class AboutPage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
-                  colorGlobal,
-                  colorGlobal.shade600,
-                  colorGlobal.shade700,
-                  colorGlobal,
-                  colorGlobal.shade600,
-                  colorGlobal.shade700,
-                  colorGlobal.shade900,
+                  context.watch<MainProvider>().colorGlobal,
+                  context.watch<MainProvider>().colorGlobal.shade600,
+                  context.watch<MainProvider>().colorGlobal.shade700,
+                  context.watch<MainProvider>().colorGlobal,
+                  context.watch<MainProvider>().colorGlobal.shade600,
+                  context.watch<MainProvider>().colorGlobal.shade700,
+                  context.watch<MainProvider>().colorGlobal.shade900,
                 ]),
                 borderRadius: BorderRadius.circular(10),
               ),
