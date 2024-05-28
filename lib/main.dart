@@ -149,7 +149,8 @@ class _MyAppState extends State<MyApp> {
       // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-      colorGlobal = listaColores[indiceListaColores];
+      // colorGlobal = listaColores[indiceListaColores];
+      colorGlobal = context.read<MainProvider>().colorGlobal;
       S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
   }

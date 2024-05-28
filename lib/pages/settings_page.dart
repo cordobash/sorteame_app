@@ -54,7 +54,10 @@ class SettingsPageState extends State<SettingsPage> {
       indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-      colorGlobal = listaColores[indiceListaColores];
+      // indiceListaColores = context.read<MainProvider>().indiceListaColores;
+      // colorGlobal = listaColores[indiceListaColores];
+      colorGlobal = context.read<MainProvider>().colorGlobal;
+
       S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
     });
   }
@@ -67,6 +70,14 @@ class SettingsPageState extends State<SettingsPage> {
     prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
     prefs.setInt('key_indicecolor', indiceListaColores);
+    // prefs.setInt(
+    //     'key_indicecolor', context.watch<MainProvider>().indiceListaColores);
+  }
+
+  Future<void> guardarColor() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(
+        'key_indicecolor', context.read<MainProvider>().indiceListaColores);
   }
 
   @override

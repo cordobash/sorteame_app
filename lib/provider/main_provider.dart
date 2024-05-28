@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainProvider extends ChangeNotifier {
   late Color _colorGlobal;
@@ -23,8 +24,19 @@ class MainProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> guardarDatos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('key_indicecolor', _indiceListaColores);
+  }
+
+  Future<void> cargarDatos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+    notifyListeners();
+  }
+
   // Constructor
   MainProvider() {
-    // _colorGlobal = _listaColores[_indiceListaColores];
+    cargarDatos();
   }
 }
