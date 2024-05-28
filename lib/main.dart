@@ -3,7 +3,6 @@
 import 'dart:math';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
-import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,15 +23,15 @@ import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
 // Providers
 import 'package:provider/provider.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 
 void main(List<String> args) async {
-  // S.load(locale);
-  S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
-
-  // colorGlobal = listaColores[indiceListaColores];
+  // Por defecto cargamos el idiioma en ES solo para evitar un error a la hora de cargar la app, en el initState lo podremos cambiar.
+  S.load(Locale('es'));
+  // Se inicializa la db
   await Hive.initFlutter();
   Hive.registerAdapter(SorteoAdapter());
-  // Abriendo la box
+  // indicamos la caja en donde se guardaran los datos.
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
 
   runApp(
@@ -77,13 +76,6 @@ class _MyAppState extends State<MyApp> {
   bool? _visibleLabel = false;
 
   late List<dynamic> _gradiente;
-
-  List<String> _titulosSuperior = [
-    S.current.nav_main,
-    S.current.nav_history,
-    S.current.nav_settings,
-    S.current.nav_about
-  ];
 
   final List<Widget> _listaWidgets = [
     const Text(
@@ -139,12 +131,13 @@ class _MyAppState extends State<MyApp> {
       // Editar participante
       mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
-      indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
+      // indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
       // indiceEnumIdiomas = 0;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
 
-      S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
+      // S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
+      // S.load(Locale('es'));
     });
   }
 
@@ -153,6 +146,16 @@ class _MyAppState extends State<MyApp> {
     _gradiente = context.watch<MainProvider>().gradiente;
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
+    // Cargamos el idioma mediante el indice del enum el cual esta alojado en el provider.
+    S.load((context.watch<MainProvider>().indiceEnumIdioma == 0)
+        ? Locale('es')
+        : Locale('en'));
+    List<String> _titulosSuperior = [
+      S.current.nav_main,
+      S.current.nav_history,
+      S.current.nav_settings,
+      S.current.nav_about
+    ];
 
     return PopScope(
       canPop: false,
@@ -186,9 +189,7 @@ class _MyAppState extends State<MyApp> {
                       )
                     : const SizedBox()),
             title: Text(
-              (_selectedIndex != 0)
-                  ? '${_titulosSuperior[_selectedIndex]}'
-                  : 'SorteaMe App',
+              '${_titulosSuperior[_selectedIndex]}',
               style: (_selectedIndex != 0)
                   ? TextStyle(
                       color: Colors.white, fontFamily: 'Manrope', fontSize: 18)

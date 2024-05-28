@@ -11,19 +11,25 @@ class MainProvider extends ChangeNotifier {
     Colors.green,
     Colors.purple
   ];
+  int _indiceEnumIdioma = 0;
+  late Locale _locale;
 
-  late int _indiceEnumIdioma = 0;
-
-  List<Color> _gradiente = [];
   // Getters
-  // Color get colorGlobal => _colorGlobal;
   int get indiceListaColores => _indiceListaColores;
   dynamic get colorGlobal => _listaColores[indiceListaColores];
   List<dynamic> get gradiente => obtenerGradiente();
+  int get indiceEnumIdioma => _indiceEnumIdioma;
 
   // Setters
+  // 0 - 5
   cambiarIndice(int indice) {
     _indiceListaColores = indice;
+    notifyListeners();
+  }
+
+  // 0 - 1
+  cambiarIdioma(int indice) {
+    _indiceEnumIdioma = indice;
     notifyListeners();
   }
 
@@ -46,7 +52,9 @@ class MainProvider extends ChangeNotifier {
   Future<void> cargarDatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
+    print('Indice de color: $_indiceListaColores');
     _indiceEnumIdioma = prefs.getInt('key_Idioma') ?? 0;
+    print('Indice de idioma: $_indiceEnumIdioma');
     notifyListeners();
   }
 

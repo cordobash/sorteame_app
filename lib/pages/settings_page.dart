@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
@@ -14,7 +15,7 @@ class SettingsPage extends StatefulWidget {
   State<StatefulWidget> createState() => SettingsPageState();
 }
 
-enum Idiomas { Espanol, Ingles, Portugues }
+enum Idiomas { Espanol, Ingles }
 
 class SettingsPageState extends State<SettingsPage> {
   Locale locale = new Locale('es');
@@ -67,7 +68,7 @@ class SettingsPageState extends State<SettingsPage> {
     prefs.setBool('key_elitodos', eliminarTodos);
     prefs.setBool('key_animaciones', activarAnimacion);
     prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
-    prefs.setInt('key_idioma', indiceEnumIdiomas);
+    // prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
     prefs.setInt('key_indicecolor', indiceListaColores);
     // prefs.setInt(
@@ -82,6 +83,10 @@ class SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Dado que el cambio de idioma se realiza desde ajustes, sera necesario cargar el idioma en base al enumActual.
+    S.load((context.watch<MainProvider>().indiceEnumIdioma == 0)
+        ? Locale('es')
+        : Locale('en'));
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -427,58 +432,41 @@ class SettingsPageState extends State<SettingsPage> {
 
   Widget _segmentedButtons() {
     return SegmentedButton<Idiomas>(
-      style: SegmentedButton.styleFrom(
-          selectedBackgroundColor:
-              context.watch<MainProvider>().colorGlobal.withOpacity(0.15)),
-      showSelectedIcon: false,
-      segments: const <ButtonSegment<Idiomas>>[
-        ButtonSegment<Idiomas>(
-          value: Idiomas.Espanol,
-          label: Text(
-            '🇲🇽',
-            style: TextStyle(fontSize: 20),
+        style: SegmentedButton.styleFrom(
+            selectedBackgroundColor:
+                context.watch<MainProvider>().colorGlobal.withOpacity(0.15)),
+        showSelectedIcon: false,
+        segments: const <ButtonSegment<Idiomas>>[
+          ButtonSegment<Idiomas>(
+            value: Idiomas.Espanol,
+            label: Text(
+              '🇲🇽',
+              style: TextStyle(fontSize: 20),
+            ),
           ),
-        ),
-        ButtonSegment<Idiomas>(
-          value: Idiomas.Ingles,
-          label: Text(
-            '🇺🇸',
-            style: TextStyle(fontSize: 20),
+          ButtonSegment<Idiomas>(
+            value: Idiomas.Ingles,
+            label: Text(
+              '🇺🇸',
+              style: TextStyle(fontSize: 20),
+            ),
           ),
-        ),
-      ],
-      selected: <Idiomas>{_accionInicial},
-      onSelectionChanged: (Set<Idiomas> nuevoElemento) {
-        setState(() {
+        ],
+        selected: <Idiomas>{
+          // Idiomas.values
+          //     .elementAt(context.read<MainProvider>().indiceEnumIdioma)
+          Idiomas.values
+              .elementAt(context.watch<MainProvider>().indiceEnumIdioma)
+        },
+        onSelectionChanged: (Set<Idiomas> nuevoElemento) {
           // De esta forma solo un valor estara seleccionado.
           _accionInicial = nuevoElemento.first;
           indiceEnumIdiomas = _accionInicial.index;
-          switch (indiceEnumIdiomas) {
-            case 0:
-              locale = Locale('es');
-              setState(() {
-                S.load(locale);
-                guardarDatos();
-                cargarDatos();
-              });
-              break;
-            case 1:
-              locale = Locale('en');
-              setState(() {
-                S.load(locale);
-                guardarDatos();
-                cargarDatos();
-              });
-              break;
-            default:
-              locale = Locale('es');
-              S.load(locale);
-          }
+          // Cambiamos el valor del indiceEnumIdioma en el MainProvider.
+          context.read<MainProvider>().cambiarIdioma(_accionInicial.index);
+          // Guardamos el valor
+          context.read<MainProvider>().guardarDatos();
         });
-        guardarDatos();
-        cargarDatos();
-      },
-    );
   }
 
   Widget _modalSeleccionarColor() {
