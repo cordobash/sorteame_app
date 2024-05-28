@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,6 +22,8 @@ import 'package:app_sorteos/pages/editar_participante_page.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:app_sorteos/models/Archivo.dart';
 import 'package:app_sorteos/models/Sorteo.dart';
+// Providers
+import 'package:provider/provider.dart';
 
 void main(List<String> args) async {
   // S.load(locale);
@@ -32,13 +35,18 @@ void main(List<String> args) async {
   // Abriendo la box
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
 
-  runApp(MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/crpage': (context) => PostPage(),
-        '/editar': (context) => EditarPage(),
-      },
-      home: MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MainProvider(),
+      child: MaterialApp(
+          initialRoute: '/',
+          routes: {
+            '/crpage': (context) => PostPage(),
+            '/editar': (context) => EditarPage(),
+          },
+          home: MyApp()),
+    ),
+  );
 }
 
 TextEditingController textEditingController = TextEditingController();
@@ -194,7 +202,7 @@ class _MyAppState extends State<MyApp> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
             ),
-            backgroundColor: colorGlobal.shade900,
+            backgroundColor: context.watch<MainProvider>().colorGlobal,
             centerTitle: true,
           ),
           body: (_selectedIndex == 0)

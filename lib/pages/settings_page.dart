@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
+import 'package:app_sorteos/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -361,9 +363,13 @@ class SettingsPageState extends State<SettingsPage> {
       child: TextButton(
         child: SizedBox(),
         onPressed: () {
+          context.read<MainProvider>().cambiarIndice(indice);
+
           setState(() {
             colorGlobal = listaColores[indice];
             indiceListaColores = indice;
+            // context.watch<MainProvider>().cambiarIndice(3);
+            // print('color actual: ${context.read<MainProvider>().colorGlobal}');
           });
           guardarDatos();
           cargarDatos();
