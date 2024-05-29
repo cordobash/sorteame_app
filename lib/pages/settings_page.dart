@@ -58,12 +58,7 @@ class SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('key_elitodos', eliminarTodos);
     prefs.setBool('key_animaciones', activarAnimacion);
-    // prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
-    // prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
-    // prefs.setInt('key_indicecolor', indiceListaColores);
-    // prefs.setInt(
-    //     'key_indicecolor', context.watch<MainProvider>().indiceListaColores);
   }
 
   List<Color> _listaColores = [

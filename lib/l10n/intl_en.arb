@@ -7,6 +7,7 @@
     "update":"Update",
     "delete":"Delete",
     "add":"Add",
+    "home":"Home",
     "EXIT_DIALOG":"",
     "exit_title":"Close App",
     "exit_content":"Do you want to close this app?",

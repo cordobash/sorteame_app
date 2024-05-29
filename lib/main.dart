@@ -3,7 +3,6 @@
 import 'dart:math';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
-import 'package:app_sorteos/provider/participantes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -149,7 +148,7 @@ class _MyAppState extends State<MyApp> {
         ? Locale('es')
         : Locale('en'));
     List<String> _titulosSuperior = [
-      S.current.nav_main,
+      S.current.home,
       S.current.nav_history,
       S.current.nav_settings,
       S.current.nav_about
@@ -197,7 +196,7 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.white),
             ),
             backgroundColor: context.watch<MainProvider>().colorGlobal,
-            centerTitle: true,
+            centerTitle: false,
           ),
           body: (_selectedIndex == 0)
               ? (_deviceHeight! >= 350)

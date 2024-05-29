@@ -49,7 +49,7 @@ class ParticipanteProvider extends ChangeNotifier {
   cargarDatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _eliminarPostSorteo = prefs.getBool('key_elitodos') ?? false;
-    _mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? false;
+    _mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
   }
 
   guardarDatos() async {

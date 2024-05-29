@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "history_warningmessage": MessageLookupByLibrary.simpleMessage(
             "This action will delete all draw records. Do you want to continue?"),
         "historydelall": MessageLookupByLibrary.simpleMessage("Delete all"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "january": MessageLookupByLibrary.simpleMessage("January"),
         "july": MessageLookupByLibrary.simpleMessage("July"),
         "june": MessageLookupByLibrary.simpleMessage("June"),

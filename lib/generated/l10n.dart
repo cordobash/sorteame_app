@@ -122,6 +122,16 @@ class S {
     );
   }
 
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get EXIT_DIALOG {
     return Intl.message(
