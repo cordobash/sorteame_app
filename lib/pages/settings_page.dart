@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:app_sorteos/provider/main_provider.dart';
+import 'package:app_sorteos/provider/participantes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class SettingsPageState extends State<SettingsPage> {
       eliminarTodos = prefs.getBool('key_elitodos') ?? true;
       activarAnimacion = prefs.getBool('key_animaciones') ?? true;
       // Editar participante
-      mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+      // mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       // Personalizacion.
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
       // indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
@@ -57,7 +58,7 @@ class SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('key_elitodos', eliminarTodos);
     prefs.setBool('key_animaciones', activarAnimacion);
-    prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
+    // prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
     // prefs.setInt('key_idioma', indiceEnumIdiomas);
     prefs.setInt('key_conteoreg', indiceListaConteo);
     // prefs.setInt('key_indicecolor', indiceListaColores);
@@ -144,13 +145,13 @@ class SettingsPageState extends State<SettingsPage> {
                                   style: _estiloPersonalizado,
                                 ),
                                 _switchWidget(() async {
-                                  setState(() {
-                                    eliminarTodos = !eliminarTodos;
-                                  });
-                                  await guardarDatos();
-                                  cargarDatos();
+                                  context
+                                      .read<ParticipanteProvider>()
+                                      .cambiarOpcionEliTodos();
                                 },
-                                    disparador: eliminarTodos,
+                                    disparador: context
+                                        .watch<ParticipanteProvider>()
+                                        .eliminarPostSorteo,
                                     activarDisparador: true)
                               ],
                             ),
@@ -218,15 +219,14 @@ class SettingsPageState extends State<SettingsPage> {
                                   style: TextStyle(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                _switchWidget(() async {
-                                  setState(() {
-                                    mostrarDialogoConfirmacion =
-                                        !mostrarDialogoConfirmacion;
-                                  });
-                                  await guardarDatos();
-                                  cargarDatos();
+                                _switchWidget(() {
+                                  context
+                                      .read<ParticipanteProvider>()
+                                      .cambiarOpcionDialogo();
                                 },
-                                    disparador: mostrarDialogoConfirmacion,
+                                    disparador: context
+                                        .watch<ParticipanteProvider>()
+                                        .mostrarDialogoConfirmacion,
                                     activarDisparador: true)
                               ],
                             ),

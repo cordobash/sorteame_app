@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/models/boxes.dart';
 import 'package:app_sorteos/provider/main_provider.dart';
+import 'package:app_sorteos/provider/participantes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,12 +42,12 @@ class _EditarPageState extends State<EditarPage> {
 
   Future<void> guardarDato() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
+    // prefs.setBool('key_confirmacion', mostrarDialogoConfirmacion);
   }
 
   Future<void> cargarDato() async {
     final prefs = await SharedPreferences.getInstance();
-    mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
+    // mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
   }
 
   @override
@@ -248,9 +249,9 @@ class _EditarPageState extends State<EditarPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(S.current.edit_table_name),
-                Text(S.current.edit_table_modify),
-                Text(S.current.edit_table_delete)
+                Text(S.current.edit_table_name), // nombre
+                Text(S.current.edit_table_modify), // modificar
+                Text(S.current.edit_table_delete) // eliminar
               ],
             ),
           ),
@@ -304,7 +305,10 @@ class _EditarPageState extends State<EditarPage> {
                 icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () => {
-                      !mostrarDialogoConfirmacion
+                      (context
+                                  .read<ParticipanteProvider>()
+                                  .mostrarDialogoConfirmacion ==
+                              false)
                           ? _eliminarParticipante(indice, listaParticipantes)
                           : showDialog(
                               context: context,
@@ -433,7 +437,9 @@ class _EditarPageState extends State<EditarPage> {
           if (_indiceEnum == 0)
             {
               setState(() {
-                !mostrarDialogoConfirmacion
+                (!context
+                        .read<ParticipanteProvider>()
+                        .mostrarDialogoConfirmacion)
                     ? _eliminarParticipante(indice, listaParticipantes)
                     : showDialog(
                         context: context,
@@ -601,8 +607,10 @@ class _EditarPageState extends State<EditarPage> {
             onPressed: () => {
                   setState(() {
                     if (_checkBoxConfirmacionPresionado) {
-                      mostrarDialogoConfirmacion = false;
-                      guardarDato();
+                      context
+                          .read<ParticipanteProvider>()
+                          .cambiarOpcionDialogo();
+                      context.read<ParticipanteProvider>().guardarDatos();
                     }
                     _eliminarParticipante(indice, listaParticipantes);
                     Navigator.pop(context);

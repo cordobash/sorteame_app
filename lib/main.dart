@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'package:app_sorteos/generated/l10n.dart';
 import 'package:app_sorteos/pages/post_sorteo_page.dart';
+import 'package:app_sorteos/provider/participantes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +25,7 @@ import 'package:app_sorteos/models/Sorteo.dart';
 // Providers
 import 'package:provider/provider.dart';
 import 'package:app_sorteos/provider/main_provider.dart';
+import 'package:app_sorteos/provider/participantes_provider.dart';
 
 void main(List<String> args) async {
   // Por defecto cargamos el idiioma en ES solo para evitar un error a la hora de cargar la app, en el initState lo podremos cambiar.
@@ -35,8 +37,11 @@ void main(List<String> args) async {
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => MainProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MainProvider()),
+        ChangeNotifierProvider(create: (_) => ParticipanteProvider()),
+      ],
       child: MaterialApp(
           initialRoute: '/',
           routes: {
@@ -129,15 +134,8 @@ class _MyAppState extends State<MyApp> {
       eliminarTodos = prefs.getBool('key_elitodos') ?? true;
       activarAnimacion = prefs.getBool('key_animaciones') ?? true;
       // Editar participante
-      mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
-      // Personalizacion.
-      // indiceEnumIdiomas = prefs.getInt('key_idioma') ?? 0;
-      // indiceEnumIdiomas = 0;
+      // mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
-      // indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-
-      // S.load((indiceEnumIdiomas == 0) ? Locale('es') : Locale('en'));
-      // S.load(Locale('es'));
     });
   }
 
@@ -606,7 +604,9 @@ class _MyAppState extends State<MyApp> {
                               setState(() {
                                 // Se redirije al usuario a la pagina de editar_participante.
                                 Navigator.pushNamed(context, '/editar');
-                              })
+                              }),
+                              // Cargamos los datos preconfigurados al entrar en el modo de edicion.
+                              context.read<ParticipanteProvider>().cargarDatos()
                             },
                         icon: Icon(Icons.edit)),
                     IconButton(
