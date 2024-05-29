@@ -8,6 +8,7 @@
     "delete":"Delete",
     "add":"Add",
     "home":"Home",
+    "displaymessage":"The display resolution is not compatible with this app.Please use a device with a higher resolution.",
     "EXIT_DIALOG":"",
     "exit_title":"Close App",
     "exit_content":"Do you want to close this app?",

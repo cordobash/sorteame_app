@@ -7,6 +7,8 @@
     "update":"Actualizar",
     "delete":"Eliminar",
     "add":"Agregar",
+    "home":"Inicio",
+    "displaymessage":"La resolucion del dispositivo no es la optima para que la aplicacion pueda operar",
     "EXIT_DIALOG":"",
     "exit_title":"Salir de la aplicacion",
     "exit_content":"¿Estas seguro de salir de la aplicacion?",

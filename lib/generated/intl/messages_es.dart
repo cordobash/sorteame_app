@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Eliminar participantes post sorteo"),
         "developedby": MessageLookupByLibrary.simpleMessage("Desarrollado por"),
+        "displaymessage": MessageLookupByLibrary.simpleMessage(
+            "La resolucion del dispositivo no es la optima para que la aplicacion pueda operar"),
         "draw_congratulations":
             MessageLookupByLibrary.simpleMessage("Felicidades al ganador!"),
         "draw_congratulations_forbeing": MessageLookupByLibrary.simpleMessage(
@@ -122,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "history_warningmessage": MessageLookupByLibrary.simpleMessage(
             "Esta accion eliminara todos los registros.¿Desea continuar?"),
         "historydelall": MessageLookupByLibrary.simpleMessage("Eliminar todo"),
+        "home": MessageLookupByLibrary.simpleMessage("Inicio"),
         "january": MessageLookupByLibrary.simpleMessage("Enero"),
         "july": MessageLookupByLibrary.simpleMessage("Julio"),
         "june": MessageLookupByLibrary.simpleMessage("Junio"),

@@ -44,7 +44,7 @@ void main(List<String> args) async {
       child: MaterialApp(
           initialRoute: '/',
           routes: {
-            '/crpage': (context) => PostPage(),
+            '/ganador': (context) => PostPage(),
             '/editar': (context) => EditarPage(),
           },
           home: MyApp()),
@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void cambiarAnimada() {
-    Navigator.pushNamed(context, '/crpage');
+    Navigator.pushNamed(context, '/ganador');
     validarEliminarTodos();
   }
 
@@ -132,8 +132,6 @@ class _MyAppState extends State<MyApp> {
       // General
       eliminarTodos = prefs.getBool('key_elitodos') ?? true;
       activarAnimacion = prefs.getBool('key_animaciones') ?? true;
-      // Editar participante
-      // mostrarDialogoConfirmacion = prefs.getBool('key_confirmacion') ?? true;
       indiceListaConteo = prefs.getInt('key_conteoreg') ?? listaConteo.first;
     });
   }
@@ -185,16 +183,9 @@ class _MyAppState extends State<MyApp> {
                         onPressed: () => Scaffold.of(context).openDrawer(),
                       )
                     : const SizedBox()),
-            title: Text(
-              '${_titulosSuperior[_selectedIndex]}',
-              style: (_selectedIndex != 0)
-                  ? TextStyle(
-                      color: Colors.white, fontFamily: 'Manrope', fontSize: 18)
-                  : TextStyle(
-                      fontFamily: 'Cerdaville',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-            ),
+            title: Text('${_titulosSuperior[_selectedIndex]}',
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Manrope', fontSize: 18)),
             backgroundColor: context.watch<MainProvider>().colorGlobal,
             centerTitle: false,
           ),
@@ -322,9 +313,7 @@ class _MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _tituloSorteo(),
-                SizedBox(
-                    width: _deviceWidth! * 0.75,
-                    child: Text(S.current.main_ltspart)),
+                Center(child: Text(S.current.main_ltspart)),
                 // child:Text(S.current.main_ltspart),
                 _visibleLabel!
                     ? Text(
@@ -652,7 +641,7 @@ class _MyAppState extends State<MyApp> {
   Widget _mensajeAlturaInsuficiente() {
     return Center(
         child: Text(
-      'La resolucion del dispositivo no es la optima para que la aplicacion pueda operar',
+      S.current.displaymessage,
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
     ));
   }

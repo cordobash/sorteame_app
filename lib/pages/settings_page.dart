@@ -211,7 +211,7 @@ class SettingsPageState extends State<SettingsPage> {
                               children: [
                                 Text(
                                   S.current.showDeleteDialog,
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 14),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 _switchWidget(() {

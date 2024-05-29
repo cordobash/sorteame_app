@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAfter": MessageLookupByLibrary.simpleMessage(
             "Delete all participants after draw"),
         "developedby": MessageLookupByLibrary.simpleMessage("Developed by"),
+        "displaymessage": MessageLookupByLibrary.simpleMessage(
+            "The display resolution is not compatible with this app.Please use a device with a higher resolution."),
         "draw_congratulations": MessageLookupByLibrary.simpleMessage(
             "Congratulations to the winner!"),
         "draw_congratulations_forbeing": MessageLookupByLibrary.simpleMessage(

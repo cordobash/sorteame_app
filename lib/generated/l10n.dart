@@ -132,6 +132,16 @@ class S {
     );
   }
 
+  /// `The display resolution is not compatible with this app.Please use a device with a higher resolution.`
+  String get displaymessage {
+    return Intl.message(
+      'The display resolution is not compatible with this app.Please use a device with a higher resolution.',
+      name: 'displaymessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get EXIT_DIALOG {
     return Intl.message(
