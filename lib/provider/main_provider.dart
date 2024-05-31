@@ -52,9 +52,7 @@ class MainProvider extends ChangeNotifier {
   Future<void> cargarDatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _indiceListaColores = prefs.getInt('key_indicecolor') ?? 0;
-    print('Indice de color: $_indiceListaColores');
     _indiceEnumIdioma = prefs.getInt('key_Idioma') ?? 0;
-    print('Indice de idioma: $_indiceEnumIdioma');
     notifyListeners();
   }
 

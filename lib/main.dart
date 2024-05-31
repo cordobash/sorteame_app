@@ -31,6 +31,7 @@ void main(List<String> args) async {
   S.load(Locale('es'));
   // Se inicializa la db
   await Hive.initFlutter();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Hive.registerAdapter(SorteoAdapter());
   // indicamos la caja en donde se guardaran los datos.
   boxSorteo = await Hive.openBox<Sorteo>('sorteoBox');
@@ -151,6 +152,8 @@ class _MyAppState extends State<MyApp> {
       S.current.nav_settings,
       S.current.nav_about
     ];
+    // Cargamos los datos pertinentes para saber si eliminar o no a los participantes post sorteo.
+    context.read<ParticipanteProvider>().cargarDatos();
 
     return PopScope(
       canPop: false,
@@ -233,7 +236,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                     selectedColor: context.read<MainProvider>().colorGlobal,
-                    title: Text(S.current.nav_main),
+                    title: Text(S.current.home),
                   );
                 }),
                 Builder(builder: (context) {
@@ -573,7 +576,6 @@ class _MyAppState extends State<MyApp> {
             left: _deviceWidth! * 0.015, top: _deviceHeight! * 0.01),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
                 child: ListView(
