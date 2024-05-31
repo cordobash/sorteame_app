@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void validarEliminarTodos() {
-    if (eliminarTodos == true) {
+    if (context.read<ParticipanteProvider>().eliminarPostSorteo == true) {
       setState(() {
         listaParticipantes = [];
       });
@@ -692,7 +692,8 @@ class _MyAppState extends State<MyApp> {
                               context: context,
                               builder: (BuildContext context) =>
                                   _alertDialogSinAnimacion(),
-                            )
+                            ),
+                      validarEliminarTodos()
                     }
                   else
                     {
