@@ -49,7 +49,7 @@ En el apartado de ajustes se puede configurar diversos apartados de la aplicacio
 
 | Ajustes principales | 
 |----------|
-| <img src="https://github.com/IGerardoJR/sorteame_app/blob/main/imgs/ajustes.png" height="400">   |
+| <img src="https://github.com/IGerardoJR/sorteame_app/blob/main/imgs/settings_eng.png" height="400">   |
 
 ### Acerca de
 En este ultimo apartado solo se incluye mi nombre y las vias por las cuales se me puede contactar.
